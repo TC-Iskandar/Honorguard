@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change afterPath="D:/TheNorthernGarrisons/src/main/java/DualPrintStream.java" afterDir="false" />
-      <change afterPath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" afterDir="false" />
       <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
       <change beforePath="D:/TheNorthernGarrisons/src/main/java/Main.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Main.java" afterDir="false" />
     </list>
@@ -52,7 +50,7 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TheNorthernGarrisons" />
@@ -108,10 +106,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
         <item itemvalue="JUnit.DualPrintStreamTest" />
         <item itemvalue="JUnit.DiceTest" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
       </list>
     </recent_temporary>
@@ -126,5 +124,16 @@
       <updated>1712637180185</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://D:/TheNorthernGarrisons/src/main/java/DualPrintStream.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
