@@ -6,7 +6,6 @@ import java.nio.file.Files;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    //TODO Create Directory for Output Files, add test files to git ignore.
     //TODO Create State Manager File
     //TODO Implement Attack Roll Class
     //TODO Implementing Fighting
@@ -35,7 +34,7 @@ public class Main {
     }
 
     private static DualPrintStream setupPrintStreams() throws FileNotFoundException {
-        File a = new File("src/main/java/OutputFiles/A.txt");
+        File a = new File("src/main/java/OutputFiles/Output.txt");
         PrintStream printToFile = new PrintStream(a);
         PrintStream console = System.out;
         DualPrintStream dualOut = new DualPrintStream(printToFile, console);

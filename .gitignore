@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /src/test/java/TestFiles
-src/main/java/OutputFiles/A.txt
+/src/main/java/OutputFiles/
