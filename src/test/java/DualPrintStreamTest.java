@@ -25,7 +25,7 @@ public class DualPrintStreamTest {
     @Test
     public void whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile() throws IOException {
         PrintStream originalOut = System.out;
-        File outputFilePath = new File("dual-output.txt");
+        File outputFilePath = new File("src/test/java/TestFiles/dual-output.txt");
         DualPrintStream dualOut = new DualPrintStream(Files.newOutputStream(outputFilePath.toPath()), originalOut);
         System.setOut(dualOut);
         OUTPUT_LINES.forEach(line -> System.out.println(line));

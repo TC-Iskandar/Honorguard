@@ -6,7 +6,7 @@ import java.nio.file.Files;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    //TODO Print to Text File https://www.baeldung.com/java-write-console-output-file
+    //TODO Create Directory for Output Files, add test files to git ignore.
     //TODO Create State Manager File
     //TODO Implement Attack Roll Class
     //TODO Implementing Fighting
