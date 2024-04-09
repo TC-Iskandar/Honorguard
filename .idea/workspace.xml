@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change afterPath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/.idea/vcs.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="D:/TheNorthernGarrisons/src/main/java/DualPrintStream.java" afterDir="false" />
+      <change afterPath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" afterDir="false" />
       <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/pom.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/pom.xml" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Dice.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Dice.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Main.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +36,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.DiceTest.InvalidDiceSize (1).executor": "Run",
     "JUnit.DiceTest.InvalidDiceSize.executor": "Run",
     "JUnit.DiceTest.d6Test.executor": "Run",
     "JUnit.DiceTest.executor": "Run",
+    "JUnit.DualPrintStreamTest.executor": "Run",
+    "JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
@@ -51,7 +52,7 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.DiceTest">
+  <component name="RunManager" selected="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TheNorthernGarrisons" />
@@ -79,21 +80,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest.InvalidDiceSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DualPrintStreamTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
-      <option name="METHOD_NAME" value="InvalidDiceSize" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest.d6Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
-      <option name="METHOD_NAME" value="d6Test" />
+      <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
+      <option name="METHOD_NAME" value="whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -102,17 +102,17 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.DiceTest" />
-      <item itemvalue="JUnit.DiceTest.InvalidDiceSize" />
       <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
-      <item itemvalue="JUnit.DiceTest.d6Test" />
+      <item itemvalue="JUnit.DualPrintStreamTest" />
+      <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
+        <item itemvalue="JUnit.DualPrintStreamTest" />
         <item itemvalue="JUnit.DiceTest" />
-        <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
-        <item itemvalue="JUnit.DiceTest.InvalidDiceSize" />
-        <item itemvalue="JUnit.DiceTest.d6Test" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
       </list>
     </recent_temporary>
   </component>
