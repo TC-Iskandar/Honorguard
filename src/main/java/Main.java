@@ -1,9 +1,9 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    //TODO Create Test Suite
     //TODO Print to Text File
     //TODO Create State Manager File
+    //TODO Implement Attack Roll Class
     //TODO Implementing Fighting
     //TODO Implement Unit Export
     //TODO Implement Unit Import

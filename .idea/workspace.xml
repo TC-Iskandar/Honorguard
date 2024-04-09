@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="" />
+    <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
+      <change afterPath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/.idea/vcs.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/pom.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/pom.xml" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Dice.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Dice.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +24,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="D:/TheNorthernGarrisons" />
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 4
 }]]></component>
@@ -28,7 +38,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.DiceTest.InvalidDiceSize.executor": "Run",
+    "JUnit.DiceTest.d6Test.executor": "Run",
+    "JUnit.DiceTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/TheNorthernGarrisons",
     "onboarding.tips.debug.path": "D:/TheNorthernGarrisons/src/main/java/Main.java",
@@ -37,7 +51,7 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.DiceTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TheNorthernGarrisons" />
@@ -46,8 +60,58 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TheNorthernGarrisons" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiceTest.InvalidDiceSize (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TheNorthernGarrisons" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceTest" />
+      <option name="METHOD_NAME" value="InvalidDiceSize(int)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiceTest.InvalidDiceSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TheNorthernGarrisons" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceTest" />
+      <option name="METHOD_NAME" value="InvalidDiceSize" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiceTest.d6Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TheNorthernGarrisons" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceTest" />
+      <option name="METHOD_NAME" value="d6Test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.DiceTest" />
+      <item itemvalue="JUnit.DiceTest.InvalidDiceSize" />
+      <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
+      <item itemvalue="JUnit.DiceTest.d6Test" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DiceTest" />
+        <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
+        <item itemvalue="JUnit.DiceTest.InvalidDiceSize" />
+        <item itemvalue="JUnit.DiceTest.d6Test" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
