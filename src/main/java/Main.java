@@ -24,7 +24,7 @@ public class Main {
         garrison.rollChargeAttack();
 
         Squad goblins = makeGoblins();
-        System.out.println("\n \n"+goblins.getCurrentStatus());
+        System.out.println("\n \n" + goblins.getCurrentStatus());
 
         System.out.println("\nRolling Goblin Skirmish Attack!");
         goblins.rollSkirmishAttack();
@@ -35,7 +35,7 @@ public class Main {
     }
 
     private static DualPrintStream setupPrintStreams() throws FileNotFoundException {
-        File a = new File("A.txt");
+        File a = new File("src/main/java/OutputFiles/A.txt");
         PrintStream printToFile = new PrintStream(a);
         PrintStream console = System.out;
         DualPrintStream dualOut = new DualPrintStream(printToFile, console);
@@ -43,15 +43,15 @@ public class Main {
         return dualOut;
     }
 
-    private static Squad makeGoblins(){
+    private static Squad makeGoblins() {
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
         DiceRoll charge = new DiceRoll(20, 1, 7);
-        return  new Squad(1, 0, 5, 6, "Goblin Squad", 4, skirmish, charge);
+        return new Squad(1, 0, 5, 6, "Goblin Squad", 4, skirmish, charge);
     }
 
-    private static Squad makeGarrison(){
+    private static Squad makeGarrison() {
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
         DiceRoll charge = new DiceRoll(20, 1, 7);
-        return  new Squad(3, 2, 10, 8, "Garrison Spearmen", 8, skirmish, charge);
+        return new Squad(3, 2, 10, 8, "Garrison Spearmen", 8, skirmish, charge);
     }
 }
