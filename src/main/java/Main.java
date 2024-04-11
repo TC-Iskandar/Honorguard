@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.nio.file.Files;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -14,15 +15,25 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         DualPrintStream dualPrintStream = setupPrintStreams();
-        Squad garrison = makeGarrison();
-        System.out.println(garrison.getCurrentStatus());
+
+        Squad garrison = BasicFightingScript.promptForGarrision();
+
+        if (garrison == null){
+            System.out.println("User chose not to create a garrison. Exiting program.");
+            return;
+        }
 
         System.out.println("\nRolling Garrison Skirmish Attack!");
         garrison.rollSkirmishAttack();
         System.out.println("\nRolling Garrison Charge Attack!");
         garrison.rollChargeAttack();
 
-        Squad goblins = makeGoblins();
+        Squad goblins =  BasicFightingScript.promptForGoblins();
+
+        if (goblins == null){
+            System.out.println("User chose not to create a garrison. Exiting program.");
+            return;
+        }
         System.out.println("\n \n" + goblins.getCurrentStatus());
 
         System.out.println("\nRolling Goblin Skirmish Attack!");
