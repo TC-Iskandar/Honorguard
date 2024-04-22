@@ -11,8 +11,9 @@ public class Squad {
     private int baseChargeDefence;
     private DiceRoll skirmishAttack;
     private DiceRoll chargeAttack;
+    private String faction;
 
-    public Squad(int baseArmor, int baseDiscipline, int baseMorale, int baseCasualties, String name, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {
+    public Squad( String name, String faction, int baseArmor, int baseDiscipline, int baseMorale, int baseCasualties, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {
         this.baseArmor = baseArmor;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
@@ -25,6 +26,7 @@ public class Squad {
         this.currentCasualties = this.baseCasualties;
         this.skirmishAttack = skirmish;
         this.chargeAttack = charge;
+        this.faction= faction;
     }
 
     public int getBaseArmor() {
