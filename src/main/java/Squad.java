@@ -52,22 +52,17 @@ public class Squad {
         return baseChargeDefence + currentMorale;
     }
 
-    public int rollChargeAttack(){
-        int chargeRoll = chargeAttack.roll();
-        int total = chargeRoll + currentMorale;
-        System.out.println("Morale Modifier = +"+currentMorale);
-        System.out.println("Total = " + total);
-        System.out.println(name + " charged for "+ chargeRoll +" + "+ currentMorale +"(Morale Bonus) for a total of "+total);
-        return total;
+    public int rollChargeAttack(int difficultyClass){
+        int chargeSuccesses = chargeAttack.roll(difficultyClass, currentMorale);
+        System.out.println(name + " charged against DC of "+ difficultyClass + " and succeeded "+chargeSuccesses+" attacks.");
+        return chargeSuccesses;
     }
 
-    public int rollSkirmishAttack() {
-        int skirmishRoll = skirmishAttack.roll();
-        int total = skirmishRoll + currentDiscipline;
-        System.out.println("Discipline Modifier = +"+currentDiscipline);
-        System.out.println("Total = " + total);
-        System.out.println(name + " skirmished for "+ skirmishRoll +" + "+ currentDiscipline +"(Discipline Bonus) for a total of "+total);
-        return total;
+    public int rollSkirmishAttack(int difficultyClass) {
+        int skirmishSucceses = skirmishAttack.roll(difficultyClass, currentDiscipline);
+        System.out.println(name + " charged against DC of "+ difficultyClass + " and succeeded "+skirmishSucceses+" attacks.");
+
+        return skirmishSucceses;
     }
 
     public String getCurrentStatus(){
