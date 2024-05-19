@@ -20,7 +20,8 @@ public class Main {
             System.out.println("\n Choose an option: "
             +"\n 1. Create a unit of Garrison Spearman"
             +"\n 2. Create a unit of Goblins"
-            +"\n 3. Exit Program");
+            +"\n 3. Create user created squad"
+            +"\n 4. Exit Program");
             String response = in.nextLine();
             switch (response){
                 case "1":
