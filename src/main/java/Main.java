@@ -53,13 +53,7 @@ public class Main {
 
         if (garrison == null){
             System.out.println("User chose not to create a garrison. Returning to Menu.");
-            return;
         }
-
-        System.out.println("\nRolling Garrison Skirmish Attack!");
-        garrison.rollSkirmishAttack();
-        System.out.println("\nRolling Garrison Charge Attack!");
-        garrison.rollChargeAttack();
 
     }
 
@@ -68,15 +62,7 @@ public class Main {
 
         if (goblins == null){
             System.out.println("User chose not to create a garrison. Returning to Menu.");
-            return;
         }
-        System.out.println("\n \n" + goblins.getCurrentStatus());
-
-        System.out.println("\nRolling Goblin Skirmish Attack!");
-        goblins.rollSkirmishAttack();
-        System.out.println("\nRolling Goblin Charge Attack!");
-        goblins.rollChargeAttack();
-
     }
 
 }
