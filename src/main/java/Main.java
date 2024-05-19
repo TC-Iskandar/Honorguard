@@ -7,7 +7,6 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     //TODO Create State Manager File - Partially Done
-    //TODO Implement Attack Roll Class - Partially done
     //TODO Implementing Fighting
     //TODO Implement Unit Export
     //TODO Implement Unit Import
