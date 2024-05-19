@@ -49,18 +49,32 @@ public class Main {
     }
 
     private static void createGarrison(){
-        Squad garrison = BasicFightingScript.promptForGarrison();
+        Scanner in = new Scanner(System.in);
 
-        if (garrison == null){
+        Squad garrison;
+        System.out.println("\n Would you like to create a Garrison Spearman Squad? (Y/N)");
+        String response = in.nextLine().toUpperCase();
+        if (response.equals("Y")) {
+            garrison = BasicFightingScript.makeGarrison();
+            System.out.println("Creating Garrison!");
+            System.out.println(garrison.getCurrentStatus());
+        }else{
             System.out.println("User chose not to create a garrison. Returning to Menu.");
         }
 
     }
 
     private static void createGoblins(){
-        Squad goblins =  BasicFightingScript.promptForGoblins();
+        Scanner in = new Scanner(System.in);
 
-        if (goblins == null){
+        Squad goblins;
+        System.out.println("\n Would you like to create a Goblin Squad? (Y/N)");
+        String response = in.nextLine().toUpperCase();
+        if (response.equals("Y")) {
+            goblins = BasicFightingScript.makeGoblins();
+            System.out.println("Creating Goblin Squad!");
+            System.out.println(goblins.getCurrentStatus());
+        }else{
             System.out.println("User chose not to create a garrison. Returning to Menu.");
         }
     }
