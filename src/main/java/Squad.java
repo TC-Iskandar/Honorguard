@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+
 public class Squad {
     private final int baseMorale;
     private final int baseDiscipline;
@@ -81,5 +84,12 @@ public class Squad {
         String chargeAttackLine = "Charge Attack: "+ chargeAttack.toString()+" + Morale"+"\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ chargeAttackLine.indent(2);
         return nameLine+casualtyLine+moraleLine+disciplineLine+defenseString+attackString;
+    }
+
+    public void exportAsCSV() throws IOException {
+        File file = new File("OutputFiles/"+name+".csv");
+        if(!file.createNewFile()){
+            throw new IOException("File Already Exists");
+        }
     }
 }

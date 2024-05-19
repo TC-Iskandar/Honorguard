@@ -1,43 +1,41 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    //TODO Create State Manager File
-    //TODO Implement Attack Roll Class
+    //TODO Create State Manager File - Partially Done
+    //TODO Implement Attack Roll Class - Partially done
     //TODO Implementing Fighting
     //TODO Implement Unit Export
     //TODO Implement Unit Import
 
     public static void main(String[] args) throws FileNotFoundException {
         DualPrintStream dualPrintStream = setupPrintStreams();
-
-        Squad garrison = BasicFightingScript.promptForGarrison();
-
-        if (garrison == null){
-            System.out.println("User chose not to create a garrison. Exiting program.");
-            return;
+        boolean exit = false;
+        Scanner in = new Scanner(System.in);
+        while (!exit){
+            System.out.println("\n Choose an option: "
+            +"\n 1. Create a unit of Garrison Spearman"
+            +"\n 2. Create a unit of Goblins"
+            +"\n 3. Exit Program");
+            String response = in.nextLine();
+            switch (response){
+                case "1":
+                    createGarrison();
+                    break;
+                case "2":
+                    createGoblins();
+                    break;
+                case "3":
+                    System.out.println("Exiting Program");
+                    return;
+                default:
+                    System.out.println("User did not choose a valid menu option. Returning to main menu.");
+            }
         }
-
-        System.out.println("\nRolling Garrison Skirmish Attack!");
-        garrison.rollSkirmishAttack();
-        System.out.println("\nRolling Garrison Charge Attack!");
-        garrison.rollChargeAttack();
-
-        Squad goblins =  BasicFightingScript.promptForGoblins();
-
-        if (goblins == null){
-            System.out.println("User chose not to create a garrison. Exiting program.");
-            return;
-        }
-        System.out.println("\n \n" + goblins.getCurrentStatus());
-
-        System.out.println("\nRolling Goblin Skirmish Attack!");
-        goblins.rollSkirmishAttack();
-        System.out.println("\nRolling Goblin Charge Attack!");
-        goblins.rollChargeAttack();
 
         dualPrintStream.close();
     }
@@ -49,6 +47,37 @@ public class Main {
         DualPrintStream dualOut = new DualPrintStream(printToFile, console);
         System.setOut(dualOut);
         return dualOut;
+    }
+
+    private static void createGarrison(){
+        Squad garrison = BasicFightingScript.promptForGarrison();
+
+        if (garrison == null){
+            System.out.println("User chose not to create a garrison. Returning to Menu.");
+            return;
+        }
+
+        System.out.println("\nRolling Garrison Skirmish Attack!");
+        garrison.rollSkirmishAttack();
+        System.out.println("\nRolling Garrison Charge Attack!");
+        garrison.rollChargeAttack();
+
+    }
+
+    private static void createGoblins(){
+        Squad goblins =  BasicFightingScript.promptForGoblins();
+
+        if (goblins == null){
+            System.out.println("User chose not to create a garrison. Returning to Menu.");
+            return;
+        }
+        System.out.println("\n \n" + goblins.getCurrentStatus());
+
+        System.out.println("\nRolling Goblin Skirmish Attack!");
+        goblins.rollSkirmishAttack();
+        System.out.println("\nRolling Goblin Charge Attack!");
+        goblins.rollChargeAttack();
+
     }
 
 }
