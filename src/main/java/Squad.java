@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 
+
 public class Squad {
     private final int baseMorale;
     private final int baseDiscipline;
@@ -16,14 +17,14 @@ public class Squad {
     private DiceRoll chargeAttack;
     private String faction;
 
-    public Squad( String name, String faction, int baseArmor, int baseDiscipline, int baseMorale, int baseCasualties, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {
+    public Squad( String name, String faction, int baseArmor, int baseDiscipline, int baseMorale, int baseCasualties, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {    
         this.baseArmor = baseArmor;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
         this.baseCasualties = baseCasualties;
         this.baseChargeDefence = baseChargeDefence;
         this.name = name;
-        this.currentMorale= this.baseMorale;
+        this.currentMorale = this.baseMorale;
         this.currentDiscipline = this.baseDiscipline;
         this.currentArmor = this.baseArmor;
         this.currentCasualties = this.baseCasualties;

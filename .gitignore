@@ -38,3 +38,7 @@ build/
 .DS_Store
 /src/test/java/TestFiles
 /src/main/java/OutputFiles/
+
+### IGNORE OTHER FILE FORMATS
+*.csv
+

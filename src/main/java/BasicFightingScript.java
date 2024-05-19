@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.io.FileReader;
+import org.apache.commons.csv.*;
+import java.io.Reader;
 
 public class BasicFightingScript {
 
@@ -32,7 +35,29 @@ public class BasicFightingScript {
         return null;
     }
 
-
+    public static Squad customMadeSquad() {
+        String csvfile = "squad_test.csv";
+        try (
+            Reader reader = new FileReader(csvfile);
+            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader())
+        ) {
+            for (CSVRecord csvRecord : csvParser) {
+                String name = csvRecord.get("name");
+                String faction = csvRecord.get("faction");
+                int armor = Integer.parseInt(csvRecord.get("armor"));
+                int discipline = Integer.parseInt(csvRecord.get("discipline"));
+                int morale = Integer.parseInt(csvRecord.get("morale"));
+                int casualties = Integer.parseInt(csvRecord.get("casualties"));
+                int chargeDefence = Integer.parseInt(csvRecord.get("chargeDefence"));
+                DiceRoll skirmish = new DiceRoll(6, 4, 0);
+                DiceRoll charge = new DiceRoll(20, 1, 7);
+                return new Squad(name, faction, armor, discipline, morale, casualties, chargeDefence, skirmish, charge);
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading file");
+        }
+        return null;
+    }
 
     private static Squad userMadeSquad() {
         Scanner in = new Scanner(System.in);

@@ -29,7 +29,10 @@ public class Main {
                 case "2":
                     createGoblins();
                     break;
-                case "3":
+                case "3": 
+                    createUserCreatedSquad();
+                    break;
+                case "4":
                     System.out.println("Exiting Program");
                     dualPrintStream.close();
                     return;
@@ -46,6 +49,21 @@ public class Main {
         DualPrintStream dualOut = new DualPrintStream(printToFile, console);
         System.setOut(dualOut);
         return dualOut;
+    }
+
+
+    private static void createUserCreatedSquad() {
+        Squad userSquad = BasicFightingScript.customMadeSquad();
+        if (userSquad == null){
+            System.out.println("User chose not to create a custom squad. Returning to Menu.");
+            return;
+        }
+        System.out.println("\n \n" + userSquad.getCurrentStatus());
+
+        System.out.println("\nRolling User Skirmish Attack!");
+        userSquad.rollSkirmishAttack();
+        System.out.println("\nRolling User Charge Attack!");
+        userSquad.rollChargeAttack();
     }
 
     private static void createGarrison(){

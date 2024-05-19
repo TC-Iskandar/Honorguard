@@ -5,10 +5,11 @@
     <option name="originalFiles">
       <list>
         <option value="D:/TheNorthernGarrisons/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
-    <output url="file://D:/TheNorthernGarrisons/out" />
+    <output url="file:///D:/TheNorthernGarrisons/out" />
   </component>
 </project>
