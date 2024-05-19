@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,16 +121,5 @@
       <updated>1712637180185</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://D:/TheNorthernGarrisons/src/main/java/DualPrintStream.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
