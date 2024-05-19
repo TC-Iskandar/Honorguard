@@ -31,13 +31,12 @@ public class Main {
                     break;
                 case "3":
                     System.out.println("Exiting Program");
+                    dualPrintStream.close();
                     return;
                 default:
                     System.out.println("User did not choose a valid menu option. Returning to main menu.");
             }
         }
-
-        dualPrintStream.close();
     }
 
     private static DualPrintStream setupPrintStreams() throws FileNotFoundException {
