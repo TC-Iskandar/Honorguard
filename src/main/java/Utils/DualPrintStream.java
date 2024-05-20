@@ -1,3 +1,5 @@
+package Utils;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -5,7 +7,7 @@ import java.io.PrintStream;
 /**
  * Citation: https://www.baeldung.com/java-write-console-output-file
  */
-class DualPrintStream extends PrintStream {
+public class DualPrintStream extends PrintStream {
     private final PrintStream second;
 
     public DualPrintStream(OutputStream main, PrintStream second) {

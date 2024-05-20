@@ -1,3 +1,6 @@
+import Scripts.InitializationScript;
+import Units.DiceRoll;
+import Units.Squad;
 import org.junit.Test;
 
 public class DiceRollTest {
@@ -9,7 +12,7 @@ public class DiceRollTest {
 
     @Test
     public void goblinSquadTest(){
-        Squad goblinSquad = BasicFightingScript.makeGoblins();
+        Squad goblinSquad = InitializationScript.makeGoblins();
         goblinSquad.rollSkirmishAttack(3);
     }
 }

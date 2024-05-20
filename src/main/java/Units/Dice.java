@@ -1,3 +1,5 @@
+package Units;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -7,7 +9,7 @@ public class Dice {
 
     public Dice(int size){
         if(Arrays.stream(validDiceSizes).noneMatch(x->x ==size)) {
-            throw new IllegalArgumentException("Dice size must be greater than 0");
+            throw new IllegalArgumentException("Units.Dice size must be greater than 0");
         }
         this.size =size;
     }

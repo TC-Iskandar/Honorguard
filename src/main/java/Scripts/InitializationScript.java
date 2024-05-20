@@ -1,6 +1,11 @@
+package Scripts;
+
+import Units.DiceRoll;
+import Units.Squad;
+
 import java.util.Scanner;
 
-public class BasicFightingScript {
+public class InitializationScript {
 
     private static Squad userMadeSquad() {
         Scanner in = new Scanner(System.in);
@@ -24,10 +29,10 @@ public class BasicFightingScript {
         return new Squad(name, faction, armor, discipline, morale, casualties, chargeDefence, skirmish, charge);
     }
 
-    static Squad makeGoblins(){
+    public static Squad makeGoblins(){
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
         DiceRoll charge = new DiceRoll(20, 1, 7);
-        return new Squad("Goblin Squad","Goblin",1, 0, 5, 6, 4, skirmish, charge);
+        return new Squad("Goblin Units.Squad","Goblin",1, 0, 5, 6, 4, skirmish, charge);
     }
 
     static Squad makeGarrison() {
