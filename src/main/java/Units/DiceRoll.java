@@ -1,3 +1,5 @@
+package Units;
+
 public class DiceRoll {
     private Dice dice;
     private int numberOfDice;
@@ -16,9 +18,9 @@ public class DiceRoll {
 
         for (int i=0; i<numberOfDice; i++){
             int roll = dice.roll(1);
-            System.out.println("Dice = "+ roll);
+            System.out.println("Units.Dice = "+ roll);
             int sum = roll + totalModifier;
-            System.out.println("Dice + Modifier = "+ sum);
+            System.out.println("Units.Dice + Modifier = "+ sum);
             if (sum> difficultyClass){
                 successes++;
                 System.out.println("Attack Succesful!");

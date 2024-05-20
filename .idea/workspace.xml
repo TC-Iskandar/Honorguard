@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change afterPath="D:/TheNorthernGarrisons/src/test/java/DiceRollTest.java" afterDir="false" />
+      <change afterPath="D:/TheNorthernGarrisons/src/main/java/Scripts/MainMenu.java" afterDir="false" />
       <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/BasicFightingScript.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/BasicFightingScript.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/BasicFightingScript.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Dice.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Units/Dice.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Units/DiceRoll.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DualPrintStream.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Utils/DualPrintStream.java" afterDir="false" />
       <change beforePath="D:/TheNorthernGarrisons/src/main/java/Main.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Squad.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Squad.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Squad.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Units/Squad.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DiceRollTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DiceRollTest.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +44,8 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "JUnit.DiceRollTest.basicTest.executor": "Run",
-    "JUnit.DiceRollTest.goblinSquadTest.executor": "Run",
+    "JUnit.DiceRollTest.executor": "Run",
+    "JUnit.DiceRollTest.goblinSquadTest.executor": "Debug",
     "JUnit.DiceTest.InvalidDiceSize (1).executor": "Run",
     "JUnit.DiceTest.InvalidDiceSize.executor": "Run",
     "JUnit.DiceTest.d6Test.executor": "Run",
@@ -47,7 +53,7 @@
     "JUnit.DualPrintStreamTest.executor": "Run",
     "JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "AttackRolls",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/TheNorthernGarrisons",
     "onboarding.tips.debug.path": "D:/TheNorthernGarrisons/src/main/java/Main.java",
@@ -56,7 +62,12 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.DiceRollTest">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\TheNorthernGarrisons\src\main\java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TheNorthernGarrisons" />
@@ -94,12 +105,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest.InvalidDiceSize (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="java in TheNorthernGarrisons" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
-      <option name="METHOD_NAME" value="InvalidDiceSize(int)" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="D:/TheNorthernGarrisons/src/test/java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -109,15 +118,15 @@
       <item itemvalue="JUnit.DiceRollTest" />
       <item itemvalue="JUnit.DiceRollTest.basicTest" />
       <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
-      <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
+      <item itemvalue="JUnit.java in TheNorthernGarrisons" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DiceRollTest" />
-        <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
-        <item itemvalue="JUnit.DiceRollTest.basicTest" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
+        <item itemvalue="JUnit.java in TheNorthernGarrisons" />
+        <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
+        <item itemvalue="JUnit.DiceRollTest" />
+        <item itemvalue="JUnit.DiceRollTest.basicTest" />
       </list>
     </recent_temporary>
   </component>
