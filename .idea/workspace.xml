@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BasicFightingScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BasicFightingScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Squad.java" afterDir="false" />
+      <change afterPath="D:/TheNorthernGarrisons/src/main/java/Scripts/MainMenu.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/BasicFightingScript.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Dice.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Units/Dice.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DiceRoll.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Units/DiceRoll.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/DualPrintStream.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Utils/DualPrintStream.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Main.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Squad.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Units/Squad.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DiceRollTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DiceRollTest.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +43,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.DiceRollTest.basicTest.executor": "Run",
+    "JUnit.DiceRollTest.executor": "Run",
+    "JUnit.DiceRollTest.goblinSquadTest.executor": "Debug",
     "JUnit.DiceTest.InvalidDiceSize (1).executor": "Run",
     "JUnit.DiceTest.InvalidDiceSize.executor": "Run",
     "JUnit.DiceTest.d6Test.executor": "Run",
@@ -50,20 +55,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/tubby/Documents/TheNorthernGarrisons",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
+    "last_opened_file_path": "D:/TheNorthernGarrisons",
     "onboarding.tips.debug.path": "D:/TheNorthernGarrisons/src/main/java/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\TheNorthernGarrisons\src\main\java" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -72,58 +75,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceRollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
+      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest.InvalidDiceSize (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceRollTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
-      <option name="METHOD_NAME" value="InvalidDiceSize(int)" />
+      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
+      <option name="METHOD_NAME" value="basicTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DualPrintStreamTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceRollTest.goblinSquadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
+      <option name="METHOD_NAME" value="goblinSquadTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="java in TheNorthernGarrisons" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TheNorthernGarrisons" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
-      <option name="METHOD_NAME" value="whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="D:/TheNorthernGarrisons/src/test/java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.DiceTest" />
-      <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
-      <item itemvalue="JUnit.DualPrintStreamTest" />
-      <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
+      <item itemvalue="JUnit.DiceRollTest" />
+      <item itemvalue="JUnit.DiceRollTest.basicTest" />
+      <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
+      <item itemvalue="JUnit.java in TheNorthernGarrisons" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.DiceTest" />
-        <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
-        <item itemvalue="JUnit.DualPrintStreamTest" />
-        <item itemvalue="JUnit.DiceTest.InvalidDiceSize (1)" />
+        <item itemvalue="JUnit.java in TheNorthernGarrisons" />
+        <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
+        <item itemvalue="JUnit.DiceRollTest" />
+        <item itemvalue="JUnit.DiceRollTest.basicTest" />
       </list>
     </recent_temporary>
   </component>
