@@ -1,7 +1,10 @@
 package Units;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import com.opencsv.CSVWriter;
 
 
 public class Squad {
@@ -85,9 +88,23 @@ public class Squad {
     }
 
     public void exportAsCSV() throws IOException {
-        File file = new File("OutputFiles/"+name+".csv");
+        File file = new File("/Users/tubby/Documents/TheNorthernGarrisons/src/main/java/OutputFiles/"+name+".csv");
         if(!file.createNewFile()){
             throw new IOException("File Already Exists");
+        } else {
+            try {
+                FileWriter outputFile = new FileWriter(file);
+                CSVWriter writer = new CSVWriter(outputFile);
+                String[] header = {"Name", "Faction", "Skirmish Dice", "Skirmish DF", "Charge Dice", "Melee Dice", "Morale", "Casualties", "Discipline"};
+                writer.writeNext(header); 
+    
+                String[] data = {name, faction, skirmishAttack.toString(), String.valueOf(baseArmor), chargeAttack.toString(), chargeAttack.toString(), String.valueOf(currentMorale), String.valueOf(baseCasualties), String.valueOf(currentDiscipline)};
+                writer.writeNext(data);
+                
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Error writing to file: "+e.getMessage());
+            }
         }
     }
 }

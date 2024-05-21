@@ -1,6 +1,6 @@
-import Scripts.MainMenu;
+import java.io.IOException;
 
-import java.io.FileNotFoundException;
+import Scripts.MainMenu;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -11,7 +11,7 @@ public class Main {
     //TODO Implement Unit Export
     //TODO Implement Unit Import
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         MainMenu.menuLoop();
     }
 

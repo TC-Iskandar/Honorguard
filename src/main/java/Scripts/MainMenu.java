@@ -5,12 +5,13 @@ import Utils.DualPrintStream;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public class MainMenu {
 
-    public static void menuLoop() throws FileNotFoundException {
+    public static void menuLoop() throws IOException {
         DualPrintStream dualPrintStream = setupPrintStreams();
         boolean exit = false;
         Scanner in = new Scanner(System.in);
@@ -18,7 +19,8 @@ public class MainMenu {
             System.out.println("\n Choose an option: "
                     +"\n 1. Create a unit of Garrison Spearman"
                     +"\n 2. Create a unit of Goblins"
-                    +"\n 3. Exit Program");
+                    +"\n 3. CSV Squad Import"
+                    +"\n 4. Exit Program");
             String response = in.nextLine();
             switch (response){
                 case "1":
@@ -28,6 +30,9 @@ public class MainMenu {
                     createGoblins();
                     break;
                 case "3":
+                    customSquad();
+                    break;
+                case "4":
                     System.out.println("Exiting Program");
                     dualPrintStream.close();
                     return;
@@ -44,6 +49,21 @@ public class MainMenu {
         DualPrintStream dualOut = new DualPrintStream(printToFile, console);
         System.setOut(dualOut);
         return dualOut;
+    }
+
+    private static void customSquad() throws IOException {
+        Scanner in = new Scanner(System.in);
+
+        Squad custom;
+        System.out.println("\n Would you like to create a Custom Units.Squad? (Y/N)");
+        String response = in.nextLine().toUpperCase();
+        if (response.equals("Y")) {
+            String fileLocation = "/Users/tubby/Documents/TheNorthernGarrisons/src/main/java/squad_test.csv";
+            custom = InitializationScript.csvSquad(fileLocation);
+            System.out.println("Creating Custom Units.Squad!");
+            System.out.println(custom.getCurrentStatus());
+            custom.exportAsCSV();
+        }
     }
 
     private static void createGarrison(){

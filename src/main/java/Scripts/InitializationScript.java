@@ -3,10 +3,11 @@ package Scripts;
 import Units.DiceRoll;
 import Units.Squad;
 
-import java.util.Scanner;
 import java.io.FileReader;
-import org.apache.commons.csv.*;
-import java.io.Reader;
+import java.util.List;
+import java.util.Scanner;
+
+import com.opencsv.CSVReader;
 
 public class InitializationScript {
 
@@ -30,6 +31,29 @@ public class InitializationScript {
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
         DiceRoll charge = new DiceRoll(20, 1, 7);
         return new Squad(name, faction, armor, discipline, morale, casualties, chargeDefence, skirmish, charge);
+    }
+
+    public static Squad csvSquad(String fileLocation) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileLocation))) {
+            List<String[]> records = reader.readAll();
+
+            for (int i = 1; i < records.size(); i++) {
+                String[] record = records.get(i);
+                String name = record[0];
+                String faction = record[1];
+                String weapon = record[2];
+                int skirmishDefence = Integer.parseInt(record[3]);
+                int morale = Integer.parseInt(record[6]);
+                int casualties = Integer.parseInt(record[7]);
+                int discipline = Integer.parseInt(record[8]);
+                DiceRoll skirmish = new DiceRoll(4, 5, 0);
+                DiceRoll charge = new DiceRoll(20, 1, 5); 
+                return new Squad(name, faction, skirmishDefence, discipline, morale, casualties, discipline, skirmish, charge);
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return null;
     }
 
     public static Squad makeGoblins(){
