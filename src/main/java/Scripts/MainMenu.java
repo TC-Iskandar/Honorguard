@@ -50,7 +50,7 @@ public class MainMenu {
         Scanner in = new Scanner(System.in);
 
         Squad garrison;
-        System.out.println("\n Would you like to create a Garrison Spearman Units.Squad? (Y/N)");
+        System.out.println("\n Would you like to create a Garrison Spearman Units Squad? (Y/N)");
         String response = in.nextLine().toUpperCase();
         if (response.equals("Y")) {
             garrison = InitializationScript.makeGarrison();

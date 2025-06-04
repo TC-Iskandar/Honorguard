@@ -38,6 +38,6 @@ public class InitializationScript {
     static Squad makeGarrison() {
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
         DiceRoll charge = new DiceRoll(20, 1, 7);
-        return new Squad("Garrison Spearmen", "Garrison", 3, 2, 10, 8, 8, skirmish, charge);
+        return new Squad("Garrison Spearman", "Garrison", 3, 2, 10, 8, 8, skirmish, charge);
     }
 }

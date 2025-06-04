@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class DualPrintStreamTest {
     final static List<String> OUTPUT_LINES = new ArrayList<String>() {{
-        add("I came");
-        add("I saw");
-        add("I conquered");
+        add("Veni");
+        add("Vidi");
+        add("Vici");
     }};
 
     //TODO fix file path, add temp file to git ignore

@@ -10,10 +10,10 @@ public class DiceTest {
     @ParameterizedTest
     @ValueSource(ints = {0, -1, -5, -3, 15, 110})
     public void InvalidDiceSize(int size){
-        assertThrows("Expected Units.Dice of Size " + size+" to be illegal but was not",
+        assertThrows("Expected Units.Dice of Size " + size + " to be illegal but was not",
                 IllegalArgumentException.class,
                 ()->{
-                    Dice dice= new Dice(size);
+                    Dice dice = new Dice(size);
                     int x = dice.roll(3);
                 });
     }
