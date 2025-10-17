@@ -39,3 +39,4 @@ build/
 /src/test/java/TestFiles
 /src/main/java/OutputFiles/
 .idea/workspace.xml
+/.idea
