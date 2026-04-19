@@ -11,25 +11,23 @@ public class DiceRoll {
         this.baseModifier = baseModifier;
     }
 
-    public int roll(int difficultyClass, int additionalModifier){
+    public boolean roll(int difficultyClass, int additionalModifier){
         int totalModifier= baseModifier + additionalModifier;
-        int successes = 0;
+        boolean success = false;
         System.out.println("Rolling "+this.toString()+":");
 
-        for (int i=0; i<numberOfDice; i++){
-            int roll = dice.roll(1);
+
+            int roll = dice.roll(numberOfDice);
             System.out.println("Units.Dice = "+ roll);
             int sum = roll + totalModifier;
             System.out.println("Units.Dice + Modifier = "+ sum);
             if (sum> difficultyClass){
-                successes++;
+                success = true;
                 System.out.println("Attack Succesful!");
             }else {
                 System.out.println("Attack Failed!");
             }
-        }
-        System.out.println("Number of Successes = "+ successes);
-        return successes;
+        return success;
     }
 
     @Override

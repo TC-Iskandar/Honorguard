@@ -54,17 +54,21 @@ public class Squad {
         return baseChargeDefence + currentMorale;
     }
 
-    public int rollChargeAttack(int difficultyClass){
-        int chargeSuccesses = chargeAttack.roll(difficultyClass, currentMorale);
-        System.out.println(name + " charged against DC of "+ difficultyClass + " and succeeded "+chargeSuccesses+" attacks.");
-        return chargeSuccesses;
+    public boolean rollChargeAttack(int difficultyClass){
+        boolean chargeSuccessful = chargeAttack.roll(difficultyClass, currentMorale);
+        System.out.println(name + " charged against DC of "+ difficultyClass + " and succeeded "+chargeSuccessful+" attacks.");
+        return chargeSuccessful;
     }
 
-    public int rollSkirmishAttack(int difficultyClass) {
-        int skirmishSucceses = skirmishAttack.roll(difficultyClass, currentDiscipline);
-        System.out.println(name + " charged against DC of "+ difficultyClass + " and succeeded "+skirmishSucceses+" attacks.");
+    public boolean rollSkirmishAttack(int difficultyClass) {
+        boolean skirmishSuccesful = skirmishAttack.roll(difficultyClass, currentDiscipline);
+        if (skirmishSuccesful){
+            System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack.");
+        } else {
+            System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
+        }
 
-        return skirmishSucceses;
+        return skirmishSuccesful;
     }
 
     public String getCurrentStatus(){
