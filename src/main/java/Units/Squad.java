@@ -55,20 +55,40 @@ public class Squad {
     }
 
     public boolean rollChargeAttack(int difficultyClass){
-        boolean chargeSuccessful = chargeAttack.roll(difficultyClass, currentMorale);
-        System.out.println(name + " charged against DC of "+ difficultyClass + " and succeeded "+chargeSuccessful+" attacks.");
-        return chargeSuccessful;
+        boolean chargeSuccesful = false;
+        int succeededAttacks = 0;
+        int numberOfCrits = 0;
+        for(int i =0; i< currentCasualties; i++) {
+            int chargeDifference = chargeAttack.roll(difficultyClass, currentMorale);
+            if(chargeDifference == 0){
+                System.out.println("Charge attack "+i+" failed.");
+            }else {
+                succeededAttacks++;
+                if(chargeDifference > 9){
+                    numberOfCrits++;
+                    System.out.println("Charge attack" +i+" critically succeeded.");
+                }else{
+                    System.out.println("Charge attack "+ i+ " succeeded.");
+                }
+            }
+        }
+        if (succeededAttacks > (currentCasualties/2)){
+            chargeSuccesful = true;
+        }
+        return chargeSuccesful;
     }
 
-    public boolean rollSkirmishAttack(int difficultyClass) {
-        boolean skirmishSuccesful = skirmishAttack.roll(difficultyClass, currentDiscipline);
-        if (skirmishSuccesful){
+    public int rollSkirmishAttack(int difficultyClass) {
+        int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
+        int damage = 0;
+        if (overflow > 0){
             System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack.");
+            damage = overflow/5+1;
         } else {
             System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
         }
 
-        return skirmishSuccesful;
+        return damage;
     }
 
     public String getCurrentStatus(){

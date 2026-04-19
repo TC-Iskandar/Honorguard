@@ -11,9 +11,9 @@ public class DiceRoll {
         this.baseModifier = baseModifier;
     }
 
-    public boolean roll(int difficultyClass, int additionalModifier){
+    public int roll(int difficultyClass, int additionalModifier){
         int totalModifier= baseModifier + additionalModifier;
-        boolean success = false;
+        int overflow = 0;
         System.out.println("Rolling "+this.toString()+":");
 
 
@@ -22,12 +22,12 @@ public class DiceRoll {
             int sum = roll + totalModifier;
             System.out.println("Units.Dice + Modifier = "+ sum);
             if (sum> difficultyClass){
-                success = true;
+                overflow = sum - difficultyClass;
                 System.out.println("Attack Succesful!");
             }else {
                 System.out.println("Attack Failed!");
             }
-        return success;
+        return overflow;
     }
 
     @Override
