@@ -13,6 +13,6 @@ public class DiceRollTest {
     @Test
     public void goblinSquadTest(){
         Squad goblinSquad = InitializationScript.makeGoblins();
-        goblinSquad.rollSkirmishAttack(3);
+        int damage = goblinSquad.rollSkirmishAttack(3);
     }
 }

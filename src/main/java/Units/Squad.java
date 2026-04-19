@@ -92,8 +92,8 @@ public class Squad {
         int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
         int damage = 0;
         if (overflow > 0){
-            System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack.");
             damage = overflow/5+1;
+            System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
         } else {
             System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
         }
@@ -112,7 +112,7 @@ public class Squad {
         defenseString = defenseString + skirmishDefenceLine.indent(2)+ chargeDefenceLine.indent(2);
         String attackString = "Attacks: \n";
         String skirmishAttackLine = "Skirmish Attack: "+ skirmishAttack.toString()+"\n";
-        String chargeAttackLine = "Charge Attack: "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
+        String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ chargeAttackLine.indent(2);
         return nameLine+casualtyLine+moraleLine+disciplineLine+defenseString+attackString;
     }
