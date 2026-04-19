@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change beforePath="D:/TheNorthernGarrisons/.idea/workspace.xml" beforeDir="false" afterPath="D:/TheNorthernGarrisons/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Scripts/InitializationScript.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/main/java/Scripts/MainMenu.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/main/java/Scripts/MainMenu.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DiceTest.java" afterDir="false" />
-      <change beforePath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" beforeDir="false" afterPath="D:/TheNorthernGarrisons/src/test/java/DualPrintStreamTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DualPrintStreamTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DualPrintStreamTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +24,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="D:/TheNorthernGarrisons" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -65,14 +65,14 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="TheNorthernGarrisons" />
-      <option name="WORKING_DIRECTORY" value="D:/TheNorthernGarrisons" />
+      <module name="Honorguard" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="DiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TheNorthernGarrisons" />
+      <module name="Honorguard" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="DiceTest" />
       <option name="TEST_OBJECT" value="class" />
@@ -81,7 +81,7 @@
       </method>
     </configuration>
     <configuration name="DualPrintStreamTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TheNorthernGarrisons" />
+      <module name="Honorguard" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
       <option name="TEST_OBJECT" value="class" />
@@ -90,7 +90,7 @@
       </method>
     </configuration>
     <configuration name="DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TheNorthernGarrisons" />
+      <module name="Honorguard" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
       <option name="METHOD_NAME" value="whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
@@ -100,9 +100,9 @@
       </method>
     </configuration>
     <configuration name="java in TheNorthernGarrisons" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TheNorthernGarrisons" />
+      <module name="Honorguard" />
       <option name="TEST_OBJECT" value="directory" />
-      <dir value="D:/TheNorthernGarrisons/src/test/java" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
