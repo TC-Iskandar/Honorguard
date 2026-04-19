@@ -69,7 +69,7 @@ public class Squad {
         int numberOfCrits = 0;
         for(int i =0; i< currentCasualties; i++) {
             int chargeDifference = chargeAttack.roll(difficultyClass, currentMorale+currentDiscipline);
-            if(chargeDifference == 0){
+            if(chargeDifference < 0){
                 System.out.println("Charge attack "+i+" failed.");
             }else {
                 succeededAttacks++;
@@ -84,14 +84,13 @@ public class Squad {
         if (succeededAttacks > (currentCasualties/2) || succeededAttacks> enemyCasualties){
             chargeSuccesful = true;
         }
-        ChargeResult result = new ChargeResult(numberOfCrits, chargeSuccesful);
-        return result;
+        return new ChargeResult(numberOfCrits, chargeSuccesful);
     }
 
     public int rollSkirmishAttack(int difficultyClass) {
         int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
         int damage = 0;
-        if (overflow > 0){
+        if (overflow >= 0){
             damage = overflow/5+1;
             System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
         } else {

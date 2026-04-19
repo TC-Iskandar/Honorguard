@@ -16,17 +16,11 @@ public class DiceRoll {
         int overflow = 0;
         System.out.println("Rolling "+this.toString()+":");
 
-
-            int roll = dice.roll(numberOfDice);
-            System.out.println("Units.Dice = "+ roll);
-            int sum = roll + totalModifier;
-            System.out.println("Units.Dice + Modifier = "+ sum);
-            if (sum> difficultyClass){
-                overflow = sum - difficultyClass;
-                System.out.println("Attack Succesful!");
-            }else {
-                System.out.println("Attack Failed!");
-            }
+        int roll = dice.roll(numberOfDice);
+        System.out.println("Units.Dice = "+ roll);
+        int sum = roll + totalModifier;
+        System.out.println("Units.Dice + Modifier = "+ sum);
+        overflow= sum - difficultyClass;
         return overflow;
     }
 

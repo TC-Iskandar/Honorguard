@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Units/DiceRoll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/DiceRoll.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Units/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Squad.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/DiceRollTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceRollTest.java" afterDir="false" />
     </list>
@@ -60,11 +61,21 @@
       <recent name="D:\TheNorthernGarrisons\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DiceRollTest.goblinSquadTest">
+  <component name="RunManager" selected="JUnit.DiceRollTest.basicTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Honorguard" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiceRollTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Honorguard" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
+      <option name="METHOD_NAME" value="basicTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -88,15 +99,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DualPrintStreamTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
       <option name="PACKAGE_NAME" value="" />
@@ -109,18 +111,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.DiceRollTest.basicTest" />
       <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
       <item itemvalue="JUnit.DiceTest" />
-      <item itemvalue="JUnit.DualPrintStreamTest" />
       <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DiceRollTest.basicTest" />
         <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.DiceTest" />
         <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
-        <item itemvalue="JUnit.DualPrintStreamTest" />
       </list>
     </recent_temporary>
   </component>
