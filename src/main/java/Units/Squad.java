@@ -68,7 +68,7 @@ public class Squad {
         int succeededAttacks = 0;
         int numberOfCrits = 0;
         for(int i =0; i< currentCasualties; i++) {
-            int chargeDifference = chargeAttack.roll(difficultyClass, currentMorale);
+            int chargeDifference = chargeAttack.roll(difficultyClass, currentMorale+currentDiscipline);
             if(chargeDifference == 0){
                 System.out.println("Charge attack "+i+" failed.");
             }else {
@@ -111,8 +111,8 @@ public class Squad {
         String chargeDefenceLine = "Charge Defence: "+ getChargeDefence()+"\n";
         defenseString = defenseString + skirmishDefenceLine.indent(2)+ chargeDefenceLine.indent(2);
         String attackString = "Attacks: \n";
-        String skirmishAttackLine = "Skirmish Attack: "+ skirmishAttack.toString()+" + Discipline"+"\n";
-        String chargeAttackLine = "Charge Attack: "+ chargeAttack.toString()+" + Morale"+"\n";
+        String skirmishAttackLine = "Skirmish Attack: "+ skirmishAttack.toString()+"\n";
+        String chargeAttackLine = "Charge Attack: "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ chargeAttackLine.indent(2);
         return nameLine+casualtyLine+moraleLine+disciplineLine+defenseString+attackString;
     }

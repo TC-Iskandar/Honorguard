@@ -31,13 +31,13 @@ public class InitializationScript {
 
     public static Squad makeGoblins(){
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
-        DiceRoll charge = new DiceRoll(20, 1, 7);
+        DiceRoll charge = new DiceRoll(20, 1, 1);
         return new Squad("Goblin Units.Squad","Goblin",1, 0, 5, 6, 4, skirmish, charge);
     }
 
     static Squad makeGarrison() {
         DiceRoll skirmish = new DiceRoll(6, 4, 0);
-        DiceRoll charge = new DiceRoll(20, 1, 7);
+        DiceRoll charge = new DiceRoll(20, 1, 2);
         return new Squad("Garrison Spearman", "Garrison", 3, 2, 10, 8, 8, skirmish, charge);
     }
 }
