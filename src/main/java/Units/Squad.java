@@ -54,7 +54,7 @@ public class Squad {
         return baseChargeDefence + currentMorale;
     }
 
-    public boolean rollChargeAttack(int difficultyClass){
+    public boolean rollChargeAttack(int difficultyClass, int enemyCasualties){
         boolean chargeSuccesful = false;
         int succeededAttacks = 0;
         int numberOfCrits = 0;
@@ -72,7 +72,7 @@ public class Squad {
                 }
             }
         }
-        if (succeededAttacks > (currentCasualties/2)){
+        if (succeededAttacks > (currentCasualties/2) || succeededAttacks> enemyCasualties){
             chargeSuccesful = true;
         }
         return chargeSuccesful;
