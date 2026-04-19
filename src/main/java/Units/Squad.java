@@ -6,10 +6,10 @@ import java.io.IOException;
 public class Squad {
     private final int baseMorale;
     private final int baseDiscipline;
-    private final int baseArmor;
+    private final int baseSkirmishDefense;
     private final int baseCasualties;
     private final String name;
-    private int currentArmor;
+    private int currentSkirmishDefense;
     private int currentMorale;
     private int currentDiscipline;
     private int currentCasualties;
@@ -18,8 +18,8 @@ public class Squad {
     private DiceRoll chargeAttack;
     private String faction;
 
-    public Squad( String name, String faction, int baseArmor, int baseDiscipline, int baseMorale, int baseCasualties, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {
-        this.baseArmor = baseArmor;
+    public Squad( String name, String faction, int baseSkirmishDefense, int baseDiscipline, int baseMorale, int baseCasualties, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {
+        this.baseSkirmishDefense = baseSkirmishDefense;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
         this.baseCasualties = baseCasualties;
@@ -27,15 +27,15 @@ public class Squad {
         this.name = name;
         this.currentMorale= this.baseMorale;
         this.currentDiscipline = this.baseDiscipline;
-        this.currentArmor = this.baseArmor;
+        this.currentSkirmishDefense = this.baseSkirmishDefense;
         this.currentCasualties = this.baseCasualties;
         this.skirmishAttack = skirmish;
         this.chargeAttack = charge;
         this.faction= faction;
     }
 
-    public int getBaseArmor() {
-        return baseArmor;
+    public int getBaseChargeDefense() {
+        return baseChargeDefence;
     }
 
     public int getBaseMorale(){
@@ -47,7 +47,7 @@ public class Squad {
     }
 
     public int getSkirmishDefence(){
-        return currentArmor + currentDiscipline;
+        return currentSkirmishDefense + currentDiscipline + currentMorale;
     }
 
     public int getChargeDefence(){
