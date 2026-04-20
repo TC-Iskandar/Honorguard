@@ -17,9 +17,9 @@ public class DiceRoll {
         System.out.println("Rolling "+this.toString()+":");
 
         int roll = dice.roll(numberOfDice);
-        System.out.println("Units.Dice = "+ roll);
+        System.out.println("Rolling " + numberOfDice+"d"+dice.getSize()+" = "+ roll);
         int sum = roll + totalModifier;
-        System.out.println("Units.Dice + Modifier = "+ sum);
+        System.out.println("Dice + Modifier of " +totalModifier+ " = "+ sum);
         overflow= sum - difficultyClass;
         return overflow;
     }

@@ -7,8 +7,6 @@
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Units/DiceRoll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/DiceRoll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Units/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Squad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DiceRollTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceRollTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +68,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DiceRollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Honorguard" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DiceRollTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
       <option name="PACKAGE_NAME" value="" />
@@ -99,30 +106,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DualPrintStreamTest" />
-      <option name="METHOD_NAME" value="whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.DiceRollTest" />
       <item itemvalue="JUnit.DiceRollTest.basicTest" />
       <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
       <item itemvalue="JUnit.DiceTest" />
-      <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.DiceRollTest.basicTest" />
+        <item itemvalue="JUnit.DiceRollTest" />
         <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.DiceTest" />
-        <item itemvalue="JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile" />
       </list>
     </recent_temporary>
   </component>
