@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Units/SquadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Units/SquadTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +58,7 @@
     "JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused.executor": "Run",
     "JUnit.SkirmishWeaponTest.executor": "Run",
     "JUnit.SkirmishWeaponTest.multipleRangeTest.executor": "Run",
+    "JUnit.SquadTest.chargeAttackTracksSuccessAndCrits.executor": "Run",
     "JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled.executor": "Run",
     "JUnit.java in TheNorthernGarrisons.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -84,7 +84,7 @@
       <recent name="Units" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused">
+  <component name="RunManager" selected="JUnit.SquadTest.chargeAttackTracksSuccessAndCrits">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Honorguard" />
@@ -124,7 +124,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SkirmishWeaponTest.multipleRangeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SquadTest.chargeAttackTracksSuccessAndCrits" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
       <extension name="coverage">
         <pattern>
@@ -133,8 +133,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Units" />
-      <option name="MAIN_CLASS_NAME" value="Units.SkirmishWeaponTest" />
-      <option name="METHOD_NAME" value="multipleRangeTest" />
+      <option name="MAIN_CLASS_NAME" value="Units.SquadTest" />
+      <option name="METHOD_NAME" value="chargeAttackTracksSuccessAndCrits(int,int,int,int,[Ljava.lang.Integer;,boolean,int)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -160,16 +160,16 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused" />
       <item itemvalue="JUnit.SkirmishWeaponTest" />
-      <item itemvalue="JUnit.SkirmishWeaponTest.multipleRangeTest" />
+      <item itemvalue="JUnit.SquadTest.chargeAttackTracksSuccessAndCrits" />
       <item itemvalue="JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SquadTest.chargeAttackTracksSuccessAndCrits" />
         <item itemvalue="JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused" />
         <item itemvalue="JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.SkirmishWeaponTest" />
-        <item itemvalue="JUnit.SkirmishWeaponTest.multipleRangeTest" />
       </list>
     </recent_temporary>
   </component>

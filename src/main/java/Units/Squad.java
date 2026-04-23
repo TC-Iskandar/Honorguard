@@ -87,7 +87,7 @@ public class Squad {
                     numberOfCrits++;
                     System.out.println("Charge attack" +i+" critically succeeded.");
                 }else{
-                    System.out.println("Charge attack "+ i+ " succeeded.");
+                    System.out.println("Charge attack "+ i + " succeeded.");
                 }
             }
         }
