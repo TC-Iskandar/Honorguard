@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Units/SkirmishAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishAttack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Units/SkirmishWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishWeapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Units/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Squad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Units/SquadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Units/SquadTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +56,7 @@
     "JUnit.DiceTest.executor": "Run",
     "JUnit.DualPrintStreamTest.executor": "Run",
     "JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile.executor": "Run",
+    "JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused.executor": "Run",
     "JUnit.SkirmishWeaponTest.executor": "Run",
     "JUnit.SkirmishWeaponTest.multipleRangeTest.executor": "Run",
     "JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled.executor": "Run",
