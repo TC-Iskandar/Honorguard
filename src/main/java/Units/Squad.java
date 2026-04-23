@@ -3,6 +3,7 @@ package Units;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 public class Squad {
     private final int baseMorale;
@@ -15,12 +16,12 @@ public class Squad {
     private int currentMorale;
     private int currentDiscipline;
     private int currentCasualties;
-    private HashMap<String, DiceRoll> skirmishAttacks;
+    private HashMap<String, SkirmishWeapon> skirmishWeapons;
     private DiceRoll chargeAttack;
     private HashMap<String, DiceRoll> meleeAttacks;
     private String faction;
 
-    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, DiceRoll> skirmishAttacks, DiceRoll charge, HashMap<String, DiceRoll> meleeAttacks) {
+    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, DiceRoll> meleeAttacks) {
         this.baseSkirmishDefense = baseSkirmishDefense;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
@@ -31,7 +32,7 @@ public class Squad {
         this.currentMorale= this.baseMorale;
         this.currentDiscipline = this.baseDiscipline;
         this.currentCasualties = this.baseCasualties;
-        this.skirmishAttacks = skirmishAttacks;
+        this.skirmishWeapons = skirmishAttacks;
         this.chargeAttack = charge;
         this.meleeAttacks = meleeAttacks;
         this.faction= faction;
@@ -96,24 +97,28 @@ public class Squad {
         return new ChargeResult(numberOfCrits, chargeSuccesful);
     }
 
-    public int rollSkirmishAttack(String name, int difficultyClass) {
-        if (skirmishAttacks.containsKey(name)){
-            DiceRoll skirmishAttack = skirmishAttacks.get(name);
-            int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
-            int damage = 0;
-            if (overflow >= 0){
-                damage = overflow/5+1;
-                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
-            } else {
-                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
-            }
+    public int rollSkirmishAttack(String weaponName, String attackName, int difficultyClass) {
+        if (skirmishWeapons.containsKey(weaponName) ){
+            SkirmishWeapon weapon = skirmishWeapons.get(weaponName);
+            if (weapon.getModes().containsKey(attackName)){
+                DiceRoll skirmishAttack = weapon.attacks.get(name).getRoll();
+                int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
+                int damage = 0;
+                if (overflow >= 0){
+                    damage = overflow/5+1;
+                    System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+                } else {
+                    System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
+                }
 
-            return damage;
-        } else {
-            throw new IllegalArgumentException("Invalid Melee Attack.");
+                return damage;
+            } else {
+                throw new IllegalArgumentException("Invalid Skirmish Attack Mode for Skirmish Weapon " +weapon.name);
+            }
+        }else {
+            throw new IllegalArgumentException("Invalid Skirmish Weapon for Squad "+name);
         }
     }
-
     public int rollMeleeAttack(String name, int difficultyClass) {
         if (meleeAttacks.containsKey(name)){
             DiceRoll meleeAttack = meleeAttacks.get(name);
@@ -145,8 +150,8 @@ public class Squad {
         defenseString = defenseString + skirmishDefenceLine.indent(2) + meleeDefenseLine.indent(2) + chargeDefenceLine.indent(2);
         String attackString = "Attacks: \n";
         String skirmishAttackLine = "Skirmish Attacks: \n";
-        for (String skirmishAttackName : skirmishAttacks.keySet()){
-            String attackLine = skirmishAttackName + ": " + skirmishAttacks.get(skirmishAttackName).toString()+"\n";
+        for (String skirmishAttackName : skirmishWeapons.keySet()){
+            String attackLine = skirmishAttackName + ": " + skirmishWeapons.get(skirmishAttackName).toString()+"\n";
             skirmishAttackLine += attackLine.indent(2);
         }
         String meleeAttackLine = "Melee Attacks: \n";

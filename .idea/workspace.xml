@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishAttack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishWeapon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Units/SkirmishWeaponTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Units/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Units/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Squad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DiceRollTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Units/DiceRollTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Units/DiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +61,8 @@
     "JUnit.DiceTest.executor": "Run",
     "JUnit.DualPrintStreamTest.executor": "Run",
     "JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile.executor": "Run",
+    "JUnit.SkirmishWeaponTest.executor": "Run",
+    "JUnit.SkirmishWeaponTest.multipleRangeTest.executor": "Run",
     "JUnit.java in TheNorthernGarrisons.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -76,6 +83,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\TheNorthernGarrisons\src\main\java" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Units" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -88,8 +98,8 @@
     </configuration>
     <configuration name="DiceRollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
+      <option name="PACKAGE_NAME" value="Units" />
+      <option name="MAIN_CLASS_NAME" value="Units.DiceRollTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -97,47 +107,59 @@
     </configuration>
     <configuration name="DiceRollTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
+      <option name="PACKAGE_NAME" value="Units" />
+      <option name="MAIN_CLASS_NAME" value="Units.DiceRollTest" />
       <option name="METHOD_NAME" value="basicTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceRollTest.goblinSquadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SkirmishWeaponTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceRollTest" />
-      <option name="METHOD_NAME" value="goblinSquadTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Units.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Units" />
+      <option name="MAIN_CLASS_NAME" value="Units.SkirmishWeaponTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SkirmishWeaponTest.multipleRangeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Units.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Units" />
+      <option name="MAIN_CLASS_NAME" value="Units.SkirmishWeaponTest" />
+      <option name="METHOD_NAME" value="multipleRangeTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.SkirmishWeaponTest" />
+      <item itemvalue="JUnit.SkirmishWeaponTest.multipleRangeTest" />
       <item itemvalue="JUnit.DiceRollTest" />
       <item itemvalue="JUnit.DiceRollTest.basicTest" />
-      <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
-      <item itemvalue="JUnit.DiceTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.SkirmishWeaponTest" />
+        <item itemvalue="JUnit.SkirmishWeaponTest.multipleRangeTest" />
         <item itemvalue="JUnit.DiceRollTest.basicTest" />
         <item itemvalue="JUnit.DiceRollTest" />
-        <item itemvalue="JUnit.DiceRollTest.goblinSquadTest" />
-        <item itemvalue="JUnit.DiceTest" />
       </list>
     </recent_temporary>
   </component>

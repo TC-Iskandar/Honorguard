@@ -1,6 +1,5 @@
-import Scripts.InitializationScript;
-import Units.DiceRoll;
-import Units.Squad;
+package Units;
+
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
