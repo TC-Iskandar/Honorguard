@@ -134,18 +134,29 @@ public class Squad {
 
     public String getCurrentStatus(){
         String nameLine = "Status Report for "+name+"\n";
+        String factionLine = "Faction: " + faction + "\n";
         String casualtyLine = "Casualty: "+currentCasualties +"/"+baseCasualties+"\n";
         String moraleLine = "Morale: "+currentMorale +"/"+baseMorale+"\n";
         String disciplineLine = "Discipline: "+currentDiscipline +"/"+baseDiscipline+"\n";
         String defenseString = "Defences: \n";
         String skirmishDefenceLine = "Skirmish Defence: "+getSkirmishDefence()+"\n";
+        String meleeDefenseLine = "Melee Defence: "+getMeleeDefense()+"\n";
         String chargeDefenceLine = "Charge Defence: "+ getChargeDefence()+"\n";
-        defenseString = defenseString + skirmishDefenceLine.indent(2)+ chargeDefenceLine.indent(2);
+        defenseString = defenseString + skirmishDefenceLine.indent(2) + meleeDefenseLine.indent(2) + chargeDefenceLine.indent(2);
         String attackString = "Attacks: \n";
-        String skirmishAttackLine = "Skirmish Attack: "+ skirmishAttack.toString()+"\n";
+        String skirmishAttackLine = "Skirmish Attacks: \n";
+        for (String skirmishAttackName : skirmishAttacks.keySet()){
+            String attackLine = skirmishAttackName + ": " + skirmishAttacks.get(skirmishAttackName).toString()+"\n";
+            skirmishAttackLine += attackLine.indent(2);
+        }
+        String meleeAttackLine = "Melee Attacks: \n";
+        for (String meleeAttackName : meleeAttacks.keySet()){
+            String attackLine = meleeAttackName + ": " + meleeAttacks.get(meleeAttackName).toString()+"\n";
+            meleeAttackLine += attackLine.indent(2);
+        }
         String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
-        attackString = attackString + skirmishAttackLine.indent(2)+ chargeAttackLine.indent(2);
-        return nameLine+casualtyLine+moraleLine+disciplineLine+defenseString+attackString;
+        attackString = attackString + skirmishAttackLine.indent(2)+ meleeAttackLine.indent(2) + chargeAttackLine.indent(2);
+        return nameLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+attackString;
     }
 
     public void exportAsCSV() throws IOException {
