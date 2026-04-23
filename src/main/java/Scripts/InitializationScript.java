@@ -3,6 +3,7 @@ package Scripts;
 import Units.DiceRoll;
 import Units.Squad;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class InitializationScript {
@@ -13,31 +14,48 @@ public class InitializationScript {
         String name = in.nextLine();
         System.out.println("Please enter a faction: ");
         String faction = in.nextLine();
-        System.out.println("Please enter an armor value: ");
-        int armor = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter a discipline value: ");
         int discipline = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter a morale value: ");
         int morale = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter a casualty value: ");
         int casualties = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter a charge defence value: ");
+        System.out.println("Please enter an base Skirmish Defense value: ");
+        int skirmishDefense = Integer.parseInt(in.nextLine().toUpperCase());
+        System.out.println("Please enter an base Melee Defense value: ");
+        int meleeDefense = Integer.parseInt(in.nextLine().toUpperCase());
+        System.out.println("Please enter a base Charge Defence value: ");
         int chargeDefence = Integer.parseInt(in.nextLine().toUpperCase());
 
-        DiceRoll skirmish = new DiceRoll(6, 4, 0);
+        HashMap<String, DiceRoll> skirmishAttacks = new HashMap<>();
+        DiceRoll skirmishSpears = new DiceRoll(6, 4, 0);
+        skirmishAttacks.put("Spears", skirmishSpears);
         DiceRoll charge = new DiceRoll(20, 1, 7);
-        return new Squad(name, faction, armor, discipline, morale, casualties, chargeDefence, skirmish, charge);
+        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
+        DiceRoll spearsMelee = new DiceRoll(8, 4, 0);
+        meleeAttacks.put("Spears", spearsMelee);
+        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishAttacks, charge, meleeAttacks);
     }
 
     public static Squad makeGoblins(){
-        DiceRoll skirmish = new DiceRoll(6, 4, 0);
+        HashMap<String, DiceRoll> skirmishAttacks = new HashMap<>();
+        DiceRoll skirmishDoglsicers = new DiceRoll(4, 4, 4);
+        skirmishAttacks.put("Dogslicers", skirmishDoglsicers);
         DiceRoll charge = new DiceRoll(20, 1, 1);
-        return new Squad("Goblin Units.Squad","Goblin",1, 0, 5, 6, 4, skirmish, charge);
+        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
+        DiceRoll meleeDogslicers = new DiceRoll(6, 4, 4);
+        meleeAttacks.put("Dogslicers", meleeDogslicers);
+        return new Squad("Goblin Mob","Goblin", 8, 0, 14, 1, 3, 0, skirmishAttacks, charge, meleeAttacks);
     }
 
     static Squad makeGarrison() {
-        DiceRoll skirmish = new DiceRoll(6, 4, 0);
-        DiceRoll charge = new DiceRoll(20, 1, 2);
-        return new Squad("Garrison Spearman", "Garrison", 3, 2, 10, 8, 8, skirmish, charge);
+        HashMap<String, DiceRoll> skirmishAttacks = new HashMap<>();
+        DiceRoll skirmishSpears = new DiceRoll(6, 4, 2);
+        skirmishAttacks.put("Spears", skirmishSpears);
+        DiceRoll charge = new DiceRoll(20, 1, 3);
+        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
+        DiceRoll meleeSpears = new DiceRoll(8, 4, 2);
+        meleeAttacks.put("Spears", meleeSpears);
+        return new Squad("Lorrainean Garrison Spearman", "Val DeLaure", 13, 4, 8, 5, 5, 3, skirmishAttacks, charge, meleeAttacks);
     }
 }

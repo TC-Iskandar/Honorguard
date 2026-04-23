@@ -2,35 +2,38 @@ package Units;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class Squad {
     private final int baseMorale;
     private final int baseDiscipline;
     private final int baseSkirmishDefense;
+    private final int baseMeleeDefense;
+    private final int baseChargeDefence;
     private final int baseCasualties;
     private final String name;
-    private int currentSkirmishDefense;
     private int currentMorale;
     private int currentDiscipline;
     private int currentCasualties;
-    private int baseChargeDefence;
-    private DiceRoll skirmishAttack;
+    private HashMap<String, DiceRoll> skirmishAttacks;
     private DiceRoll chargeAttack;
+    private HashMap<String, DiceRoll> meleeAttacks;
     private String faction;
 
-    public Squad( String name, String faction, int baseSkirmishDefense, int baseDiscipline, int baseMorale, int baseCasualties, int baseChargeDefence, DiceRoll skirmish, DiceRoll charge) {
+    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, DiceRoll> skirmishAttacks, DiceRoll charge, HashMap<String, DiceRoll> meleeAttacks) {
         this.baseSkirmishDefense = baseSkirmishDefense;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
         this.baseCasualties = baseCasualties;
+        this.baseMeleeDefense = baseMeleeDefense;
         this.baseChargeDefence = baseChargeDefence;
         this.name = name;
         this.currentMorale= this.baseMorale;
         this.currentDiscipline = this.baseDiscipline;
-        this.currentSkirmishDefense = this.baseSkirmishDefense;
         this.currentCasualties = this.baseCasualties;
-        this.skirmishAttack = skirmish;
+        this.skirmishAttacks = skirmishAttacks;
         this.chargeAttack = charge;
+        this.meleeAttacks = meleeAttacks;
         this.faction= faction;
     }
 
@@ -46,12 +49,18 @@ public class Squad {
         return baseDiscipline;
     }
 
+    public int getMorale(){ return currentMorale; }
+
+    public int getDiscipline(){ return currentDiscipline; }
+
+    public int getMeleeDefense() { return baseMeleeDefense + currentMorale + currentDiscipline; }
+
     public int getSkirmishDefence(){
-        return currentSkirmishDefense + currentDiscipline + currentMorale;
+        return baseSkirmishDefense + currentDiscipline;
     }
 
     public int getChargeDefence(){
-        return baseChargeDefence + currentMorale;
+        return 10 + baseChargeDefence + currentMorale + currentDiscipline;
     }
 
     public class ChargeResult{
@@ -87,17 +96,40 @@ public class Squad {
         return new ChargeResult(numberOfCrits, chargeSuccesful);
     }
 
-    public int rollSkirmishAttack(int difficultyClass) {
-        int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
-        int damage = 0;
-        if (overflow >= 0){
-            damage = overflow/5+1;
-            System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
-        } else {
-            System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
-        }
+    public int rollSkirmishAttack(String name, int difficultyClass) {
+        if (skirmishAttacks.containsKey(name)){
+            DiceRoll skirmishAttack = skirmishAttacks.get(name);
+            int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
+            int damage = 0;
+            if (overflow >= 0){
+                damage = overflow/5+1;
+                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+            } else {
+                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
+            }
 
-        return damage;
+            return damage;
+        } else {
+            throw new IllegalArgumentException("Invalid Melee Attack.");
+        }
+    }
+
+    public int rollMeleeAttack(String name, int difficultyClass) {
+        if (meleeAttacks.containsKey(name)){
+            DiceRoll meleeAttack = meleeAttacks.get(name);
+            int overflow = meleeAttack.roll(difficultyClass, currentDiscipline);
+            int damage = 0;
+            if (overflow >= 0){
+                damage = overflow/5+1;
+                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+            } else {
+                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
+            }
+
+            return damage;
+        } else {
+            throw new IllegalArgumentException("Invalid Melee Attack.");
+        }
     }
 
     public String getCurrentStatus(){
