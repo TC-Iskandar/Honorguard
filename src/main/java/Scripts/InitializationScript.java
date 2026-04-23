@@ -9,16 +9,16 @@ import java.util.Scanner;
 
 public class InitializationScript {
 
-    private static Squad userMadeSquad() {
+    public static Squad userMadeSquad() {
         Scanner in = new Scanner(System.in);
         System.out.println("\n Please enter a name: ");
         String name = in.nextLine();
         System.out.println("Please enter a faction: ");
         String faction = in.nextLine();
-        System.out.println("Please enter a discipline value: ");
-        int discipline = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter a morale value: ");
         int morale = Integer.parseInt(in.nextLine().toUpperCase());
+        System.out.println("Please enter a discipline value: ");
+        int discipline = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter a casualty value: ");
         int casualties = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter an base Skirmish Defense value: ");

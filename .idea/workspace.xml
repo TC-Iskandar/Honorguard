@@ -7,7 +7,7 @@
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Units/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Squad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +60,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "create-melee-attacks",
+    "git-widget-placeholder": "custom-squad",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Thomas/Documents/Honorguard",
