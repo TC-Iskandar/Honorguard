@@ -41,6 +41,10 @@ public class SquadTest {
         return new Squad("Test Squad", "Test Faction", 5, 2, casualties, 1, 1, 1, skirmishWeapons, chargeAttack, meleeAttacks);
     }
 
+    private static boolean isChargeSuccessful(int squadCasualties, int successfulAttacks, int enemyCasualties) {
+        return successfulAttacks * 2 >= squadCasualties || successfulAttacks > enemyCasualties;
+    }
+
     private static Stream<Arguments> sampledChargeAttackCases(ChargeAttackScenario[] scenarios, boolean expectedSuccess) {
         return Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
                 .flatMap(squadCasualties -> Stream.of(SAMPLED_ENEMY_CASUALTIES)
@@ -48,10 +52,7 @@ public class SquadTest {
                             ChargeAttackScenario[] validScenarios = Arrays.stream(scenarios)
                                     .filter(scenario -> scenario.successfulAttacks() <= squadCasualties)
                                     .filter(scenario -> scenario.crits() <= scenario.successfulAttacks())
-                                    .filter(scenario -> {
-                                        boolean isSuccessful = scenario.successfulAttacks() > (squadCasualties / 2) || scenario.successfulAttacks() > enemyCasualties;
-                                        return isSuccessful == expectedSuccess;
-                                    })
+                                    .filter(scenario -> isChargeSuccessful(squadCasualties, scenario.successfulAttacks(), enemyCasualties) == expectedSuccess)
                                     .toArray(ChargeAttackScenario[]::new);
 
                             // We intentionally sample one scenario per (squadCasualties, enemyCasualties) pair
@@ -84,6 +85,7 @@ public class SquadTest {
                                     scenario.difficultyClass(),
                                     enemyCasualties,
                                     scenario.successfulAttacks(),
+                                    squadCasualties - scenario.successfulAttacks(),
                                     overflows,
                                     scenario.crits()
                             );
@@ -212,9 +214,9 @@ public class SquadTest {
         assertEquals(0, damage);
     }
 
-    @ParameterizedTest(name = "failedCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, crits={5}")
+    @ParameterizedTest(name = "failedCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, failedAttacks={4}, crits={6}")
     @MethodSource("failedChargeAttackCases")
-    public void failedChargeAttackTracksCrits(int casualties, int difficultyClass, int enemyCasualties, int successfulAttacks, Integer[] overflows, int expectedCrits) {
+    public void failedChargeAttackTracksCrits(int casualties, int difficultyClass, int enemyCasualties, int successfulAttacks, int failedAttacks, Integer[] overflows, int expectedCrits) {
         DiceRoll mockChargeAttack = mock(DiceRoll.class);
         when(mockChargeAttack.roll(difficultyClass, 7)).thenReturn(overflows[0], Arrays.copyOfRange(overflows, 1, overflows.length));
 
@@ -223,12 +225,14 @@ public class SquadTest {
         Squad.ChargeResult result = squad.rollChargeAttack(difficultyClass, enemyCasualties);
 
         assertEquals(false, result.chargeSuccessful);
+        assertEquals(successfulAttacks, result.successfulAttacks);
+        assertEquals(failedAttacks, result.failedAttacks);
         assertEquals(expectedCrits, result.numberOfCrits);
     }
 
-    @ParameterizedTest(name = "successfulCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, crits={5}")
+    @ParameterizedTest(name = "successfulCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, failedAttacks={4}, crits={6}")
     @MethodSource("successfulChargeAttackCases")
-    public void successfulChargeAttackTracksCrits(int casualties, int difficultyClass, int enemyCasualties, int successfulAttacks, Integer[] overflows, int expectedCrits) {
+    public void successfulChargeAttackTracksCrits(int casualties, int difficultyClass, int enemyCasualties, int successfulAttacks, int failedAttacks, Integer[] overflows, int expectedCrits) {
         DiceRoll mockChargeAttack = mock(DiceRoll.class);
         when(mockChargeAttack.roll(difficultyClass, 7)).thenReturn(overflows[0], Arrays.copyOfRange(overflows, 1, overflows.length));
 
@@ -237,6 +241,8 @@ public class SquadTest {
         Squad.ChargeResult result = squad.rollChargeAttack(difficultyClass, enemyCasualties);
 
         assertEquals(true, result.chargeSuccessful);
+        assertEquals(successfulAttacks, result.successfulAttacks);
+        assertEquals(failedAttacks, result.failedAttacks);
         assertEquals(expectedCrits, result.numberOfCrits);
     }
 }

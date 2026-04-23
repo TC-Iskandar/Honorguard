@@ -66,9 +66,13 @@ public class Squad {
 
     public class ChargeResult{
         public int numberOfCrits;
+        public int successfulAttacks;
+        public int failedAttacks;
         public boolean chargeSuccessful;
-        public ChargeResult(int numberOfCrits, boolean isChargeSuccessful){
+        public ChargeResult(int numberOfCrits, int successfulAttacks, int failedAttacks, boolean isChargeSuccessful){
             this.numberOfCrits = numberOfCrits;
+            this.successfulAttacks = successfulAttacks;
+            this.failedAttacks = failedAttacks;
             this.chargeSuccessful = isChargeSuccessful;
         }
     }
@@ -76,10 +80,12 @@ public class Squad {
     public ChargeResult rollChargeAttack(int difficultyClass, int enemyCasualties){
         boolean chargeSuccesful = false;
         int succeededAttacks = 0;
+        int failedAttacks = 0;
         int numberOfCrits = 0;
         for(int i =0; i< currentCasualties; i++) {
             int chargeDifference = chargeAttack.roll(difficultyClass, currentMorale+currentDiscipline);
             if(chargeDifference < 0){
+                failedAttacks++;
                 System.out.println("Charge attack "+i+" failed.");
             }else {
                 succeededAttacks++;
@@ -91,10 +97,10 @@ public class Squad {
                 }
             }
         }
-        if (succeededAttacks > (currentCasualties/2) || succeededAttacks> enemyCasualties){
+        if (succeededAttacks * 2 >= currentCasualties || succeededAttacks > enemyCasualties){
             chargeSuccesful = true;
         }
-        return new ChargeResult(numberOfCrits, chargeSuccesful);
+        return new ChargeResult(numberOfCrits, succeededAttacks, failedAttacks, chargeSuccesful);
     }
 
     public int rollSkirmishAttack(String weaponName, String attackName, int difficultyClass) {
