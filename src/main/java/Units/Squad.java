@@ -85,7 +85,7 @@ public class Squad {
                 succeededAttacks++;
                 if(chargeDifference > 9){
                     numberOfCrits++;
-                    System.out.println("Charge attack" +i+" critically succeeded.");
+                    System.out.println("Charge attack " +i+" critically succeeded.");
                 }else{
                     System.out.println("Charge attack "+ i + " succeeded.");
                 }
