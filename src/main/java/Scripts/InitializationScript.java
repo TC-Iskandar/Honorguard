@@ -27,15 +27,47 @@ public class InitializationScript {
         int meleeDefense = Integer.parseInt(in.nextLine().toUpperCase());
         System.out.println("Please enter a base Charge Defence value: ");
         int chargeDefence = Integer.parseInt(in.nextLine().toUpperCase());
-
-        HashMap<String, DiceRoll> skirmishAttacks = new HashMap<>();
-        DiceRoll skirmishSpears = new DiceRoll(6, 4, 0);
-        skirmishAttacks.put("Spears", skirmishSpears);
-        DiceRoll charge = new DiceRoll(20, 1, 7);
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        DiceRoll spearsMelee = new DiceRoll(8, 4, 0);
-        meleeAttacks.put("Spears", spearsMelee);
+        System.out.println("Please enter a base Charge Attack value: ");
+        int baseChargeAttack = Integer.parseInt(in.nextLine().toUpperCase());
+        DiceRoll charge = new DiceRoll(20, 1, baseChargeAttack);
+        System.out.println("Adding Skirmish Attacks: ");
+        HashMap<String, DiceRoll> skirmishAttacks = getCustomDiceRolls(in);
+        System.out.println("Adding Melee Attacks: ");
+        HashMap<String, DiceRoll> meleeAttacks = getCustomDiceRolls(in);
         return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishAttacks, charge, meleeAttacks);
+    }
+
+    private static HashMap<String, DiceRoll> getCustomDiceRolls(Scanner in) {
+        HashMap<String, DiceRoll> skirmishAttacks = new HashMap<>();
+        System.out.println("How many Attacks would you like to add?");
+        int numberOfSkirmishAttacks = Integer.parseInt(in.nextLine().toUpperCase());
+        for (int i = 0; i < numberOfSkirmishAttacks; i++) {
+            System.out.println("Adding attack number "+(i+1));
+            boolean validDice = false;
+            while (!validDice){
+                System.out.println("What is the attack name?");
+                String attackName = in.nextLine();
+                System.out.println("What is the die size?");
+                int dieSize =  Integer.parseInt(in.nextLine().toUpperCase());
+                System.out.println("What is the number of dice?");
+                int numDice =  Integer.parseInt(in.nextLine().toUpperCase());
+                System.out.println("What is base modifier");
+                int modifier = Integer.parseInt(in.nextLine().toUpperCase());
+                validDice = true;
+                try{
+                    DiceRoll newSkirmishAttack = new DiceRoll(dieSize, numDice, modifier);
+                    skirmishAttacks.put(attackName, newSkirmishAttack);
+                }catch (IllegalArgumentException e){
+                    validDice = false;
+                    System.out.println("Invalid die size, try again. Accepted die size are: ");
+                    for(int validDieSize : Dice.validDiceSizes){
+                        System.out.println("  "+validDieSize);
+                    }
+                }
+            }
+
+        }
+        return skirmishAttacks;
     }
 
     public static Squad makeGoblins(){

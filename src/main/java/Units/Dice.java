@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class Dice {
     private final int size;
-    private static final int[] validDiceSizes = new int[]{1,2, 3, 4, 6, 8, 10, 12, 20, 100};
+    public static final int[] validDiceSizes = new int[]{1,2, 3, 4, 6, 8, 10, 12, 20, 100};
 
-    public Dice(int size){
+    public Dice(int size) throws IllegalArgumentException{
         if(Arrays.stream(validDiceSizes).noneMatch(x->x ==size)) {
             throw new IllegalArgumentException("Units.Dice size must be greater than 0");
         }
