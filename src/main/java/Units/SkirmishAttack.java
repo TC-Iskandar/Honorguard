@@ -34,7 +34,11 @@ public class SkirmishAttack {
     }
     public void useAttack(){
         if (!isInfinfite){
-            timesUsed++;
+            if (timesUsed < numberOfUses){
+                timesUsed++;
+            }else{
+                throw new IndexOutOfBoundsException("Attack has already been used maximum amount of times!");
+            }
         }
     }
     public String toString(){

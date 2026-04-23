@@ -2,13 +2,14 @@ package Scripts;
 
 import Units.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class InitializationScript {
-
+    /***
+     * Prompts the user for necessary arguments to make a squad.
+     * @return A completed usermade Squad.
+     */
     public static Squad userMadeSquad() {
         Scanner in = new Scanner(System.in);
         System.out.println("\n Please enter a name: ");
@@ -33,10 +34,16 @@ public class InitializationScript {
         System.out.println("Adding Skirmish Attacks: ");
         HashMap<String, SkirmishWeapon> skirmishWeapons = getCustomSkirmishWeapons(in);
         System.out.println("Adding Melee Attacks: ");
-        HashMap<String, DiceRoll> meleeAttacks = getCustomDiceRolls(in);
+        HashMap<String, DiceRoll> meleeAttacks = getMeleeDiceRolls(in);
         return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, meleeAttacks);
     }
 
+    /**
+     * Takes input from the user to get Skirmish Weapons with modes and SkirmishAttacks for the customSquad
+     * @param in Scanner to get input from user
+     * @return A HashMap of SkirmishWeapon.name and SkirmishWeapons containing a HashMap of SkirmishAttacks complete with
+     * name, DiceRoll, isInfinite, and number of uses.
+     */
     private static HashMap<String, SkirmishWeapon> getCustomSkirmishWeapons(Scanner in){
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         System.out.println("How many Skirmish Weapons would you like to add?");
@@ -86,11 +93,16 @@ public class InitializationScript {
         return skirmishWeapons;
     }
 
-    private static HashMap<String, DiceRoll> getCustomDiceRolls(Scanner in) {
-        HashMap<String, DiceRoll> skirmishAttacks = new HashMap<>();
+    /**
+     *
+     * @param in Scanner to get User Input
+     * @return A HashMap with Names and DiceRolls for Melee Attacks
+     */
+    private static HashMap<String, DiceRoll> getMeleeDiceRolls(Scanner in) {
+        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
         System.out.println("How many Attacks would you like to add?");
-        int numberOfSkirmishAttacks = Integer.parseInt(in.nextLine().toUpperCase());
-        for (int i = 0; i < numberOfSkirmishAttacks; i++) {
+        int numberOfMeleeAttacks = Integer.parseInt(in.nextLine().toUpperCase());
+        for (int i = 0; i < numberOfMeleeAttacks; i++) {
             System.out.println("Adding attack number "+(i+1));
             boolean validDice = false;
             while (!validDice){
@@ -104,8 +116,8 @@ public class InitializationScript {
                 int modifier = Integer.parseInt(in.nextLine().toUpperCase());
                 validDice = true;
                 try{
-                    DiceRoll newSkirmishAttack = new DiceRoll(dieSize, numDice, modifier);
-                    skirmishAttacks.put(attackName, newSkirmishAttack);
+                    DiceRoll newMeleeAttack = new DiceRoll(dieSize, numDice, modifier);
+                    meleeAttacks.put(attackName, newMeleeAttack);
                 }catch (IllegalArgumentException e){
                     validDice = false;
                     System.out.println("Invalid die size, try again. Accepted die size are: ");
@@ -116,7 +128,7 @@ public class InitializationScript {
             }
 
         }
-        return skirmishAttacks;
+        return meleeAttacks;
     }
 
     public static Squad makeGoblins(){

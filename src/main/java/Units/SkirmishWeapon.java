@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SkirmishWeapon {
-    String name;
-    HashMap<String, SkirmishAttack> attacks;
-    int modes;
+    private String name;
+    private HashMap<String, SkirmishAttack> attacks;
+    private int modes;
     public SkirmishWeapon(String name, HashMap<String, SkirmishAttack> attacks){
         this.name = name;
         this.attacks = attacks;
@@ -17,7 +17,9 @@ public class SkirmishWeapon {
     public HashMap<String, SkirmishAttack> getModes(){
         return attacks;
     }
-
+    public String getName(){
+        return name;
+    }
     public boolean isExpended(){
         boolean isExpended = false;
         for (SkirmishAttack attack: attacks.values()){

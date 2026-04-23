@@ -98,11 +98,16 @@ public class Squad {
     }
 
     public int rollSkirmishAttack(String weaponName, String attackName, int difficultyClass) {
-        if (skirmishWeapons.containsKey(weaponName) ){
+        if (skirmishWeapons.containsKey(weaponName)){
             SkirmishWeapon weapon = skirmishWeapons.get(weaponName);
             if (weapon.getModes().containsKey(attackName)){
-                DiceRoll skirmishAttack = weapon.attacks.get(name).getRoll();
+                SkirmishAttack attack = weapon.getModes().get(attackName);
+                if (attack.isExpended()){
+                    throw new IllegalStateException("Skirmish Attack Mode " + attackName + " for Skirmish Weapon " + weapon.getName() + " has been expended.");
+                }
+                DiceRoll skirmishAttack = attack.getRoll();
                 int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
+                attack.useAttack();
                 int damage = 0;
                 if (overflow >= 0){
                     damage = overflow/5+1;
@@ -113,7 +118,7 @@ public class Squad {
 
                 return damage;
             } else {
-                throw new IllegalArgumentException("Invalid Skirmish Attack Mode for Skirmish Weapon " +weapon.name);
+                throw new IllegalArgumentException("Invalid Skirmish Attack Mode for Skirmish Weapon " +weapon.getName());
             }
         }else {
             throw new IllegalArgumentException("Invalid Skirmish Weapon for Squad "+name);

@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615493ca-fea7-451f-bb0d-11d6fd449fb7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishAttack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishWeapon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Units/SkirmishWeaponTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Scripts/InitializationScript.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Units/SkirmishAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishAttack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Units/SkirmishWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/SkirmishWeapon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Units/Squad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Units/Squad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DiceRollTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Units/DiceRollTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Units/DiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +60,7 @@
     "JUnit.DualPrintStreamTest.whenUsingDualPrintStream_thenOutputsGoToConsoleAndFile.executor": "Run",
     "JUnit.SkirmishWeaponTest.executor": "Run",
     "JUnit.SkirmishWeaponTest.multipleRangeTest.executor": "Run",
+    "JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled.executor": "Run",
     "JUnit.java in TheNorthernGarrisons.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -87,7 +85,7 @@
       <recent name="Units" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Honorguard" />
@@ -96,20 +94,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceRollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Honorguard" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Units.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <option name="PACKAGE_NAME" value="Units" />
-      <option name="MAIN_CLASS_NAME" value="Units.DiceRollTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DiceRollTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Honorguard" />
-      <option name="PACKAGE_NAME" value="Units" />
-      <option name="MAIN_CLASS_NAME" value="Units.DiceRollTest" />
-      <option name="METHOD_NAME" value="basicTest" />
+      <option name="MAIN_CLASS_NAME" value="Units.SkirmishAttackTest" />
+      <option name="METHOD_NAME" value="useAttackThrowsWhenAttackIsOverused" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -146,20 +141,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SquadTest.expendedSkirmishAttackCannotBeRolled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Honorguard" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Units.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Units" />
+      <option name="MAIN_CLASS_NAME" value="Units.SquadTest" />
+      <option name="METHOD_NAME" value="expendedSkirmishAttackCannotBeRolled" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused" />
       <item itemvalue="JUnit.SkirmishWeaponTest" />
       <item itemvalue="JUnit.SkirmishWeaponTest.multipleRangeTest" />
-      <item itemvalue="JUnit.DiceRollTest" />
-      <item itemvalue="JUnit.DiceRollTest.basicTest" />
+      <item itemvalue="JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SkirmishAttackTest.useAttackThrowsWhenAttackIsOverused" />
+        <item itemvalue="JUnit.SquadTest.expendedSkirmishAttackCannotBeRolled" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.SkirmishWeaponTest" />
         <item itemvalue="JUnit.SkirmishWeaponTest.multipleRangeTest" />
-        <item itemvalue="JUnit.DiceRollTest.basicTest" />
-        <item itemvalue="JUnit.DiceRollTest" />
       </list>
     </recent_temporary>
   </component>
