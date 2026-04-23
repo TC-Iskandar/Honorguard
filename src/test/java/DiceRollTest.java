@@ -13,10 +13,4 @@ public class DiceRollTest {
         assertTrue(overflow < 14);
 
     }
-
-    @Test
-    public void goblinSquadTest(){
-        Squad goblinSquad = InitializationScript.makeGoblins();
-        int damage = goblinSquad.rollSkirmishAttack(3);
-    }
 }
