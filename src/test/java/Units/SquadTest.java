@@ -45,12 +45,18 @@ public class SquadTest {
                                     .filter(scenario -> scenario.crits() <= scenario.successfulAttacks())
                                     .toArray(ChargeAttackScenario[]::new);
 
+                            // We intentionally sample one scenario per (squadCasualties, enemyCasualties) pair
+                            // instead of running every valid scenario combination. That keeps this test set at
+                            // 10 squad sizes x 3 enemy casualty samples = 30 cases while still covering the full
+                            // squad casualty range, low/mid/high enemy casualty counts, and a rotating mix of
+                            // DC/success/crit patterns. The modulo makes the selection deterministic, so the same
+                            // inputs always pick the same scenario and the suite remains stable across runs.
                             int enemyIndex = Arrays.asList(sampledEnemyCasualties).indexOf(enemyCasualties);
                             ChargeAttackScenario scenario = validScenarios[(squadCasualties + enemyIndex) % validScenarios.length];
                             Integer[] overflows = new Integer[squadCasualties];
 
                             for (int i = 0; i < squadCasualties; i++) {
-                                if (i < scenario.crits()) {
+                                if (i < scenario.crits()) { 
                                     overflows[i] = 10;
                                 } else if (i < scenario.successfulAttacks()) {
                                     overflows[i] = 0;
