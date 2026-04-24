@@ -40,3 +40,5 @@ build/
 /src/main/java/OutputFiles/
 .idea/workspace.xml
 /.idea
+.idea/misc.xml
+*.xml

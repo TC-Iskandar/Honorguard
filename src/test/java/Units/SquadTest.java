@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,9 +35,16 @@ public class SquadTest {
 
     private static Squad createSquadWithChargeAttack(int casualties, DiceRoll chargeAttack) {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Dagger", new DiceRoll(4, 1, 0));
-        return new Squad("Test Squad", "Test Faction", 5, 2, casualties, 1, 1, 1, skirmishWeapons, chargeAttack, meleeAttacks);
+        return new Squad("Test Squad", "Test Faction", 5, 2, casualties, 1, 1, 1, skirmishWeapons, chargeAttack, createDaggerMeleeWeapons());
+    }
+
+    private static HashMap<String, MeleeWeapon> createDaggerMeleeWeapons() {
+        HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
+        meleeAttacks.put("Stab", new MeleeAttack("Stab", new DiceRoll(4, 1, 0)));
+
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        meleeWeapons.put("Dagger", new MeleeWeapon("Dagger", meleeAttacks));
+        return meleeWeapons;
     }
 
     private static boolean isChargeSuccessful(int squadCasualties, int successfulAttacks, int enemyCasualties) {
@@ -108,10 +114,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Dagger", new DiceRoll(4, 1, 0));
-
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), meleeAttacks);
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
 
         squad.rollSkirmishAttack("Javelins", "Javelin Throw", 100);
         assertThrows(IllegalStateException.class, () -> squad.rollSkirmishAttack("Javelins", "Javelin Throw", 100));
@@ -135,10 +138,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Dagger", new DiceRoll(4, 1, 0));
-
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), meleeAttacks);
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
 
         int damage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
 
@@ -164,10 +164,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Dagger", new DiceRoll(4, 1, 0));
-
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), meleeAttacks);
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
 
         int firstDamage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
         int secondDamage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
@@ -204,14 +201,42 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Dagger", new DiceRoll(4, 1, 0));
-
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), meleeAttacks);
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
 
         int damage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
 
         assertEquals(0, damage);
+    }
+
+    @Test
+    public void meleeAttackUsesWeaponAndAttackMode() {
+        DiceRoll mockDiceRoll = mock(DiceRoll.class);
+        when(mockDiceRoll.roll(12, 2)).thenReturn(5);
+
+        HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
+        meleeAttacks.put("Slash", new MeleeAttack("Slash", mockDiceRoll));
+
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        meleeWeapons.put("Sword", new MeleeWeapon("Sword", meleeAttacks));
+
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), meleeWeapons);
+
+        int damage = squad.rollMeleeAttack("Sword", "Slash", 12);
+
+        assertEquals(2, damage);
+    }
+
+    @Test
+    public void invalidMeleeAttackModeThrows() {
+        HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
+        meleeAttacks.put("Slash", new MeleeAttack("Slash", new DiceRoll(8, 1, 0)));
+
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        meleeWeapons.put("Sword", new MeleeWeapon("Sword", meleeAttacks));
+
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), meleeWeapons);
+
+        assertThrows(IllegalArgumentException.class, () -> squad.rollMeleeAttack("Sword", "Pommel Strike", 12));
     }
 
     @ParameterizedTest(name = "failedCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, failedAttacks={4}, crits={6}")
@@ -224,7 +249,7 @@ public class SquadTest {
 
         Squad.ChargeResult result = squad.rollChargeAttack(difficultyClass, enemyCasualties);
 
-        assertEquals(false, result.chargeSuccessful);
+        assertFalse(result.chargeSuccessful);
         assertEquals(successfulAttacks, result.successfulAttacks);
         assertEquals(failedAttacks, result.failedAttacks);
         assertEquals(expectedCrits, result.numberOfCrits);
@@ -240,7 +265,7 @@ public class SquadTest {
 
         Squad.ChargeResult result = squad.rollChargeAttack(difficultyClass, enemyCasualties);
 
-        assertEquals(true, result.chargeSuccessful);
+        assertTrue(result.chargeSuccessful);
         assertEquals(successfulAttacks, result.successfulAttacks);
         assertEquals(failedAttacks, result.failedAttacks);
         assertEquals(expectedCrits, result.numberOfCrits);

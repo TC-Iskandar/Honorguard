@@ -34,8 +34,8 @@ public class InitializationScript {
         System.out.println("Adding Skirmish Attacks: ");
         HashMap<String, SkirmishWeapon> skirmishWeapons = getCustomSkirmishWeapons(in);
         System.out.println("Adding Melee Attacks: ");
-        HashMap<String, DiceRoll> meleeAttacks = getMeleeDiceRolls(in);
-        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, meleeAttacks);
+        HashMap<String, MeleeWeapon> meleeWeapons = getCustomMeleeWeapons(in);
+        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, meleeWeapons);
     }
 
     /**
@@ -96,39 +96,47 @@ public class InitializationScript {
     /**
      *
      * @param in Scanner to get User Input
-     * @return A HashMap with Names and DiceRolls for Melee Attacks
+     * @return A HashMap of MeleeWeapon.name and MeleeWeapons containing a HashMap of MeleeAttacks.
      */
-    private static HashMap<String, DiceRoll> getMeleeDiceRolls(Scanner in) {
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        System.out.println("How many Attacks would you like to add?");
-        int numberOfMeleeAttacks = Integer.parseInt(in.nextLine().toUpperCase());
-        for (int i = 0; i < numberOfMeleeAttacks; i++) {
-            System.out.println("Adding attack number "+(i+1));
-            boolean validDice = false;
-            while (!validDice){
-                System.out.println("What is the attack name?");
-                String attackName = in.nextLine();
-                System.out.println("What is the die size?");
-                int dieSize =  Integer.parseInt(in.nextLine().toUpperCase());
-                System.out.println("What is the number of dice?");
-                int numDice =  Integer.parseInt(in.nextLine().toUpperCase());
-                System.out.println("What is base modifier");
-                int modifier = Integer.parseInt(in.nextLine().toUpperCase());
-                validDice = true;
-                try{
-                    DiceRoll newMeleeAttack = new DiceRoll(dieSize, numDice, modifier);
-                    meleeAttacks.put(attackName, newMeleeAttack);
-                }catch (IllegalArgumentException e){
-                    validDice = false;
-                    System.out.println("Invalid die size, try again. Accepted die size are: ");
-                    for(int validDieSize : Dice.validDiceSizes){
-                        System.out.println("  "+validDieSize);
+    private static HashMap<String, MeleeWeapon> getCustomMeleeWeapons(Scanner in) {
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        System.out.println("How many Melee Weapons would you like to add?");
+        int numberOfMeleeWeapons = Integer.parseInt(in.nextLine().toUpperCase());
+        for (int i = 0; i < numberOfMeleeWeapons; i++) {
+            System.out.println("Adding Melee Weapon number "+(i+1));
+            System.out.println("What is the name of this Melee Weapon?");
+            String weaponName = in.nextLine();
+            HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
+            System.out.println("How many modes does this Melee Weapon have?");
+            int modes = Integer.parseInt(in.nextLine().toUpperCase());
+            for (int j = 0; j < modes; j++) {
+                System.out.println("Adding mode number " + (j + 1));
+                boolean validDice = false;
+                while (!validDice){
+                    System.out.println("What is the attack name?");
+                    String attackName = in.nextLine();
+                    System.out.println("What is the die size?");
+                    int dieSize =  Integer.parseInt(in.nextLine().toUpperCase());
+                    System.out.println("What is the number of dice?");
+                    int numDice =  Integer.parseInt(in.nextLine().toUpperCase());
+                    System.out.println("What is base modifier");
+                    int modifier = Integer.parseInt(in.nextLine().toUpperCase());
+                    validDice = true;
+                    try{
+                        MeleeAttack newMeleeAttack = new MeleeAttack(attackName, new DiceRoll(dieSize, numDice, modifier));
+                        meleeAttacks.put(attackName, newMeleeAttack);
+                    }catch (IllegalArgumentException e){
+                        validDice = false;
+                        System.out.println("Invalid die size, try again. Accepted die size are: ");
+                        for(int validDieSize : Dice.validDiceSizes){
+                            System.out.println("  "+validDieSize);
+                        }
                     }
                 }
             }
-
+            meleeWeapons.put(weaponName, new MeleeWeapon(weaponName, meleeAttacks));
         }
-        return meleeAttacks;
+        return meleeWeapons;
     }
 
     public static Squad makeGoblins(){
@@ -142,10 +150,11 @@ public class InitializationScript {
         slingsModes.put("Slings", slingsAttack);
         skirmishWeapons.put("Slings", new SkirmishWeapon("Slings", slingsModes));
         DiceRoll charge = new DiceRoll(20, 1, 1);
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        DiceRoll meleeDogslicers = new DiceRoll(6, 5, 5);
-        meleeAttacks.put("Dogslicers", meleeDogslicers);
-        return new Squad("Goblin Mob","Goblin", 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeAttacks);
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        HashMap<String, MeleeAttack> dogslicerMeleeModes = new HashMap<>();
+        dogslicerMeleeModes.put("Dogslicers", new MeleeAttack("Dogslicers", new DiceRoll(6, 5, 5)));
+        meleeWeapons.put("Dogslicers", new MeleeWeapon("Dogslicers", dogslicerMeleeModes));
+        return new Squad("Goblin Mob","Goblin", 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeWeapons);
     }
 
     static Squad makeGarrison() {
@@ -161,11 +170,13 @@ public class InitializationScript {
         sidearmsModes.put("Sidearms", sidearmsNormal);
         skirmishWeapons.put("Sidearms", new SkirmishWeapon("Sidearms", sidearmsModes));
         DiceRoll charge = new DiceRoll(20, 1, 3);
-        HashMap<String, DiceRoll> meleeAttacks = new HashMap<>();
-        DiceRoll meleeSpears = new DiceRoll(8, 4, 2);
-        meleeAttacks.put("Spears", meleeSpears);
-        DiceRoll meleeSidearms = new DiceRoll(4, 4, 2);
-        meleeAttacks.put("Sidearms", meleeSidearms);
-        return new Squad("Lorrainean Garrison Spearman", "Val DeLaure", 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeAttacks);
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        HashMap<String, MeleeAttack> spearMeleeModes = new HashMap<>();
+        spearMeleeModes.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 2)));
+        meleeWeapons.put("Spears", new MeleeWeapon("Spears", spearMeleeModes));
+        HashMap<String, MeleeAttack> sidearmMeleeModes = new HashMap<>();
+        sidearmMeleeModes.put("Sidearms", new MeleeAttack("Sidearms", new DiceRoll(4, 4, 2)));
+        meleeWeapons.put("Sidearms", new MeleeWeapon("Sidearms", sidearmMeleeModes));
+        return new Squad("Lorrainean Garrison Spearman", "Val DeLaure", 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeWeapons);
     }
 }
