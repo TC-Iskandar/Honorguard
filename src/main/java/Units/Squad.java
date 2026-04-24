@@ -21,6 +21,8 @@ public class Squad {
     private String faction;
 
     public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
+        validateSkirmishWeapons(skirmishAttacks);
+        validateMeleeWeapons(meleeWeapons);
         this.baseSkirmishDefense = baseSkirmishDefense;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
@@ -35,6 +37,28 @@ public class Squad {
         this.chargeAttack = charge;
         this.meleeWeapons = meleeWeapons;
         this.faction= faction;
+    }
+
+    private void validateSkirmishWeapons(HashMap<String, SkirmishWeapon> skirmishWeapons) {
+        if (skirmishWeapons == null || skirmishWeapons.isEmpty()) {
+            throw new IllegalArgumentException("Squad must have at least one Skirmish Weapon.");
+        }
+        for (SkirmishWeapon weapon : skirmishWeapons.values()) {
+            if (weapon.getModes().isEmpty()) {
+                throw new IllegalArgumentException("Skirmish Weapon " + weapon.getName() + " must have at least one mode.");
+            }
+        }
+    }
+
+    private void validateMeleeWeapons(HashMap<String, MeleeWeapon> meleeWeapons) {
+        if (meleeWeapons == null || meleeWeapons.isEmpty()) {
+            throw new IllegalArgumentException("Squad must have at least one Melee Weapon.");
+        }
+        for (MeleeWeapon weapon : meleeWeapons.values()) {
+            if (weapon.getModes().isEmpty()) {
+                throw new IllegalArgumentException("Melee Weapon " + weapon.getName() + " must have at least one mode.");
+            }
+        }
     }
 
     public int getBaseChargeDefense() {
