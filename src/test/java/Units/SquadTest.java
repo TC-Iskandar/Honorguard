@@ -35,15 +35,15 @@ public class SquadTest {
 
     private static Squad createSquadWithChargeAttack(int casualties, DiceRoll chargeAttack) {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
-        return new Squad("Test Squad", "Test Faction", 5, 2, casualties, 1, 1, 1, skirmishWeapons, chargeAttack, createDaggerMeleeWeapons());
+        return new Squad("Test Squad", "Test Faction", 5, 2, casualties, 1, 1, 1, skirmishWeapons, chargeAttack, createSpearsMeleeWeapons());
     }
 
-    private static HashMap<String, MeleeWeapon> createDaggerMeleeWeapons() {
+    private static HashMap<String, MeleeWeapon> createSpearsMeleeWeapons() {
         HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Stab", new MeleeAttack("Stab", new DiceRoll(4, 1, 0)));
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 2)));
 
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
-        meleeWeapons.put("Dagger", new MeleeWeapon("Dagger", meleeAttacks));
+        meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
         return meleeWeapons;
     }
 
@@ -114,7 +114,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
 
         squad.rollSkirmishAttack("Javelins", "Javelin Throw", 100);
         assertThrows(IllegalStateException.class, () -> squad.rollSkirmishAttack("Javelins", "Javelin Throw", 100));
@@ -138,7 +138,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
 
         int damage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
 
@@ -164,7 +164,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
 
         int firstDamage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
         int secondDamage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
@@ -201,7 +201,7 @@ public class SquadTest {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createDaggerMeleeWeapons());
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
 
         int damage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
 
