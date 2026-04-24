@@ -214,14 +214,14 @@ public class SquadTest {
         when(mockDiceRoll.roll(12, 2)).thenReturn(5);
 
         HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Slash", new MeleeAttack("Slash", mockDiceRoll));
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", mockDiceRoll));
 
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
-        meleeWeapons.put("Sword", new MeleeWeapon("Sword", meleeAttacks));
+        meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
 
         Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), meleeWeapons);
 
-        int damage = squad.rollMeleeAttack("Sword", "Slash", 12);
+        int damage = squad.rollMeleeAttack("Spears", "Spears", 12);
 
         assertEquals(2, damage);
     }
@@ -229,14 +229,14 @@ public class SquadTest {
     @Test
     public void invalidMeleeAttackModeThrows() {
         HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Slash", new MeleeAttack("Slash", new DiceRoll(8, 1, 0)));
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 0)));
 
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
-        meleeWeapons.put("Sword", new MeleeWeapon("Sword", meleeAttacks));
+        meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
 
         Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), meleeWeapons);
 
-        assertThrows(IllegalArgumentException.class, () -> squad.rollMeleeAttack("Sword", "Pommel Strike", 12));
+        assertThrows(IllegalArgumentException.class, () -> squad.rollMeleeAttack("Spears", "Throw!!", 12));
     }
 
     @ParameterizedTest(name = "failedCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, failedAttacks={4}, crits={6}")

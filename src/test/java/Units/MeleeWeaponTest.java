@@ -16,8 +16,8 @@ public class MeleeWeaponTest {
                 "  Pikes 10-25ft: 3d6 + 0\n" +
                 "  Pikes 25-40ft: 5d6 + 0\n";
         HashMap<String, MeleeAttack> attacks = new LinkedHashMap<>();
-        attacks.put("Hook", new MeleeAttack("Pikes 10-25ft", new DiceRoll(6, 3, 0)));
-        attacks.put("Chop", new MeleeAttack("Pikes 25-40ft", new DiceRoll(6, 5, 0)));
+        attacks.put("Pikes 10-25ft", new MeleeAttack("Pikes 10-25ft", new DiceRoll(6, 3, 0)));
+        attacks.put("Pikes 25-40ft", new MeleeAttack("Pikes 25-40ft", new DiceRoll(6, 5, 0)));
         MeleeWeapon poleaxe = new MeleeWeapon("Pikes", attacks);
 
         assertEquals(output, poleaxe.toString());
