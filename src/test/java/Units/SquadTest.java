@@ -39,7 +39,7 @@ public class SquadTest {
 
     private static HashMap<String, SkirmishWeapon> createJavelinSkirmishWeapons() {
         HashMap<String, SkirmishAttack> skirmishAttacks = new HashMap<>();
-        skirmishAttacks.put("Javelin Throw", new SkirmishAttack("Javelin Throw", new DiceRoll(6, 6, 2), true, -1));
+        skirmishAttacks.put("Javelin Throw", new SkirmishAttack("Javelin Throw", new DiceRoll(6, 6, 2), false, 10));
 
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", skirmishAttacks));
