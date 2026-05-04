@@ -191,12 +191,12 @@ public class Squad {
         String attackString = "Attacks: \n";
         String skirmishAttackLine = "Skirmish Attacks: \n";
         for (String skirmishAttackName : skirmishWeapons.keySet()){
-            String attackLine = skirmishAttackName + ": " + skirmishWeapons.get(skirmishAttackName).toString()+"\n";
+            String attackLine = skirmishWeapons.get(skirmishAttackName).toString()+"\n";
             skirmishAttackLine += attackLine.indent(2);
         }
         String meleeAttackLine = "Melee Attacks: \n";
         for (String meleeWeaponName : meleeWeapons.keySet()){
-            String attackLine = meleeWeaponName + ": " + meleeWeapons.get(meleeWeaponName).toString()+"\n";
+            String attackLine = meleeWeapons.get(meleeWeaponName).toString()+"\n";
             meleeAttackLine += attackLine.indent(2);
         }
         String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
