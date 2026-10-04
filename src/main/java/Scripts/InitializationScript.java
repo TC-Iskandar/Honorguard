@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class InitializationScript {
+    private  static final Traits traits = Traits.getInstance();
     /***
      * Prompts the user for necessary arguments to make a squad.
      * @return A completed usermade Squad.
@@ -154,7 +155,9 @@ public class InitializationScript {
         HashMap<String, MeleeAttack> dogslicerMeleeModes = new HashMap<>();
         dogslicerMeleeModes.put("Dogslicers", new MeleeAttack("Dogslicers", new DiceRoll(6, 5, 5)));
         meleeWeapons.put("Dogslicers", new MeleeWeapon("Dogslicers", dogslicerMeleeModes));
-        return new Squad("Goblin Mob","Goblin", 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeWeapons);
+        HashMap<String, Trait> goblinMobTraits = new HashMap<>();
+        goblinMobTraits.put("Loose Formation", traits.getTrait("Loose Formation"));
+        return new Squad("Goblin Mob","Goblin", 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeWeapons, goblinMobTraits);
     }
 
     static Squad makeGarrison() {
@@ -177,6 +180,11 @@ public class InitializationScript {
         HashMap<String, MeleeAttack> sidearmMeleeModes = new HashMap<>();
         sidearmMeleeModes.put("Sidearms", new MeleeAttack("Sidearms", new DiceRoll(4, 4, 2)));
         meleeWeapons.put("Sidearms", new MeleeWeapon("Sidearms", sidearmMeleeModes));
-        return new Squad("Lorrainean Garrison Spearman", "Val DeLaure", 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeWeapons);
+        HashMap<String, Trait> garrisonSpearmenTraits = new HashMap<>();
+        garrisonSpearmenTraits.put("Combined Arms (Infantry +2)", traits.getTrait("Combined Arms (Infantry +2)"));
+        garrisonSpearmenTraits.put("Raise Spears (+2)", traits.getTrait("Raise Spears (+2)"));
+        garrisonSpearmenTraits.put("Shields Up (+2)", traits.getTrait("Shields Up (+2)"));
+        garrisonSpearmenTraits.put("Shield Wall", traits.getTrait("Shield Wall"));
+        return new Squad("Lorrainean Garrison Spearman", "Val DeLaure", 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeWeapons, garrisonSpearmenTraits);
     }
 }

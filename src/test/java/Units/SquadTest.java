@@ -248,6 +248,48 @@ public class SquadTest {
     }
 
     @Test
+    public void squadHasTraitAfterTraitIsAdded() {
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Trait trait = new Trait("Raise Spears (+2)", "Increase Charge Defense by 2 until beginning of next round.");
+
+        squad.addTrait("Raise Spears (+2)", trait);
+
+        assertTrue(squad.hasTrait("Raise Spears (+2)"));
+    }
+
+    @Test
+    public void squadDoesNotHaveTraitBeforeTraitIsAdded() {
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+
+        assertFalse(squad.hasTrait("Shield Wall"));
+    }
+
+    @Test
+    public void squadHasTraitProvidedToConstructor() {
+        HashMap<String, Trait> traits = new HashMap<>();
+        traits.put("Shield Wall", new Trait("Shield Wall", "This unit may use Shields Up Multiple times in a round."));
+
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons(), traits);
+
+        assertTrue(squad.hasTrait("Shield Wall"));
+    }
+
+    @Test
+    public void currentStatusIncludesTraitsBetweenDefencesAndAttacks() {
+        HashMap<String, Trait> traits = new HashMap<>();
+        traits.put("Shield Wall", new Trait("Shield Wall", "This unit may use Shields Up Multiple times in a round."));
+
+        Squad squad = new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons(), traits);
+
+        String status = squad.getCurrentStatus();
+
+        assertTrue(status.contains("Traits: \n"));
+        assertTrue(status.contains("Name: Shield Wall\n"));
+        assertTrue(status.indexOf("Traits: \n") > status.indexOf("Defences: \n"));
+        assertTrue(status.indexOf("Traits: \n") < status.indexOf("Attacks: \n"));
+    }
+
+    @Test
     public void constructorThrowsWhenSkirmishWeaponsAreEmpty() {
         assertThrows(IllegalArgumentException.class,
                 () -> new Squad("Test Squad", "Test Faction", 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons()));
