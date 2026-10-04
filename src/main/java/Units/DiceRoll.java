@@ -6,6 +6,9 @@ public class DiceRoll {
     private int baseModifier;
 
     public DiceRoll (int dieSize, int numberOfDice, int baseModifier){
+        if (numberOfDice < 1) {
+            throw new IllegalArgumentException("Number of dice must be at least 1");
+        }
         this.dice = new Dice(dieSize);
         this.numberOfDice =numberOfDice;
         this.baseModifier = baseModifier;

@@ -19,13 +19,13 @@ public class Squad {
     private DiceRoll chargeAttack;
     private HashMap<String, MeleeWeapon> meleeWeapons;
     private HashMap<String, Trait> traits;
-    private String faction;
+    private Factions faction;
 
-    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
+    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
         this(name, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, meleeWeapons, new HashMap<>());
     }
 
-    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
+    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
         validateSkirmishWeapons(skirmishAttacks);
         validateMeleeWeapons(meleeWeapons);
         this.baseSkirmishDefense = baseSkirmishDefense;
