@@ -18,9 +18,14 @@ public class Squad {
     private HashMap<String, SkirmishWeapon> skirmishWeapons;
     private DiceRoll chargeAttack;
     private HashMap<String, MeleeWeapon> meleeWeapons;
+    private HashMap<String, Trait> traits;
     private String faction;
 
     public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
+        this(name, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, meleeWeapons, new HashMap<>());
+    }
+
+    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
         validateSkirmishWeapons(skirmishAttacks);
         validateMeleeWeapons(meleeWeapons);
         this.baseSkirmishDefense = baseSkirmishDefense;
@@ -36,6 +41,7 @@ public class Squad {
         this.skirmishWeapons = skirmishAttacks;
         this.chargeAttack = charge;
         this.meleeWeapons = meleeWeapons;
+        this.traits = traits;
         this.faction= faction;
     }
 
@@ -85,6 +91,14 @@ public class Squad {
 
     public int getChargeDefence(){
         return 10 + baseChargeDefence + currentMorale + currentDiscipline;
+    }
+
+    public void addTrait(String traitName, Trait trait) {
+        traits.put(traitName, trait);
+    }
+
+    public boolean hasTrait(String traitName) {
+        return traits.containsKey(traitName);
     }
 
     public class ChargeResult{
@@ -187,7 +201,12 @@ public class Squad {
         String skirmishDefenceLine = "Skirmish Defence: "+getSkirmishDefence()+"\n";
         String meleeDefenseLine = "Melee Defence: "+getMeleeDefense()+"\n";
         String chargeDefenceLine = "Charge Defence: "+ getChargeDefence()+"\n";
-        defenseString = defenseString + skirmishDefenceLine.indent(2) + meleeDefenseLine.indent(2) + chargeDefenceLine.indent(2);
+        defenseString = defenseString + skirmishDefenceLine.indent(2) + meleeDefenseLine.indent(2) + chargeDefenceLine.indent(2) + "\n";
+        String traitString = "Traits: \n";
+        for (String traitName : traits.keySet()){
+            String traitLine = traits.get(traitName).toString()+"\n";
+            traitString += traitLine.indent(2);
+        }
         String attackString = "Attacks: \n";
         String skirmishAttackLine = "Skirmish Attacks: \n";
         for (String skirmishAttackName : skirmishWeapons.keySet()){
@@ -201,7 +220,7 @@ public class Squad {
         }
         String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ meleeAttackLine.indent(2) + chargeAttackLine.indent(2);
-        return nameLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+attackString;
+        return nameLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+traitString+attackString;
     }
 
     public void exportAsCSV() throws IOException {
