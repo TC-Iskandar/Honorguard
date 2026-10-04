@@ -12,7 +12,8 @@ public class InitializationScriptTest {
     @Test
     public void userMadeSquadAsksAgainUntilEachAnswerIsValid() {
         Scanner in = new Scanner(String.join("\n",
-                "Rangers", "Elves",     // name, faction
+                "Rangers",              // name
+                "0", "9", "8",          // faction: only 1 to 8 are listed, 8 is Wood Elves
                 "abc", "10",            // morale: not a number
                 " 2 ",                  // discipline: surrounding spaces are ignored
                 "", "6",                // casualties: empty line
@@ -41,6 +42,7 @@ public class InitializationScriptTest {
         assertEquals(2, squad.getBaseDiscipline());
         String status = squad.getCurrentStatus();
         List<String> lines = status.lines().map(String::strip).toList();
+        assertTrue(lines.contains("Faction: Wood Elves"), status);
         assertTrue(lines.contains("Casualty: 6/6"), status);
         assertTrue(lines.contains("Volley: 2d6 + 3 3/3"), status);
         assertTrue(lines.contains("Aimed: 1d8 + 4"), status);

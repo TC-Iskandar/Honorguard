@@ -16,8 +16,7 @@ public class InitializationScript {
     public static Squad userMadeSquad(Scanner in) {
         System.out.println("\n Please enter a name: ");
         String name = in.nextLine();
-        System.out.println("Please enter a faction: ");
-        String faction = in.nextLine();
+        Factions faction = readFaction(in);
         int morale = readInt(in, "Please enter a morale value: ");
         int discipline = readInt(in, "Please enter a discipline value: ");
         int casualties = readInt(in, "Please enter a casualty value: ");
@@ -157,6 +156,24 @@ public class InitializationScript {
         }
     }
 
+    /**
+     * Lists the factions and asks until one is picked by its number.
+     */
+    private static Factions readFaction(Scanner in) {
+        Factions[] factions = Factions.values();
+        String question = "Choose a faction:";
+        for (int i = 0; i < factions.length; i++) {
+            question += "\n " + (i + 1) + ". " + factions[i];
+        }
+        while (true) {
+            int choice = readInt(in, question);
+            if (choice >= 1 && choice <= factions.length) {
+                return factions[choice - 1];
+            }
+            System.out.println("Please choose a number from 1 to " + factions.length + ".");
+        }
+    }
+
     public static Squad makeGoblins(){
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         HashMap<String, SkirmishAttack> dogslicerModes = new HashMap<>();
@@ -172,7 +189,7 @@ public class InitializationScript {
         HashMap<String, MeleeAttack> dogslicerMeleeModes = new HashMap<>();
         dogslicerMeleeModes.put("Dogslicers", new MeleeAttack("Dogslicers", new DiceRoll(6, 5, 5)));
         meleeWeapons.put("Dogslicers", new MeleeWeapon("Dogslicers", dogslicerMeleeModes));
-        return new Squad("Goblin Mob","Goblin", 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeWeapons);
+        return new Squad("Goblin Mob", Factions.GOBLIN, 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeWeapons);
     }
 
     static Squad makeGarrison() {
@@ -195,6 +212,6 @@ public class InitializationScript {
         HashMap<String, MeleeAttack> sidearmMeleeModes = new HashMap<>();
         sidearmMeleeModes.put("Sidearms", new MeleeAttack("Sidearms", new DiceRoll(4, 4, 2)));
         meleeWeapons.put("Sidearms", new MeleeWeapon("Sidearms", sidearmMeleeModes));
-        return new Squad("Lorrainean Garrison Spearman", "Val DeLaure", 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeWeapons);
+        return new Squad("Lorrainean Garrison Spearman", Factions.VAL_DELAURE, 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeWeapons);
     }
 }

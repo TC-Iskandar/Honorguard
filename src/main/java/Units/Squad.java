@@ -18,9 +18,9 @@ public class Squad {
     private HashMap<String, SkirmishWeapon> skirmishWeapons;
     private DiceRoll chargeAttack;
     private HashMap<String, MeleeWeapon> meleeWeapons;
-    private String faction;
+    private Factions faction;
 
-    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
+    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
         validateSkirmishWeapons(skirmishAttacks);
         validateMeleeWeapons(meleeWeapons);
         this.baseSkirmishDefense = baseSkirmishDefense;
