@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.function.IntPredicate;
 
 public class InitializationScript {
     /***
@@ -16,6 +17,7 @@ public class InitializationScript {
     public static Squad userMadeSquad(Scanner in) {
         System.out.println("\n Please enter a name: ");
         String name = in.nextLine();
+        System.out.println("");
         Factions faction = readFaction(in);
         int morale = readInt(in, "Please enter a morale value: ");
         int discipline = readInt(in, "Please enter a discipline value: ");
@@ -97,15 +99,20 @@ public class InitializationScript {
     }
 
     private static int readInt(Scanner in, String question, int min) {
+        return readInt(in, question, value -> value >= min, "Must be at least " + min + ".");
+    }
+
+    private static int readInt(Scanner in, String question, IntPredicate isValid, String rule) {
         while (true) {
             System.out.println(question);
             String input = in.nextLine().trim();
             try {
                 int value = Integer.parseInt(input);
-                if (value >= min) {
+                if (isValid.test(value)) {
+                    System.out.println("");
                     return value;
                 }
-                System.out.println("Must be at least " + min + ". Try again.");
+                System.out.println(rule + " Try again.");
             } catch (NumberFormatException e) {
                 System.out.println("\"" + input + "\" is not a valid whole number. Try again.");
             }
@@ -116,13 +123,9 @@ public class InitializationScript {
      * Asks for a die size until it is one of Dice.validDiceSizes.
      */
     private static int readDieSize(Scanner in) {
-        while (true) {
-            int dieSize = readInt(in, "What is the die size?");
-            if (Arrays.stream(Dice.validDiceSizes).anyMatch(size -> size == dieSize)) {
-                return dieSize;
-            }
-            System.out.println(dieSize + " is not a valid die size. Accepted die sizes are: " + Arrays.toString(Dice.validDiceSizes));
-        }
+        return readInt(in, "What is the die size?",
+                size -> Arrays.stream(Dice.validDiceSizes).anyMatch(valid -> valid == size),
+                "Not a valid die size. Accepted die sizes are: " + Arrays.toString(Dice.validDiceSizes) + ".");
     }
 
     /**
@@ -132,11 +135,9 @@ public class InitializationScript {
         while (true) {
             System.out.println(question);
             String input = in.nextLine().trim();
-            if (input.equalsIgnoreCase("true")) {
-                return true;
-            }
-            if (input.equalsIgnoreCase("false")) {
-                return false;
+            if (input.equalsIgnoreCase("true") || input.equalsIgnoreCase("false")) {
+                System.out.println("");
+                return input.equalsIgnoreCase("true");
             }
             System.out.println("Please enter true or false.");
         }
@@ -150,6 +151,7 @@ public class InitializationScript {
             System.out.println(question);
             String name = in.nextLine().trim();
             if (!takenNames.contains(name)) {
+                System.out.println("");
                 return name;
             }
             System.out.println("\"" + name + "\" is already used. Choose a different name.");
@@ -165,13 +167,9 @@ public class InitializationScript {
         for (int i = 0; i < factions.length; i++) {
             question += "\n " + (i + 1) + ". " + factions[i];
         }
-        while (true) {
-            int choice = readInt(in, question);
-            if (choice >= 1 && choice <= factions.length) {
-                return factions[choice - 1];
-            }
-            System.out.println("Please choose a number from 1 to " + factions.length + ".");
-        }
+        int choice = readInt(in, question, number -> number >= 1 && number <= factions.length,
+                "Please choose a number from 1 to " + factions.length + ".");
+        return factions[choice - 1];
     }
 
     public static Squad makeGoblins(){
