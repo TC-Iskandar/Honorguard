@@ -15,12 +15,14 @@ public class Squad {
     private int currentMorale;
     private int currentDiscipline;
     private int currentCasualties;
-    private HashMap<String, DiceRoll> skirmishAttacks;
+    private HashMap<String, SkirmishWeapon> skirmishWeapons;
     private DiceRoll chargeAttack;
-    private HashMap<String, DiceRoll> meleeAttacks;
+    private HashMap<String, MeleeWeapon> meleeWeapons;
     private String faction;
 
-    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, DiceRoll> skirmishAttacks, DiceRoll charge, HashMap<String, DiceRoll> meleeAttacks) {
+    public Squad(String name, String faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
+        validateSkirmishWeapons(skirmishAttacks);
+        validateMeleeWeapons(meleeWeapons);
         this.baseSkirmishDefense = baseSkirmishDefense;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
@@ -31,10 +33,32 @@ public class Squad {
         this.currentMorale= this.baseMorale;
         this.currentDiscipline = this.baseDiscipline;
         this.currentCasualties = this.baseCasualties;
-        this.skirmishAttacks = skirmishAttacks;
+        this.skirmishWeapons = skirmishAttacks;
         this.chargeAttack = charge;
-        this.meleeAttacks = meleeAttacks;
+        this.meleeWeapons = meleeWeapons;
         this.faction= faction;
+    }
+
+    private void validateSkirmishWeapons(HashMap<String, SkirmishWeapon> skirmishWeapons) {
+        if (skirmishWeapons == null || skirmishWeapons.isEmpty()) {
+            throw new IllegalArgumentException("Squad must have at least one Skirmish Weapon.");
+        }
+        for (SkirmishWeapon weapon : skirmishWeapons.values()) {
+            if (weapon.getModes().isEmpty()) {
+                throw new IllegalArgumentException("Skirmish Weapon " + weapon.getName() + " must have at least one mode.");
+            }
+        }
+    }
+
+    private void validateMeleeWeapons(HashMap<String, MeleeWeapon> meleeWeapons) {
+        if (meleeWeapons == null || meleeWeapons.isEmpty()) {
+            throw new IllegalArgumentException("Squad must have at least one Melee Weapon.");
+        }
+        for (MeleeWeapon weapon : meleeWeapons.values()) {
+            if (weapon.getModes().isEmpty()) {
+                throw new IllegalArgumentException("Melee Weapon " + weapon.getName() + " must have at least one mode.");
+            }
+        }
     }
 
     public int getBaseChargeDefense() {
@@ -65,9 +89,13 @@ public class Squad {
 
     public class ChargeResult{
         public int numberOfCrits;
+        public int successfulAttacks;
+        public int failedAttacks;
         public boolean chargeSuccessful;
-        public ChargeResult(int numberOfCrits, boolean isChargeSuccessful){
+        public ChargeResult(int numberOfCrits, int successfulAttacks, int failedAttacks, boolean isChargeSuccessful){
             this.numberOfCrits = numberOfCrits;
+            this.successfulAttacks = successfulAttacks;
+            this.failedAttacks = failedAttacks;
             this.chargeSuccessful = isChargeSuccessful;
         }
     }
@@ -75,60 +103,77 @@ public class Squad {
     public ChargeResult rollChargeAttack(int difficultyClass, int enemyCasualties){
         boolean chargeSuccesful = false;
         int succeededAttacks = 0;
+        int failedAttacks = 0;
         int numberOfCrits = 0;
         for(int i =0; i< currentCasualties; i++) {
             int chargeDifference = chargeAttack.roll(difficultyClass, currentMorale+currentDiscipline);
             if(chargeDifference < 0){
+                failedAttacks++;
                 System.out.println("Charge attack "+i+" failed.");
             }else {
                 succeededAttacks++;
                 if(chargeDifference > 9){
                     numberOfCrits++;
-                    System.out.println("Charge attack" +i+" critically succeeded.");
+                    System.out.println("Charge attack " +i+" critically succeeded.");
                 }else{
-                    System.out.println("Charge attack "+ i+ " succeeded.");
+                    System.out.println("Charge attack "+ i + " succeeded.");
                 }
             }
         }
-        if (succeededAttacks > (currentCasualties/2) || succeededAttacks> enemyCasualties){
+        if (succeededAttacks * 2 >= currentCasualties || succeededAttacks > enemyCasualties){
             chargeSuccesful = true;
         }
-        return new ChargeResult(numberOfCrits, chargeSuccesful);
+        return new ChargeResult(numberOfCrits, succeededAttacks, failedAttacks, chargeSuccesful);
     }
 
-    public int rollSkirmishAttack(String name, int difficultyClass) {
-        if (skirmishAttacks.containsKey(name)){
-            DiceRoll skirmishAttack = skirmishAttacks.get(name);
-            int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
-            int damage = 0;
-            if (overflow >= 0){
-                damage = overflow/5+1;
-                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
-            } else {
-                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
-            }
+    public int rollSkirmishAttack(String weaponName, String attackName, int difficultyClass) {
+        if (skirmishWeapons.containsKey(weaponName)){
+            SkirmishWeapon weapon = skirmishWeapons.get(weaponName);
+            if (weapon.getModes().containsKey(attackName)){
+                SkirmishAttack attack = weapon.getModes().get(attackName);
+                if (attack.isExpended()){
+                    throw new IllegalStateException("Skirmish Attack Mode " + attackName + " for Skirmish Weapon " + weapon.getName() + " has been expended.");
+                }
+                DiceRoll skirmishAttack = attack.getRoll();
+                int overflow = skirmishAttack.roll(difficultyClass, currentDiscipline);
+                attack.useAttack();
+                int damage = 0;
+                if (overflow >= 0){
+                    damage = overflow/5+1;
+                    System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+                } else {
+                    System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
+                }
 
-            return damage;
-        } else {
-            throw new IllegalArgumentException("Invalid Melee Attack.");
+                return damage;
+            } else {
+                throw new IllegalArgumentException("Invalid Skirmish Attack Mode for Skirmish Weapon " +weapon.getName());
+            }
+        }else {
+            throw new IllegalArgumentException("Invalid Skirmish Weapon for Squad "+name);
         }
     }
+    public int rollMeleeAttack(String weaponName, String attackName, int difficultyClass) {
+        if (meleeWeapons.containsKey(weaponName)){
+            MeleeWeapon weapon = meleeWeapons.get(weaponName);
+            if (weapon.getModes().containsKey(attackName)){
+                MeleeAttack attack = weapon.getModes().get(attackName);
+                DiceRoll meleeAttack = attack.getRoll();
+                int overflow = meleeAttack.roll(difficultyClass, currentDiscipline);
+                int damage = 0;
+                if (overflow >= 0){
+                    damage = overflow/5+1;
+                    System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+                } else {
+                    System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
+                }
 
-    public int rollMeleeAttack(String name, int difficultyClass) {
-        if (meleeAttacks.containsKey(name)){
-            DiceRoll meleeAttack = meleeAttacks.get(name);
-            int overflow = meleeAttack.roll(difficultyClass, currentDiscipline);
-            int damage = 0;
-            if (overflow >= 0){
-                damage = overflow/5+1;
-                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+                return damage;
             } else {
-                System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
+                throw new IllegalArgumentException("Invalid Melee Attack Mode for Melee Weapon " + weapon.getName());
             }
-
-            return damage;
         } else {
-            throw new IllegalArgumentException("Invalid Melee Attack.");
+            throw new IllegalArgumentException("Invalid Melee Weapon for Squad "+name);
         }
     }
 
@@ -145,13 +190,13 @@ public class Squad {
         defenseString = defenseString + skirmishDefenceLine.indent(2) + meleeDefenseLine.indent(2) + chargeDefenceLine.indent(2);
         String attackString = "Attacks: \n";
         String skirmishAttackLine = "Skirmish Attacks: \n";
-        for (String skirmishAttackName : skirmishAttacks.keySet()){
-            String attackLine = skirmishAttackName + ": " + skirmishAttacks.get(skirmishAttackName).toString()+"\n";
+        for (String skirmishAttackName : skirmishWeapons.keySet()){
+            String attackLine = skirmishWeapons.get(skirmishAttackName).toString()+"\n";
             skirmishAttackLine += attackLine.indent(2);
         }
         String meleeAttackLine = "Melee Attacks: \n";
-        for (String meleeAttackName : meleeAttacks.keySet()){
-            String attackLine = meleeAttackName + ": " + meleeAttacks.get(meleeAttackName).toString()+"\n";
+        for (String meleeWeaponName : meleeWeapons.keySet()){
+            String attackLine = meleeWeapons.get(meleeWeaponName).toString()+"\n";
             meleeAttackLine += attackLine.indent(2);
         }
         String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";

@@ -1,8 +1,8 @@
-import Scripts.InitializationScript;
-import Units.DiceRoll;
-import Units.Squad;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+package Units;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DiceRollTest {
     @Test

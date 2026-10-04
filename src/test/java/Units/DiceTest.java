@@ -1,8 +1,9 @@
-import Units.Dice;
+package Units;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DiceTest {
 
@@ -10,12 +11,12 @@ public class DiceTest {
     @ParameterizedTest
     @ValueSource(ints = {0, -1, -5, -3, 15, 110})
     public void InvalidDiceSize(int size){
-        assertThrows("Expected Units.Dice of Size " + size + " to be illegal but was not",
-                IllegalArgumentException.class,
-                ()->{
+        assertThrows(IllegalArgumentException.class,
+                () -> {
                     Dice dice = new Dice(size);
                     int x = dice.roll(3);
-                });
+                },
+                "Expected Units.Dice of Size " + size + " to be illegal but was not");
     }
 
 }
