@@ -45,22 +45,32 @@ public class MainMenu {
     private static void createOrViewCustomSquad() {
         Scanner in = new Scanner(System.in);
         if(customSquad == null){
-            System.out.println("\n Would you like to create a Custom Squad? (Y/N)");
-            String response = in.nextLine().toUpperCase();
-            if (response.equals("Y")) {
-                customSquad = InitializationScript.userMadeSquad();
+            if (readYesNo(in, "\n Would you like to create a Custom Squad? (Y/N)")) {
+                customSquad = InitializationScript.userMadeSquad(in);
                 System.out.println(customSquad.getCurrentStatus());
             }else{
                 System.out.println("User chose not to create a custom squad. Returning to Menu.");
             }
         }else{
-            System.out.println("\n Would you like to view your custom squad? (Y/N)");
-            String response = in.nextLine().toUpperCase();
-            if (response.equals("Y")) {
+            if (readYesNo(in, "\n Would you like to view your custom squad? (Y/N)")) {
                 System.out.println(customSquad.getCurrentStatus());
             }else{
                 System.out.println("User chose not to view their custom squad. Returning to Menu.");
             }
+        }
+    }
+
+    static boolean readYesNo(Scanner in, String question) {
+        while (true) {
+            System.out.println(question);
+            String response = in.nextLine().trim();
+            if (response.equalsIgnoreCase("Y")) {
+                return true;
+            }
+            if (response.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.println("Please enter Y or N.");
         }
     }
 
@@ -77,9 +87,7 @@ public class MainMenu {
         Scanner in = new Scanner(System.in);
 
         Squad garrison;
-        System.out.println("\n Would you like to create a Lorrainean Garrison Spearman Units Squad? (Y/N)");
-        String response = in.nextLine().toUpperCase();
-        if (response.equals("Y")) {
+        if (readYesNo(in, "\n Would you like to create a Lorrainean Garrison Spearman Units Squad? (Y/N)")) {
             garrison = InitializationScript.makeGarrison();
             System.out.println("Creating Garrison!");
             System.out.println(garrison.getCurrentStatus());
@@ -93,14 +101,12 @@ public class MainMenu {
         Scanner in = new Scanner(System.in);
 
         Squad goblins;
-        System.out.println("\n Would you like to create a Goblin Mob Squad? (Y/N)");
-        String response = in.nextLine().toUpperCase();
-        if (response.equals("Y")) {
+        if (readYesNo(in, "\n Would you like to create a Goblin Mob Squad? (Y/N)")) {
             goblins = InitializationScript.makeGoblins();
             System.out.println("Creating Goblin Units.Squad!");
             System.out.println(goblins.getCurrentStatus());
         }else{
-            System.out.println("User chose not to create a garrison. Returning to Menu.");
+            System.out.println("User chose not to create goblins. Returning to Menu.");
         }
     }
 }

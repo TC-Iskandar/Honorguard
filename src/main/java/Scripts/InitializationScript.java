@@ -2,34 +2,29 @@ package Scripts;
 
 import Units.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class InitializationScript {
     /***
      * Prompts the user for necessary arguments to make a squad.
+     * @param in Scanner to get input from user
      * @return A completed usermade Squad.
      */
-    public static Squad userMadeSquad() {
-        Scanner in = new Scanner(System.in);
+    public static Squad userMadeSquad(Scanner in) {
         System.out.println("\n Please enter a name: ");
         String name = in.nextLine();
         System.out.println("Please enter a faction: ");
         String faction = in.nextLine();
-        System.out.println("Please enter a morale value: ");
-        int morale = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter a discipline value: ");
-        int discipline = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter a casualty value: ");
-        int casualties = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter an base Skirmish Defense value: ");
-        int skirmishDefense = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter an base Melee Defense value: ");
-        int meleeDefense = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter a base Charge Defence value: ");
-        int chargeDefence = Integer.parseInt(in.nextLine().toUpperCase());
-        System.out.println("Please enter a base Charge Attack value: ");
-        int baseChargeAttack = Integer.parseInt(in.nextLine().toUpperCase());
+        int morale = readInt(in, "Please enter a morale value: ");
+        int discipline = readInt(in, "Please enter a discipline value: ");
+        int casualties = readInt(in, "Please enter a casualty value: ");
+        int skirmishDefense = readInt(in, "Please enter an base Skirmish Defense value: ");
+        int meleeDefense = readInt(in, "Please enter an base Melee Defense value: ");
+        int chargeDefence = readInt(in, "Please enter a base Charge Defence value: ");
+        int baseChargeAttack = readInt(in, "Please enter a base Charge Attack value: ");
         DiceRoll charge = new DiceRoll(20, 1, baseChargeAttack);
         System.out.println("Adding Skirmish Attacks: ");
         HashMap<String, SkirmishWeapon> skirmishWeapons = getCustomSkirmishWeapons(in);
@@ -46,47 +41,25 @@ public class InitializationScript {
      */
     private static HashMap<String, SkirmishWeapon> getCustomSkirmishWeapons(Scanner in){
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
-        System.out.println("How many Skirmish Weapons would you like to add?");
-        int numberOfSkirmishWeapons = Integer.parseInt(in.nextLine().toUpperCase());
+        int numberOfSkirmishWeapons = readInt(in, "How many Skirmish Weapons would you like to add?", 1);
         for (int i = 0; i < numberOfSkirmishWeapons; i++) {
             System.out.println("Adding Skirmish Weapon number "+(i+1));
-            System.out.println("What is the name of this Skirmish Weapon?");
-            String weaponName = in.nextLine();
+            String weaponName = readNewName(in, "What is the name of this Skirmish Weapon?", skirmishWeapons.keySet());
             HashMap<String, SkirmishAttack> skirmishAttacks = new HashMap<>();
-            System.out.println("How many modes does this Skirmish Weapon have?");
-            int modes = Integer.parseInt(in.nextLine().toUpperCase());
+            int modes = readInt(in, "How many modes does this Skirmish Weapon have?", 1);
             for (int j = 0; j < modes; j++) {
                 System.out.println("Adding mode number " + (j + 1));
-                boolean validDice = false;
-                while (!validDice) {
-                    System.out.println("What is the mode name?");
-                    String attackName = in.nextLine();
-                    System.out.println("What is the die size?");
-                    int dieSize = Integer.parseInt(in.nextLine().toUpperCase());
-                    System.out.println("What is the number of dice?");
-                    int numDice = Integer.parseInt(in.nextLine().toUpperCase());
-                    System.out.println("What is base modifier");
-                    int modifier = Integer.parseInt(in.nextLine().toUpperCase());
-                    System.out.println("Is it infinite (true/false)?");
-                    Boolean infinite = Boolean.parseBoolean(in.nextLine().toUpperCase());
-                    int numberOfUses = -1;
-                    if (!infinite) {
-                        System.out.println("What is the number of uses?");
-                        numberOfUses = Integer.parseInt(in.nextLine().toUpperCase());
-                    }
-                    validDice = true;
-                    try {
-                        SkirmishAttack attack = new SkirmishAttack(attackName, new DiceRoll(dieSize, numDice, modifier), infinite, numberOfUses);
-                        skirmishAttacks.put(attackName, attack);
-                    } catch (IllegalArgumentException e) {
-                        validDice = false;
-                        System.out.println("Invalid die size, try again. Accepted die size are: ");
-                        for (int validDieSize : Dice.validDiceSizes) {
-                            System.out.println("  " + validDieSize);
-                        }
-                    }
-
+                String attackName = readNewName(in, "What is the mode name?", skirmishAttacks.keySet());
+                int dieSize = readDieSize(in);
+                int numDice = readInt(in, "What is the number of dice?");
+                int modifier = readInt(in, "What is base modifier");
+                boolean infinite = readBoolean(in, "Is it infinite (true/false)?");
+                int numberOfUses = -1;
+                if (!infinite) {
+                    numberOfUses = readInt(in, "What is the number of uses?", 1);
                 }
+                SkirmishAttack attack = new SkirmishAttack(attackName, new DiceRoll(dieSize, numDice, modifier), infinite, numberOfUses);
+                skirmishAttacks.put(attackName, attack);
             }
             skirmishWeapons.put(weaponName, new SkirmishWeapon(weaponName, skirmishAttacks));
         }
@@ -100,43 +73,88 @@ public class InitializationScript {
      */
     private static HashMap<String, MeleeWeapon> getCustomMeleeWeapons(Scanner in) {
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
-        System.out.println("How many Melee Weapons would you like to add?");
-        int numberOfMeleeWeapons = Integer.parseInt(in.nextLine().toUpperCase());
+        int numberOfMeleeWeapons = readInt(in, "How many Melee Weapons would you like to add?", 1);
         for (int i = 0; i < numberOfMeleeWeapons; i++) {
             System.out.println("Adding Melee Weapon number "+(i+1));
-            System.out.println("What is the name of this Melee Weapon?");
-            String weaponName = in.nextLine();
+            String weaponName = readNewName(in, "What is the name of this Melee Weapon?", meleeWeapons.keySet());
             HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-            System.out.println("How many modes does this Melee Weapon have?");
-            int modes = Integer.parseInt(in.nextLine().toUpperCase());
+            int modes = readInt(in, "How many modes does this Melee Weapon have?", 1);
             for (int j = 0; j < modes; j++) {
                 System.out.println("Adding mode number " + (j + 1));
-                boolean validDice = false;
-                while (!validDice){
-                    System.out.println("What is the attack name?");
-                    String attackName = in.nextLine();
-                    System.out.println("What is the die size?");
-                    int dieSize =  Integer.parseInt(in.nextLine().toUpperCase());
-                    System.out.println("What is the number of dice?");
-                    int numDice =  Integer.parseInt(in.nextLine().toUpperCase());
-                    System.out.println("What is base modifier");
-                    int modifier = Integer.parseInt(in.nextLine().toUpperCase());
-                    validDice = true;
-                    try{
-                        MeleeAttack newMeleeAttack = new MeleeAttack(attackName, new DiceRoll(dieSize, numDice, modifier));
-                        meleeAttacks.put(attackName, newMeleeAttack);
-                    }catch (IllegalArgumentException e){
-                        validDice = false;
-                        System.out.println("Invalid die size, try again. Accepted die size are: ");
-                        for(int validDieSize : Dice.validDiceSizes){
-                            System.out.println("  "+validDieSize);
-                        }
-                    }
-                }
+                String attackName = readNewName(in, "What is the attack name?", meleeAttacks.keySet());
+                int dieSize = readDieSize(in);
+                int numDice = readInt(in, "What is the number of dice?");
+                int modifier = readInt(in, "What is base modifier");
+                MeleeAttack newMeleeAttack = new MeleeAttack(attackName, new DiceRoll(dieSize, numDice, modifier));
+                meleeAttacks.put(attackName, newMeleeAttack);
             }
             meleeWeapons.put(weaponName, new MeleeWeapon(weaponName, meleeAttacks));
         }
         return meleeWeapons;
+    }
+
+    private static int readInt(Scanner in, String question) {
+        return readInt(in, question, Integer.MIN_VALUE);
+    }
+
+    private static int readInt(Scanner in, String question, int min) {
+        while (true) {
+            System.out.println(question);
+            String input = in.nextLine().trim();
+            try {
+                int value = Integer.parseInt(input);
+                if (value >= min) {
+                    return value;
+                }
+                System.out.println("Must be at least " + min + ". Try again.");
+            } catch (NumberFormatException e) {
+                System.out.println("\"" + input + "\" is not a valid whole number. Try again.");
+            }
+        }
+    }
+
+    /**
+     * Asks for a die size until it is one of Dice.validDiceSizes.
+     */
+    private static int readDieSize(Scanner in) {
+        while (true) {
+            int dieSize = readInt(in, "What is the die size?");
+            if (Arrays.stream(Dice.validDiceSizes).anyMatch(size -> size == dieSize)) {
+                return dieSize;
+            }
+            System.out.println(dieSize + " is not a valid die size. Accepted die sizes are: " + Arrays.toString(Dice.validDiceSizes));
+        }
+    }
+
+    /**
+     * Asks the question until the answer is true or false.
+     */
+    private static boolean readBoolean(Scanner in, String question) {
+        while (true) {
+            System.out.println(question);
+            String input = in.nextLine().trim();
+            if (input.equalsIgnoreCase("true")) {
+                return true;
+            }
+            if (input.equalsIgnoreCase("false")) {
+                return false;
+            }
+            System.out.println("Please enter true or false.");
+        }
+    }
+
+    /**
+     * Asks the question until the answer is a name that is not already in takenNames.
+     */
+    private static String readNewName(Scanner in, String question, Set<String> takenNames) {
+        while (true) {
+            System.out.println(question);
+            String name = in.nextLine().trim();
+            if (!takenNames.contains(name)) {
+                return name;
+            }
+            System.out.println("\"" + name + "\" is already used. Choose a different name.");
+        }
     }
 
     public static Squad makeGoblins(){
