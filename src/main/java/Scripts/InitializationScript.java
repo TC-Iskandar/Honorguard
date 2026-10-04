@@ -53,7 +53,7 @@ public class InitializationScript {
                 System.out.println("Adding mode number " + (j + 1));
                 String attackName = readNewName(in, "What is the mode name?", skirmishAttacks.keySet());
                 int dieSize = readDieSize(in);
-                int numDice = readInt(in, "What is the number of dice?");
+                int numDice = readInt(in, "What is the number of dice?", 1);
                 int modifier = readInt(in, "What is base modifier");
                 boolean infinite = readBoolean(in, "Is it infinite (true/false)?");
                 int numberOfUses = -1;
@@ -85,7 +85,7 @@ public class InitializationScript {
                 System.out.println("Adding mode number " + (j + 1));
                 String attackName = readNewName(in, "What is the attack name?", meleeAttacks.keySet());
                 int dieSize = readDieSize(in);
-                int numDice = readInt(in, "What is the number of dice?");
+                int numDice = readInt(in, "What is the number of dice?", 1);
                 int modifier = readInt(in, "What is base modifier");
                 MeleeAttack newMeleeAttack = new MeleeAttack(attackName, new DiceRoll(dieSize, numDice, modifier));
                 meleeAttacks.put(attackName, newMeleeAttack);

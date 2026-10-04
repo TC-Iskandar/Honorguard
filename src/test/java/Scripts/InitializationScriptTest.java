@@ -23,7 +23,8 @@ public class InitializationScriptTest {
                 "0", "2",               // modes: must be at least 1
                 "Volley",
                 "5", "6",               // die size: 5 is not a valid die
-                "2", "3", "false",      // number of dice, modifier, infinite
+                "0", "2",               // number of dice: must be at least 1
+                "3", "false",           // modifier, infinite
                 "0", "3",               // uses: must be at least 1
                 "Volley", "Aimed",      // mode name: Volley is already taken
                 "8", "1", "4",
@@ -33,7 +34,8 @@ public class InitializationScriptTest {
                 "0", "1",               // modes: must be at least 1
                 "Slash",
                 "7", "6",               // die size: 7 is not a valid die
-                "1", "2"
+                "-1", "1",              // number of dice: must be at least 1
+                "2"                     // modifier
         ) + "\n");
 
         Squad squad = assertDoesNotThrow(() -> InitializationScript.userMadeSquad(in));
