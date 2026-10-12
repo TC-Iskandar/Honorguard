@@ -16,6 +16,8 @@ public class Traits {
                 new Trait("Raise Spears (+3)", "Increase Charge Defense by 3 until beginning of next round."));
         allTraits.put("Brace Pike (+4)",
                 new Trait("Brace Pike (+4)", "Increase Charge Defense by 4 until beginning of next round."));
+        allTraits.put("Chargebreaker",
+                new Trait("Chargebreaker", "If a charge fails against this unit, it may countercharge as a reaction."));
         allTraits.put("Shields Up (+2)",
                 new Trait("Shields Up (+2)", "Increases Skirmish Defense by 2 until beginning of next round."));
         allTraits.put("Shield Wall",
