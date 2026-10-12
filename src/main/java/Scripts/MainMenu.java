@@ -5,7 +5,10 @@ import Utils.DualPrintStream;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -46,8 +49,14 @@ public class MainMenu {
         Scanner in = new Scanner(System.in);
         if(customSquad == null){
             if (readYesNo(in, "\n Would you like to create a Custom Squad? (Y/N)")) {
-                customSquad = InitializationScript.userMadeSquad(in);
-                System.out.println(customSquad.getCurrentStatus());
+                if (readYesNo(in, "\n Would you like to import it from a JSON file? (Y/N)")) {
+                    customSquad = importSquad(in);
+                } else {
+                    customSquad = InitializationScript.userMadeSquad(in);
+                }
+                if (customSquad != null) {
+                    System.out.println(customSquad.getCurrentStatus());
+                }
             }else{
                 System.out.println("User chose not to create a custom squad. Returning to Menu.");
             }
@@ -58,6 +67,25 @@ public class MainMenu {
                 System.out.println("User chose not to view their custom squad. Returning to Menu.");
             }
         }
+    }
+
+    /**
+     * Asks for the path of a squad JSON file and imports it.
+     * @param in Scanner to get input from user
+     * @return The imported Squad, or null if it could not be imported.
+     */
+    static Squad importSquad(Scanner in) {
+        System.out.println("\n Please enter the path to the JSON file: ");
+        String path = in.nextLine().trim();
+        try {
+            return SquadJson.load(Path.of(path));
+        } catch (NoSuchFileException e) {
+            System.out.println("No file found at " + path + ". Returning to Menu.");
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Could not import the squad: " + e.getMessage());
+            System.out.println("Returning to Menu.");
+        }
+        return null;
     }
 
     static boolean readYesNo(Scanner in, String question) {
