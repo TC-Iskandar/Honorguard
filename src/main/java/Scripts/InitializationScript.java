@@ -26,13 +26,32 @@ public class InitializationScript {
         int skirmishDefense = readInt(in, "Please enter an base Skirmish Defense value: ");
         int meleeDefense = readInt(in, "Please enter an base Melee Defense value: ");
         int chargeDefence = readInt(in, "Please enter a base Charge Defence value: ");
+        System.out.println("Adding Traits: ");
+        HashMap<String, Trait> unitTraits = getCustomTraits(in);
         int baseChargeAttack = readInt(in, "Please enter a base Charge Attack value: ");
         DiceRoll charge = new DiceRoll(20, 1, baseChargeAttack);
         System.out.println("Adding Skirmish Attacks: ");
         HashMap<String, SkirmishWeapon> skirmishWeapons = getCustomSkirmishWeapons(in);
         System.out.println("Adding Melee Attacks: ");
         HashMap<String, MeleeWeapon> meleeWeapons = getCustomMeleeWeapons(in);
-        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, meleeWeapons);
+        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, meleeWeapons, unitTraits);
+    }
+
+    /**
+     * Prompts the user for known trait names and returns the selected traits.
+     * Trait names must be unique for the squad and must exist in the Traits singleton.
+     * @param in Scanner to get input from user
+     * @return A HashMap of trait names and their matching Traits singleton entries.
+     */
+    private static HashMap<String, Trait> getCustomTraits(Scanner in) {
+        HashMap<String, Trait> unitTraits = new HashMap<>();
+        int numberOfTraits = readInt(in, "How many Traits would you like to add?", 0);
+        for (int i = 0; i < numberOfTraits; i++) {
+            System.out.println("Adding Trait number " + (i + 1));
+            String traitName = readTraitName(in, unitTraits.keySet());
+            unitTraits.put(traitName, traits.getTrait(traitName));
+        }
+        return unitTraits;
     }
 
     /**
@@ -156,6 +175,21 @@ public class InitializationScript {
                 return name;
             }
             System.out.println("\"" + name + "\" is already used. Choose a different name.");
+        }
+    }
+
+    private static String readTraitName(Scanner in, Set<String> takenNames) {
+        while (true) {
+            System.out.println("What is the trait name?");
+            String traitName = in.nextLine().trim();
+            if (takenNames.contains(traitName)) {
+                System.out.println("\"" + traitName + "\" is already used. Choose a different trait.");
+            } else if (!traits.getAllTraits().containsKey(traitName)) {
+                System.out.println("\"" + traitName + "\" is not a known trait. Choose a trait from the Traits list.");
+            } else {
+                System.out.println("Enter");
+                return traitName;
+            }
         }
     }
 

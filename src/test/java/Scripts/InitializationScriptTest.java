@@ -17,7 +17,11 @@ public class InitializationScriptTest {
                 "abc", "10",            // morale: not a number
                 " 2 ",                  // discipline: surrounding spaces are ignored
                 "", "6",                // casualties: empty line
-                "4", "5", "3", "1",     // skirmish defence, melee defence, charge defence, charge attack
+                "4", "5", "3",          // skirmish defence, melee defence, charge defence
+                "-1", "2",              // traits: must be at least 0
+                "Not A Trait", "Shield Wall",
+                "Shield Wall", "Loose Formation",
+                "1",                    // charge attack
                 "0", "1",               // skirmish weapons: must be at least 1
                 "Bow",
                 "0", "2",               // modes: must be at least 1
@@ -46,6 +50,8 @@ public class InitializationScriptTest {
         List<String> lines = status.lines().map(String::strip).toList();
         assertTrue(lines.contains("Faction: Wood Elves"), status);
         assertTrue(lines.contains("Casualty: 6/6"), status);
+        assertTrue(lines.contains("Name: Shield Wall"), status);
+        assertTrue(lines.contains("Name: Loose Formation"), status);
         assertTrue(lines.contains("Volley: 2d6 + 3 3/3"), status);
         assertTrue(lines.contains("Aimed: 1d8 + 4"), status);
         assertTrue(lines.contains("Slash: 1d6 + 2"), status);
