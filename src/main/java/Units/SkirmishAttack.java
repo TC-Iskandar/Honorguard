@@ -6,16 +6,36 @@ public class SkirmishAttack {
     boolean isInfinfite;
     DiceRoll diceRoll;
     int timesUsed = 0;
-    public SkirmishAttack(String name, DiceRoll diceRoll, boolean isInfinfite, int numberOfUses){
-        if (isInfinfite && numberOfUses!= -1){
+    private final int minRange;
+    private final int maxRange;
+
+    public SkirmishAttack(String name, DiceRoll diceRoll, boolean isInfinite, int numberOfUses, int minRange, int maxRange){
+        if (isInfinite && numberOfUses!= -1){
             throw new IllegalArgumentException("For an infinite attack the number of uses should be -1");
-        }else if (!isInfinfite && !(numberOfUses > 0)){
+        }else if (!isInfinite && !(numberOfUses > 0)){
             throw new IllegalArgumentException("For a finite attack, number of uses must be greater than 0");
         }
+        validateRange(minRange, maxRange);
         this.name = name;
         this.diceRoll = diceRoll;
-        this.isInfinfite = isInfinfite;
+        this.isInfinfite = isInfinite;
         this.numberOfUses = numberOfUses;
+        this.minRange = minRange;
+        this.maxRange = maxRange;
+    }
+
+    private static void validateRange(int minRange, int maxRange) {
+        if (minRange < 0 || maxRange < minRange) {
+            throw new IllegalArgumentException("Range must satisfy 0 <= minRange <= maxRange");
+        }
+    }
+
+    public int getMinRange() {
+        return minRange;
+    }
+
+    public int getMaxRange() {
+        return maxRange;
     }
 
     public boolean isInfinfite(){
@@ -46,6 +66,6 @@ public class SkirmishAttack {
         if (!isInfinfite){
             uses = (numberOfUses-timesUsed)+ "/"+numberOfUses;
         }
-        return name + ": " + diceRoll.toString()+" "+uses;
+        return name + ": " + diceRoll.toString()+" [" + minRange + "-" + maxRange + " ft] "+uses;
     }
 }

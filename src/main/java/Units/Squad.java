@@ -17,17 +17,20 @@ public class Squad {
     private int currentCasualties;
     private HashMap<String, SkirmishWeapon> skirmishWeapons;
     private DiceRoll chargeAttack;
+    private final int chargeMinRange;
+    private final int chargeMaxRange;
     private HashMap<String, MeleeWeapon> meleeWeapons;
     private HashMap<String, Trait> traits;
     private Factions faction;
 
-    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons) {
-        this(name, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, meleeWeapons, new HashMap<>());
+    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons) {
+        this(name, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, chargeMinRange, chargeMaxRange, meleeWeapons, new HashMap<>());
     }
 
-    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
+    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
         validateSkirmishWeapons(skirmishAttacks);
         validateMeleeWeapons(meleeWeapons);
+        validateChargeRange(chargeMinRange, chargeMaxRange);
         this.baseSkirmishDefense = baseSkirmishDefense;
         this.baseDiscipline = baseDiscipline;
         this.baseMorale = baseMorale;
@@ -40,9 +43,25 @@ public class Squad {
         this.currentCasualties = this.baseCasualties;
         this.skirmishWeapons = skirmishAttacks;
         this.chargeAttack = charge;
+        this.chargeMinRange = chargeMinRange;
+        this.chargeMaxRange = chargeMaxRange;
         this.meleeWeapons = meleeWeapons;
         this.traits = traits;
         this.faction= faction;
+    }
+
+    private void validateChargeRange(int minRange, int maxRange) {
+        if (minRange < 0 || maxRange < minRange) {
+            throw new IllegalArgumentException("Charge range must satisfy 0 <= minRange <= maxRange");
+        }
+    }
+
+    public int getChargeMinRange() {
+        return chargeMinRange;
+    }
+
+    public int getChargeMaxRange() {
+        return chargeMaxRange;
     }
 
     private void validateSkirmishWeapons(HashMap<String, SkirmishWeapon> skirmishWeapons) {
@@ -218,7 +237,7 @@ public class Squad {
             String attackLine = meleeWeapons.get(meleeWeaponName).toString()+"\n";
             meleeAttackLine += attackLine.indent(2);
         }
-        String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+"\n";
+        String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" [" + chargeMinRange + "-" + chargeMaxRange + " ft] + "+(currentMorale+currentDiscipline)+"\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ meleeAttackLine.indent(2) + chargeAttackLine.indent(2);
         return nameLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+traitString+attackString;
     }
