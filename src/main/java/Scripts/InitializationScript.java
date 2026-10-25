@@ -29,12 +29,15 @@ public class InitializationScript {
         System.out.println("Adding Traits: ");
         HashMap<String, Trait> unitTraits = getCustomTraits(in);
         int baseChargeAttack = readInt(in, "Please enter a base Charge Attack value: ");
+        int chargeMinRange = readInt(in, "Please enter the minimum charge range in feet: ", 0);
+        int chargeMaxRange = readInt(in, "Please enter the maximum charge range in feet: ",
+                range -> range >= chargeMinRange, "Maximum charge range must be at least the minimum charge range.");
         DiceRoll charge = new DiceRoll(20, 1, baseChargeAttack);
         System.out.println("Adding Skirmish Attacks: ");
         HashMap<String, SkirmishWeapon> skirmishWeapons = getCustomSkirmishWeapons(in);
         System.out.println("Adding Melee Attacks: ");
         HashMap<String, MeleeWeapon> meleeWeapons = getCustomMeleeWeapons(in);
-        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, meleeWeapons, unitTraits);
+        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons, unitTraits);
     }
 
     /**
@@ -74,12 +77,15 @@ public class InitializationScript {
                 int dieSize = readDieSize(in);
                 int numDice = readInt(in, "What is the number of dice?", 1);
                 int modifier = readInt(in, "What is base modifier");
+                int minRange = readInt(in, "What is the minimum range in feet?", 0);
+                int maxRange = readInt(in, "What is the maximum range in feet?",
+                        range -> range >= minRange, "Maximum range must be at least the minimum range.");
                 boolean infinite = readBoolean(in, "Is it infinite (true/false)?");
                 int numberOfUses = -1;
                 if (!infinite) {
                     numberOfUses = readInt(in, "What is the number of uses?", 1);
                 }
-                SkirmishAttack attack = new SkirmishAttack(attackName, new DiceRoll(dieSize, numDice, modifier), infinite, numberOfUses);
+                SkirmishAttack attack = new SkirmishAttack(attackName, new DiceRoll(dieSize, numDice, modifier), infinite, numberOfUses, minRange, maxRange);
                 skirmishAttacks.put(attackName, attack);
             }
             skirmishWeapons.put(weaponName, new SkirmishWeapon(weaponName, skirmishAttacks));
@@ -106,7 +112,10 @@ public class InitializationScript {
                 int dieSize = readDieSize(in);
                 int numDice = readInt(in, "What is the number of dice?", 1);
                 int modifier = readInt(in, "What is base modifier");
-                MeleeAttack newMeleeAttack = new MeleeAttack(attackName, new DiceRoll(dieSize, numDice, modifier));
+                int minRange = readInt(in, "What is the minimum range in feet?", 0);
+                int maxRange = readInt(in, "What is the maximum range in feet?",
+                        range -> range >= minRange, "Maximum range must be at least the minimum range.");
+                MeleeAttack newMeleeAttack = new MeleeAttack(attackName, new DiceRoll(dieSize, numDice, modifier), minRange, maxRange);
                 meleeAttacks.put(attackName, newMeleeAttack);
             }
             meleeWeapons.put(weaponName, new MeleeWeapon(weaponName, meleeAttacks));
@@ -210,48 +219,48 @@ public class InitializationScript {
     public static Squad makeGoblins(){
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         HashMap<String, SkirmishAttack> dogslicerModes = new HashMap<>();
-        SkirmishAttack DogslicerAttack = new SkirmishAttack("Dogslicers", new DiceRoll(4, 4, 2), true, -1);
+        SkirmishAttack DogslicerAttack = new SkirmishAttack("Dogslicers", new DiceRoll(4, 4, 2), true, -1, 0, 25);
         dogslicerModes.put("Dogslicers", DogslicerAttack);
         skirmishWeapons.put("Dogslicers", new SkirmishWeapon("Dogslicers", dogslicerModes));
         HashMap<String, SkirmishAttack> slingsModes = new HashMap<>();
-        SkirmishAttack slingsAttack = new SkirmishAttack("Slings", new DiceRoll(4, 4, 2),  false, 15);
+        SkirmishAttack slingsAttack = new SkirmishAttack("Slings", new DiceRoll(4, 4, 2),  false, 15, 0, 50);
         slingsModes.put("Slings", slingsAttack);
         skirmishWeapons.put("Slings", new SkirmishWeapon("Slings", slingsModes));
         DiceRoll charge = new DiceRoll(20, 1, 1);
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
         HashMap<String, MeleeAttack> dogslicerMeleeModes = new HashMap<>();
-        dogslicerMeleeModes.put("Dogslicers", new MeleeAttack("Dogslicers", new DiceRoll(6, 5, 5)));
+        dogslicerMeleeModes.put("Dogslicers", new MeleeAttack("Dogslicers", new DiceRoll(6, 5, 5), 0, 5));
         meleeWeapons.put("Dogslicers", new MeleeWeapon("Dogslicers", dogslicerMeleeModes));
         HashMap<String, Trait> goblinMobTraits = new HashMap<>();
         goblinMobTraits.put("Loose Formation", traits.getTrait("Loose Formation"));
-        return new Squad("Goblin Mob", Factions.GOBLIN, 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, meleeWeapons, goblinMobTraits);
+        return new Squad("Goblin Mob", Factions.GOBLIN, 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, 0, 30, meleeWeapons, goblinMobTraits);
     }
 
     static Squad makeGarrison() {
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         HashMap<String, SkirmishAttack> spearModes = new HashMap<>();
-        SkirmishAttack spearThrow = new SkirmishAttack("Throw!!",  new DiceRoll(6, 6, 3), false, 1);
-        SkirmishAttack spearNormal = new SkirmishAttack("Spears", new DiceRoll(6, 4, 2), true, -1);
+        SkirmishAttack spearThrow = new SkirmishAttack("Throw!!",  new DiceRoll(6, 6, 3), false, 1, 0, 30);
+        SkirmishAttack spearNormal = new SkirmishAttack("Spears", new DiceRoll(6, 4, 2), true, -1, 0, 25);
         spearModes.put("Spears", spearNormal);
         spearModes.put("Throw!!", spearThrow);
         skirmishWeapons.put("Spears", new SkirmishWeapon("Spears", spearModes));
         HashMap<String, SkirmishAttack> sidearmsModes = new HashMap<>();
-        SkirmishAttack sidearmsNormal = new SkirmishAttack("Sidearms", new DiceRoll(4, 4, 2), true, -1);
+        SkirmishAttack sidearmsNormal = new SkirmishAttack("Sidearms", new DiceRoll(4, 4, 2), true, -1, 0, 25);
         sidearmsModes.put("Sidearms", sidearmsNormal);
         skirmishWeapons.put("Sidearms", new SkirmishWeapon("Sidearms", sidearmsModes));
         DiceRoll charge = new DiceRoll(20, 1, 3);
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
         HashMap<String, MeleeAttack> spearMeleeModes = new HashMap<>();
-        spearMeleeModes.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 2)));
+        spearMeleeModes.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 2), 0, 10));
         meleeWeapons.put("Spears", new MeleeWeapon("Spears", spearMeleeModes));
         HashMap<String, MeleeAttack> sidearmMeleeModes = new HashMap<>();
-        sidearmMeleeModes.put("Sidearms", new MeleeAttack("Sidearms", new DiceRoll(4, 4, 2)));
+        sidearmMeleeModes.put("Sidearms", new MeleeAttack("Sidearms", new DiceRoll(4, 4, 2), 0, 5));
         meleeWeapons.put("Sidearms", new MeleeWeapon("Sidearms", sidearmMeleeModes));
         HashMap<String, Trait> garrisonSpearmenTraits = new HashMap<>();
         garrisonSpearmenTraits.put("Combined Arms (Infantry +2)", traits.getTrait("Combined Arms (Infantry +2)"));
         garrisonSpearmenTraits.put("Raise Spears (+2)", traits.getTrait("Raise Spears (+2)"));
         garrisonSpearmenTraits.put("Shields Up (+2)", traits.getTrait("Shields Up (+2)"));
         garrisonSpearmenTraits.put("Shield Wall", traits.getTrait("Shield Wall"));
-        return new Squad("Lorrainean Garrison Spearman", Factions.VAL_DELAURE, 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, meleeWeapons, garrisonSpearmenTraits);
+        return new Squad("Lorrainean Garrison Spearman", Factions.VAL_DELAURE, 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, 0, 25, meleeWeapons, garrisonSpearmenTraits);
     }
 }

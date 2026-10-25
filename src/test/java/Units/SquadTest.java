@@ -34,12 +34,12 @@ public class SquadTest {
     };
 
     private static Squad createSquadWithChargeAttack(int casualties, DiceRoll chargeAttack) {
-        return new Squad("Test Squad", Factions.GOBLIN, 5, 2, casualties, 1, 1, 1, createJavelinSkirmishWeapons(), chargeAttack, createSpearsMeleeWeapons());
+        return new Squad("Test Squad", Factions.GOBLIN, 5, 2, casualties, 1, 1, 1, createJavelinSkirmishWeapons(), chargeAttack, 0, 30, createSpearsMeleeWeapons());
     }
 
     private static HashMap<String, SkirmishWeapon> createJavelinSkirmishWeapons() {
         HashMap<String, SkirmishAttack> skirmishAttacks = new HashMap<>();
-        skirmishAttacks.put("Javelin Throw", new SkirmishAttack("Javelin Throw", new DiceRoll(6, 6, 2), false, 10));
+        skirmishAttacks.put("Javelin Throw", new SkirmishAttack("Javelin Throw", new DiceRoll(6, 6, 2), false, 10, 0, 30));
 
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", skirmishAttacks));
@@ -48,7 +48,7 @@ public class SquadTest {
 
     private static HashMap<String, MeleeWeapon> createSpearsMeleeWeapons() {
         HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 2)));
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 2), 0, 10));
 
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
         meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
@@ -117,12 +117,12 @@ public class SquadTest {
     @Test
     public void expendedSkirmishAttackCannotBeRolled() {
         HashMap<String, SkirmishAttack> weaponModes = new HashMap<>();
-        weaponModes.put("Javelin Throw", new SkirmishAttack("Javelin Throw", new DiceRoll(6, 1, 0), false, 1));
+        weaponModes.put("Javelin Throw", new SkirmishAttack("Javelin Throw", new DiceRoll(6, 1, 0), false, 1, 0, 30));
 
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
 
         squad.rollSkirmishAttack("Javelins", "Javelin Throw", 100);
         assertThrows(IllegalStateException.class, () -> squad.rollSkirmishAttack("Javelins", "Javelin Throw", 100));
@@ -141,12 +141,12 @@ public class SquadTest {
         when(mockDiceRoll.roll(difficultyClass, 2)).thenReturn(overflow);
 
         HashMap<String, SkirmishAttack> weaponModes = new HashMap<>();
-        weaponModes.put("Throw", new SkirmishAttack("Throw", mockDiceRoll, true, -1));
+        weaponModes.put("Throw", new SkirmishAttack("Throw", mockDiceRoll, true, -1, 0, 25));
 
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
 
         int damage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
 
@@ -167,12 +167,12 @@ public class SquadTest {
         when(mockDiceRoll.roll(difficultyClass, 2)).thenReturn(firstOverflow, secondOverflow);
 
         HashMap<String, SkirmishAttack> weaponModes = new HashMap<>();
-        weaponModes.put("Throw", new SkirmishAttack("Throw", mockDiceRoll, true, -1));
+        weaponModes.put("Throw", new SkirmishAttack("Throw", mockDiceRoll, true, -1, 0, 25));
 
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
 
         int firstDamage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
         int secondDamage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
@@ -204,12 +204,12 @@ public class SquadTest {
         when(mockDiceRoll.roll(difficultyClass, 2)).thenReturn(overflow);
 
         HashMap<String, SkirmishAttack> weaponModes = new HashMap<>();
-        weaponModes.put("Throw", new SkirmishAttack("Throw", mockDiceRoll, true, -1));
+        weaponModes.put("Throw", new SkirmishAttack("Throw", mockDiceRoll, true, -1, 0, 25));
 
         HashMap<String, SkirmishWeapon> skirmishWeapons = new HashMap<>();
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", weaponModes));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
 
         int damage = squad.rollSkirmishAttack("Javelins", "Throw", difficultyClass);
 
@@ -222,12 +222,12 @@ public class SquadTest {
         when(mockDiceRoll.roll(12, 2)).thenReturn(5);
 
         HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Spears", new MeleeAttack("Spears", mockDiceRoll));
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", mockDiceRoll, 0, 10));
 
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
         meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), meleeWeapons);
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, meleeWeapons);
 
         int damage = squad.rollMeleeAttack("Spears", "Spears", 12);
 
@@ -237,19 +237,19 @@ public class SquadTest {
     @Test
     public void invalidMeleeAttackModeThrows() {
         HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 0)));
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", new DiceRoll(8, 4, 0), 0, 10));
 
         HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
         meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), meleeWeapons);
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, meleeWeapons);
 
         assertThrows(IllegalArgumentException.class, () -> squad.rollMeleeAttack("Spears", "Throw!!", 12));
     }
 
     @Test
     public void squadHasTraitAfterTraitIsAdded() {
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
         Trait trait = new Trait("Raise Spears (+2)", "Increase Charge Defense by 2 until beginning of next round.");
 
         squad.addTrait("Raise Spears (+2)", trait);
@@ -259,7 +259,7 @@ public class SquadTest {
 
     @Test
     public void squadDoesNotHaveTraitBeforeTraitIsAdded() {
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons());
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
 
         assertFalse(squad.hasTrait("Shield Wall"));
     }
@@ -269,7 +269,7 @@ public class SquadTest {
         HashMap<String, Trait> traits = new HashMap<>();
         traits.put("Shield Wall", new Trait("Shield Wall", "This unit may use Shields Up Multiple times in a round."));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons(), traits);
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons(), traits);
 
         assertTrue(squad.hasTrait("Shield Wall"));
     }
@@ -279,7 +279,7 @@ public class SquadTest {
         HashMap<String, Trait> traits = new HashMap<>();
         traits.put("Shield Wall", new Trait("Shield Wall", "This unit may use Shields Up Multiple times in a round."));
 
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons(), traits);
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons(), traits);
 
         String status = squad.getCurrentStatus();
 
@@ -292,13 +292,13 @@ public class SquadTest {
     @Test
     public void constructorThrowsWhenSkirmishWeaponsAreEmpty() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), createSpearsMeleeWeapons()));
+                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, new HashMap<>(), new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons()));
     }
 
     @Test
     public void constructorThrowsWhenMeleeWeaponsAreEmpty() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), new HashMap<>()));
+                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, new HashMap<>()));
     }
 
     @Test
@@ -307,7 +307,7 @@ public class SquadTest {
         skirmishWeapons.put("Javelins", new SkirmishWeapon("Javelins", new HashMap<>()));
 
         assertThrows(IllegalArgumentException.class,
-                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), createSpearsMeleeWeapons()));
+                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, skirmishWeapons, new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons()));
     }
 
     @Test
@@ -316,7 +316,17 @@ public class SquadTest {
         meleeWeapons.put("Spears", new MeleeWeapon("Spears", new HashMap<>()));
 
         assertThrows(IllegalArgumentException.class,
-                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), meleeWeapons));
+                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, meleeWeapons));
+    }
+
+    @Test
+    public void constructorRejectsInvalidChargeRange() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1,
+                        createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), -1, 30, createSpearsMeleeWeapons()));
+        assertThrows(IllegalArgumentException.class,
+                () -> new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1,
+                        createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 31, 30, createSpearsMeleeWeapons()));
     }
 
     @ParameterizedTest(name = "failedCharge squadCasualties={0}, dc={1}, enemyCasualties={2}, successfulAttacks={3}, failedAttacks={4}, crits={6}")
