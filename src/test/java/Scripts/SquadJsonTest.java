@@ -90,10 +90,10 @@ public class SquadJsonTest {
 
     @Test
     public void importsTheGarrisonExampleFile() throws IOException {
-        Squad squad = SquadJson.load(Path.of("squads", "garrison-spearman.json"));
+        Squad squad = SquadJson.load(Path.of("squads", "garrison-1.json"));
 
         List<String> lines = statusLines(squad);
-        assertTrue(lines.contains("Status Report for Lorrainean Garrison Spearman"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Status Report for Garrison 1"), squad.getCurrentStatus());
         assertTrue(lines.contains("Throw!!: 6d6 + 3 1/1"), squad.getCurrentStatus());
     }
 
