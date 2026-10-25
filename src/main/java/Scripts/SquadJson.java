@@ -20,8 +20,6 @@ import java.util.function.Supplier;
 public class SquadJson {
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    // These are classes with public fields rather than records because Jackson fills fields in one at a time, so it
-    // reports a misspelled field on its own line. With a record it only notices at the end of the object.
     private static class SquadData {
         public String name;
         public String faction;
@@ -41,7 +39,6 @@ public class SquadJson {
         public List<ModeData> modes;
     }
 
-    /** A mode without uses is unlimited. Only skirmish modes can have uses. */
     private static class ModeData {
         public String name;
         public Integer numberOfDice;
@@ -151,9 +148,6 @@ public class SquadJson {
         return withContext(where, () -> new DiceRoll(dieSize, numberOfDice, modifier));
     }
 
-    /**
-     * Returns the value, or says which field is missing if the file left it out.
-     */
     private static <T> T require(T value, String field, String where) {
         if (value == null) {
             throw new IllegalArgumentException(where + " is missing \"" + field + "\".");
@@ -161,9 +155,6 @@ public class SquadJson {
         return value;
     }
 
-    /**
-     * Runs a constructor and puts where in front of its error message, so the user can find the problem in the file.
-     */
     private static <T> T withContext(String where, Supplier<T> constructor) {
         try {
             return constructor.get();
