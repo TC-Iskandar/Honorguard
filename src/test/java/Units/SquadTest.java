@@ -55,6 +55,17 @@ public class SquadTest {
         return meleeWeapons;
     }
 
+    private static Squad createSquadWithMeleeAttack(DiceRoll meleeRoll) {
+        HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
+        meleeAttacks.put("Spears", new MeleeAttack("Spears", meleeRoll, 0, 10));
+
+        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
+        meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
+
+        return new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1,
+                createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, meleeWeapons);
+    }
+
     private static boolean isChargeSuccessful(int squadCasualties, int successfulAttacks, int enemyCasualties) {
         return successfulAttacks * 2 >= squadCasualties || successfulAttacks > enemyCasualties;
     }
@@ -221,17 +232,40 @@ public class SquadTest {
         DiceRoll mockDiceRoll = mock(DiceRoll.class);
         when(mockDiceRoll.roll(12, 2)).thenReturn(5);
 
-        HashMap<String, MeleeAttack> meleeAttacks = new HashMap<>();
-        meleeAttacks.put("Spears", new MeleeAttack("Spears", mockDiceRoll, 0, 10));
-
-        HashMap<String, MeleeWeapon> meleeWeapons = new HashMap<>();
-        meleeWeapons.put("Spears", new MeleeWeapon("Spears", meleeAttacks));
-
-        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, meleeWeapons);
+        Squad squad = createSquadWithMeleeAttack(mockDiceRoll);
 
         int damage = squad.rollMeleeAttack("Spears", "Spears", 12);
 
         assertEquals(2, damage);
+    }
+
+    @ParameterizedTest(name = "overflow={0} gives damage={1}")
+    @CsvSource({
+            "0, 1",
+            "1, 1",
+            "4, 1",
+            "5, 2",
+            "9, 2",
+            "10, 3",
+            "14, 3",
+            "15, 4"
+    })
+    public void meleeAttackConvertsOverflowToDamage(int overflow, int expectedDamage) {
+        DiceRoll mockDiceRoll = mock(DiceRoll.class);
+        when(mockDiceRoll.roll(12, 2)).thenReturn(overflow);
+        Squad squad = createSquadWithMeleeAttack(mockDiceRoll);
+
+        assertEquals(expectedDamage, squad.rollMeleeAttack("Spears", "Spears", 12));
+    }
+
+    @ParameterizedTest(name = "negative overflow={0} gives no damage")
+    @CsvSource({"-1", "-10", "-20"})
+    public void meleeAttackDealsNoDamageWhenOverflowIsNegative(int overflow) {
+        DiceRoll mockDiceRoll = mock(DiceRoll.class);
+        when(mockDiceRoll.roll(12, 2)).thenReturn(overflow);
+        Squad squad = createSquadWithMeleeAttack(mockDiceRoll);
+
+        assertEquals(0, squad.rollMeleeAttack("Spears", "Spears", 12));
     }
 
     @Test
@@ -245,6 +279,15 @@ public class SquadTest {
         Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1, createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, meleeWeapons);
 
         assertThrows(IllegalArgumentException.class, () -> squad.rollMeleeAttack("Spears", "Throw!!", 12));
+    }
+
+    @Test
+    public void unknownMeleeWeaponNameThrows() {
+        Squad squad = new Squad("Test Squad", Factions.GOBLIN, 5, 2, 3, 1, 1, 1,
+                createJavelinSkirmishWeapons(), new DiceRoll(20, 1, 0), 0, 30, createSpearsMeleeWeapons());
+
+        assertThrows(IllegalArgumentException.class,
+                () -> squad.rollMeleeAttack("Unknown Weapon", "Spears", 12));
     }
 
     @Test
