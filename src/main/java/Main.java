@@ -9,7 +9,6 @@ public class Main {
     //TODO Create State Manager File - Partially Done
     //TODO Implementing Fighting
     //TODO Implement Unit Export
-    //TODO Implement Unit Import
 
     public static void main(String[] args) throws FileNotFoundException {
         MainMenu.menuLoop();

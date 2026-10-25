@@ -1,5 +1,7 @@
 package Units;
 
+import java.util.Arrays;
+
 public enum Factions {
     ANARIC("Anaric"),
     BEASTMAN("Beastman"),
@@ -19,5 +21,17 @@ public enum Factions {
     @Override
     public String toString() {
         return displayName;
+    }
+
+    /**
+     * Finds the faction with the given display name, ignoring case.
+     */
+    public static Factions fromDisplayName(String displayName) {
+        for (Factions faction : values()) {
+            if (faction.displayName.equalsIgnoreCase(displayName)) {
+                return faction;
+            }
+        }
+        throw new IllegalArgumentException("\"" + displayName + "\" is not a faction. The factions are: " + Arrays.toString(values()) + ".");
     }
 }

@@ -9,7 +9,7 @@ public class Dice {
 
     public Dice(int size) throws IllegalArgumentException{
         if(Arrays.stream(validDiceSizes).noneMatch(x->x ==size)) {
-            throw new IllegalArgumentException("Units.Dice size must be greater than 0");
+            throw new IllegalArgumentException("d" + size + " is not a valid die size. Accepted die sizes are: " + Arrays.toString(validDiceSizes) + ".");
         }
         this.size =size;
     }

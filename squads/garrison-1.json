@@ -1,0 +1,40 @@
+{
+  "name": "Garrison 1",
+  "faction": "Val DeLaure",
+  "morale": 12,
+  "discipline": 3,
+  "casualties": 8,
+  "skirmishDefense": 5,
+  "meleeDefense": 5,
+  "chargeDefense": 3,
+  "chargeAttack": 3,
+  "skirmishWeapons": [
+    {
+      "name": "Spears",
+      "modes": [
+        { "name": "Spears",  "numberOfDice": 4, "dieSize": 6, "modifier": 2 },
+        { "name": "Throw!!", "numberOfDice": 6, "dieSize": 6, "modifier": 3, "uses": 1 }
+      ]
+    },
+    {
+      "name": "Sidearms",
+      "modes": [
+        { "name": "Sidearms", "numberOfDice": 4, "dieSize": 4, "modifier": 2 }
+      ]
+    }
+  ],
+  "meleeWeapons": [
+    {
+      "name": "Spears",
+      "modes": [
+        { "name": "Spears", "numberOfDice": 4, "dieSize": 8, "modifier": 2 }
+      ]
+    },
+    {
+      "name": "Sidearms",
+      "modes": [
+        { "name": "Sidearms", "numberOfDice": 4, "dieSize": 4, "modifier": 2 }
+      ]
+    }
+  ]
+}
