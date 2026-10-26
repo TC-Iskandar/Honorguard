@@ -22,18 +22,20 @@ public class SquadJsonTest {
               "meleeDefense": 5,
               "chargeDefense": 3,
               "chargeAttack": 1,
+              "chargeMinRange": 0,
+              "chargeMaxRange": 25,
               "skirmishWeapons": [
                 {
                   "name": "Bow",
                   "modes": [
-                    { "name": "Volley", "numberOfDice": 2, "dieSize": 6, "modifier": 3, "uses": 3 },
-                    { "name": "Aimed", "numberOfDice": 1, "dieSize": 8, "modifier": 4 }
+                    { "name": "Volley", "numberOfDice": 2, "dieSize": 6, "modifier": 3, "minRange": 0, "maxRange": 100, "uses": 3 },
+                    { "name": "Aimed", "numberOfDice": 1, "dieSize": 8, "modifier": 4, "minRange": 0, "maxRange": 100 }
                   ]
                 },
                 {
                   "name": "Knives",
                   "modes": [
-                    { "name": "Throw", "numberOfDice": 2, "dieSize": 4, "modifier": 0, "uses": 2 }
+                    { "name": "Throw", "numberOfDice": 2, "dieSize": 4, "modifier": 0, "minRange": 0, "maxRange": 25, "uses": 2 }
                   ]
                 }
               ],
@@ -41,7 +43,7 @@ public class SquadJsonTest {
                 {
                   "name": "Sword",
                   "modes": [
-                    { "name": "Slash", "numberOfDice": 1, "dieSize": 6, "modifier": 2 }
+                    { "name": "Slash", "numberOfDice": 1, "dieSize": 6, "modifier": 2, "minRange": 0, "maxRange": 5 }
                   ]
                 }
               ]
@@ -77,13 +79,13 @@ public class SquadJsonTest {
                 "Melee Defence: 17",            // 5 + morale 10 + discipline 2
                 "Charge Defence: 25",           // 10 + 3 + morale 10 + discipline 2
                 "Name: Bow",
-                "Volley: 2d6 + 3 3/3",          // has uses, so it is limited
-                "Aimed: 1d8 + 4",               // no uses, so it is unlimited
+                "Volley: 2d6 + 3 [0-100 ft] 3/3", // has uses, so it is limited
+                "Aimed: 1d8 + 4 [0-100 ft]",      // no uses, so it is unlimited
                 "Name: Knives",
-                "Throw: 2d4 + 0 2/2",
+                "Throw: 2d4 + 0 [0-25 ft] 2/2",
                 "Name: Sword",
-                "Slash: 1d6 + 2",
-                "Charge Attack: 6 times 1d20 + 1 + 12")) {
+                "Slash: 1d6 + 2 [0-5 ft]",
+                "Charge Attack: 6 times 1d20 + 1 + 12 [0-25ft]")) {
             assertTrue(lines.contains(expected), "missing \"" + expected + "\" in:\n" + squad.getCurrentStatus());
         }
     }
@@ -94,7 +96,12 @@ public class SquadJsonTest {
 
         List<String> lines = statusLines(squad);
         assertTrue(lines.contains("Status Report for Garrison 1"), squad.getCurrentStatus());
-        assertTrue(lines.contains("Throw!!: 6d6 + 3 1/1"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Spears: 4d6 + 2 [0-25 ft]"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Throw!!: 6d6 + 3 [0-30 ft] 1/1"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Sidearms: 4d4 + 2 [0-25 ft]"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Spears: 4d8 + 2 [0-10 ft]"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Sidearms: 4d4 + 2 [0-5 ft]"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Charge Attack: 8 times 1d20 + 3 + 15 [0-25ft]"), squad.getCurrentStatus());
     }
 
     @Test
@@ -139,7 +146,7 @@ public class SquadJsonTest {
 
     @Test
     public void rejectsZeroUsesAndSaysWhichMode() {
-        String message = importError(rangersWith("\"modifier\": 3, \"uses\": 3", "\"modifier\": 3, \"uses\": 0"));
+        String message = importError(rangersWith("\"maxRange\": 100, \"uses\": 3", "\"maxRange\": 100, \"uses\": 0"));
 
         assertTrue(message.contains("Bow"), message);
         assertTrue(message.contains("Volley"), message);
@@ -162,7 +169,7 @@ public class SquadJsonTest {
 
     @Test
     public void rejectsTwoMeleeModesWithTheSameName() {
-        String slash = "{ \"name\": \"Slash\", \"numberOfDice\": 1, \"dieSize\": 6, \"modifier\": 2 }";
+        String slash = "{ \"name\": \"Slash\", \"numberOfDice\": 1, \"dieSize\": 6, \"modifier\": 2, \"minRange\": 0, \"maxRange\": 5 }";
         String message = importError(rangersWith(slash, slash + ", " + slash));
 
         assertTrue(message.contains("Sword"), message);
@@ -201,7 +208,7 @@ public class SquadJsonTest {
 
     @Test
     public void rejectsUsesOnAMeleeMode() {
-        String message = importError(rangersWith("\"modifier\": 2 }", "\"modifier\": 2, \"uses\": 2 }"));
+        String message = importError(rangersWith("\"maxRange\": 5 }", "\"maxRange\": 5, \"uses\": 2 }"));
 
         assertTrue(message.contains("Sword"), message);
         assertTrue(message.contains("Slash"), message);

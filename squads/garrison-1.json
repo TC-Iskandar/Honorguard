@@ -8,18 +8,20 @@
   "meleeDefense": 5,
   "chargeDefense": 3,
   "chargeAttack": 3,
+  "chargeMinRange": 0,
+  "chargeMaxRange": 25,
   "skirmishWeapons": [
     {
       "name": "Spears",
       "modes": [
-        { "name": "Spears",  "numberOfDice": 4, "dieSize": 6, "modifier": 2 },
-        { "name": "Throw!!", "numberOfDice": 6, "dieSize": 6, "modifier": 3, "uses": 1 }
+        { "name": "Spears",  "numberOfDice": 4, "dieSize": 6, "modifier": 2, "minRange": 0, "maxRange": 25 },
+        { "name": "Throw!!", "numberOfDice": 6, "dieSize": 6, "modifier": 3, "minRange": 0, "maxRange": 30, "uses": 1 }
       ]
     },
     {
       "name": "Sidearms",
       "modes": [
-        { "name": "Sidearms", "numberOfDice": 4, "dieSize": 4, "modifier": 2 }
+        { "name": "Sidearms", "numberOfDice": 4, "dieSize": 4, "modifier": 2, "minRange": 0, "maxRange": 25 }
       ]
     }
   ],
@@ -27,13 +29,13 @@
     {
       "name": "Spears",
       "modes": [
-        { "name": "Spears", "numberOfDice": 4, "dieSize": 8, "modifier": 2 }
+        { "name": "Spears", "numberOfDice": 4, "dieSize": 8, "modifier": 2, "minRange": 0, "maxRange": 10 }
       ]
     },
     {
       "name": "Sidearms",
       "modes": [
-        { "name": "Sidearms", "numberOfDice": 4, "dieSize": 4, "modifier": 2 }
+        { "name": "Sidearms", "numberOfDice": 4, "dieSize": 4, "modifier": 2, "minRange": 0, "maxRange": 5 }
       ]
     }
   ]
