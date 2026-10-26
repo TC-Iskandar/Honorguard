@@ -30,6 +30,8 @@ public class SquadJson {
         public Integer meleeDefense;
         public Integer chargeDefense;
         public Integer chargeAttack;
+        public Integer chargeMinRange;
+        public Integer chargeMaxRange;
         public List<WeaponData> skirmishWeapons;
         public List<WeaponData> meleeWeapons;
     }
@@ -44,6 +46,8 @@ public class SquadJson {
         public Integer numberOfDice;
         public Integer dieSize;
         public Integer modifier;
+        public Integer minRange;
+        public Integer maxRange;
         public Integer uses;
     }
 
@@ -70,10 +74,12 @@ public class SquadJson {
         int meleeDefense = require(squad.meleeDefense, "meleeDefense", where);
         int chargeDefense = require(squad.chargeDefense, "chargeDefense", where);
         DiceRoll charge = new DiceRoll(20, 1, require(squad.chargeAttack, "chargeAttack", where));
+        int chargeMinRange = require(squad.chargeMinRange, "chargeMinRange", where);
+        int chargeMaxRange = require(squad.chargeMaxRange, "chargeMaxRange", where);
         HashMap<String, SkirmishWeapon> skirmishWeapons = toSkirmishWeapons(require(squad.skirmishWeapons, "skirmishWeapons", where));
         HashMap<String, MeleeWeapon> meleeWeapons = toMeleeWeapons(require(squad.meleeWeapons, "meleeWeapons", where));
         return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefense,
-                skirmishWeapons, charge, meleeWeapons);
+                skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons);
     }
 
     /**
@@ -107,9 +113,12 @@ public class SquadJson {
                 }
                 String where = weaponWhere + ", mode \"" + modeName + "\"";
                 DiceRoll roll = toDiceRoll(mode, where);
+                int minRange = require(mode.minRange, "minRange", where);
+                int maxRange = require(mode.maxRange, "maxRange", where);
                 boolean infinite = mode.uses == null;
                 int uses = infinite ? -1 : mode.uses;
-                attacks.put(modeName, withContext(where, () -> new SkirmishAttack(modeName, roll, infinite, uses)));
+                attacks.put(modeName, withContext(where,
+                        () -> new SkirmishAttack(modeName, roll, infinite, uses, minRange, maxRange)));
             }
             skirmishWeapons.put(weaponName, new SkirmishWeapon(weaponName, attacks));
         }
@@ -134,7 +143,10 @@ public class SquadJson {
                 if (mode.uses != null) {
                     throw new IllegalArgumentException(where + " has \"uses\", but only skirmish modes can have uses.");
                 }
-                attacks.put(modeName, new MeleeAttack(modeName, toDiceRoll(mode, where)));
+                int minRange = require(mode.minRange, "minRange", where);
+                int maxRange = require(mode.maxRange, "maxRange", where);
+                attacks.put(modeName, withContext(where,
+                        () -> new MeleeAttack(modeName, toDiceRoll(mode, where), minRange, maxRange)));
             }
             meleeWeapons.put(weaponName, new MeleeWeapon(weaponName, attacks));
         }

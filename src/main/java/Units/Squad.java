@@ -237,7 +237,7 @@ public class Squad {
             String attackLine = meleeWeapons.get(meleeWeaponName).toString()+"\n";
             meleeAttackLine += attackLine.indent(2);
         }
-        String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" [" + chargeMinRange + "-" + chargeMaxRange + " ft] + "+(currentMorale+currentDiscipline)+"\n";
+        String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+" [" + chargeMinRange + "-" + chargeMaxRange + "ft]\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ meleeAttackLine.indent(2) + chargeAttackLine.indent(2);
         return nameLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+traitString+attackString;
     }

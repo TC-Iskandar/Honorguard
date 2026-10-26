@@ -57,7 +57,7 @@ public class InitializationScriptTest {
         assertTrue(lines.contains("Volley: 2d6 + 3 [0-25 ft] 3/3"), status);
         assertTrue(lines.contains("Aimed: 1d8 + 4 [0-30 ft]"), status);
         assertTrue(lines.contains("Slash: 1d6 + 2 [0-5 ft]"), status);
-        assertTrue(lines.contains("Charge Attack: 6 times 1d20 + 1 [0-20 ft] + 12"), status);
+        assertTrue(lines.contains("Charge Attack: 6 times 1d20 + 1 + 12 [0-20ft]"), status);
         assertFalse(in.hasNextLine(), "every scripted answer should have been used");
     }
 
@@ -67,7 +67,7 @@ public class InitializationScriptTest {
         assertTrue(goblinStatus.contains("Dogslicers: 4d4 + 2 [0-25 ft]"), goblinStatus);
         assertTrue(goblinStatus.contains("Slings: 4d4 + 2 [0-50 ft] 15/15"), goblinStatus);
         assertTrue(goblinStatus.contains("Dogslicers: 5d6 + 5 [0-5 ft]"), goblinStatus);
-        assertTrue(goblinStatus.contains("Charge Attack: 14 times 1d20 + 1 [0-30 ft] + 8"), goblinStatus);
+        assertTrue(goblinStatus.contains("Charge Attack: 14 times 1d20 + 1 + 8 [0-30ft]"), goblinStatus);
 
         String garrisonStatus = InitializationScript.makeGarrison().getCurrentStatus();
         assertTrue(garrisonStatus.contains("Spears: 4d6 + 2 [0-25 ft]"), garrisonStatus);
@@ -75,6 +75,6 @@ public class InitializationScriptTest {
         assertTrue(garrisonStatus.contains("Sidearms: 4d4 + 2 [0-25 ft]"), garrisonStatus);
         assertTrue(garrisonStatus.contains("Spears: 4d8 + 2 [0-10 ft]"), garrisonStatus);
         assertTrue(garrisonStatus.contains("Sidearms: 4d4 + 2 [0-5 ft]"), garrisonStatus);
-        assertTrue(garrisonStatus.contains("Charge Attack: 8 times 1d20 + 3 [0-25 ft] + 15"), garrisonStatus);
+        assertTrue(garrisonStatus.contains("Charge Attack: 8 times 1d20 + 3 + 15 [0-25ft]"), garrisonStatus);
     }
 }
