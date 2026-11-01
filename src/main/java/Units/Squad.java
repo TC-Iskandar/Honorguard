@@ -11,7 +11,8 @@ public class Squad {
     private final int baseMeleeDefense;
     private final int baseChargeDefence;
     private final int baseCasualties;
-    private final String name;
+    private final String squadName;
+    private final String squadType;
     private int currentMorale;
     private int currentDiscipline;
     private int currentCasualties;
@@ -23,11 +24,17 @@ public class Squad {
     private HashMap<String, Trait> traits;
     private Factions faction;
 
-    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons) {
-        this(name, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, chargeMinRange, chargeMaxRange, meleeWeapons, new HashMap<>());
+    public Squad(String squadName, String squadType, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons) {
+        this(squadName, squadType, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, chargeMinRange, chargeMaxRange, meleeWeapons, new HashMap<>());
     }
 
-    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
+    public Squad(String squadName, String squadType, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
+        if (squadName == null || squadName.isBlank()) {
+            throw new IllegalArgumentException("Squad name must not be blank.");
+        }
+        if (squadType == null || squadType.isBlank()) {
+            throw new IllegalArgumentException("Squad type must not be blank.");
+        }
         validateSkirmishWeapons(skirmishAttacks);
         validateMeleeWeapons(meleeWeapons);
         validateChargeRange(chargeMinRange, chargeMaxRange);
@@ -37,7 +44,8 @@ public class Squad {
         this.baseCasualties = baseCasualties;
         this.baseMeleeDefense = baseMeleeDefense;
         this.baseChargeDefence = baseChargeDefence;
-        this.name = name;
+        this.squadName = squadName;
+        this.squadType = squadType;
         this.currentMorale= this.baseMorale;
         this.currentDiscipline = this.baseDiscipline;
         this.currentCasualties = this.baseCasualties;
@@ -49,6 +57,10 @@ public class Squad {
         this.traits = traits;
         this.faction= faction;
     }
+
+    public String getSquadName() { return squadName; }
+
+    public String getSquadType() { return squadType; }
 
     private void validateChargeRange(int minRange, int maxRange) {
         if (minRange < 0 || maxRange < minRange) {
@@ -173,9 +185,9 @@ public class Squad {
                 int damage = 0;
                 if (overflow >= 0){
                     damage = overflow/5+1;
-                    System.out.println(name + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+                    System.out.println(squadName + " skirmished against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
                 } else {
-                    System.out.println(name + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
+                    System.out.println(squadName + " skirmished against DC of "+ difficultyClass + " and failed its attack.");
                 }
 
                 return damage;
@@ -183,7 +195,7 @@ public class Squad {
                 throw new IllegalArgumentException("Invalid Skirmish Attack Mode for Skirmish Weapon " +weapon.getName());
             }
         }else {
-            throw new IllegalArgumentException("Invalid Skirmish Weapon for Squad "+name);
+            throw new IllegalArgumentException("Invalid Skirmish Weapon for Squad "+squadName);
         }
     }
     public int rollMeleeAttack(String weaponName, String attackName, int difficultyClass) {
@@ -196,9 +208,9 @@ public class Squad {
                 int damage = 0;
                 if (overflow >= 0){
                     damage = overflow/5+1;
-                    System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
+                    System.out.println(squadName + " made a Melee Attack against DC of "+ difficultyClass + " and succeeded its attack dealing " + damage+" damage.");
                 } else {
-                    System.out.println(name + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
+                    System.out.println(squadName + " made a Melee Attack against DC of "+ difficultyClass + " and failed its attack.");
                 }
 
                 return damage;
@@ -206,12 +218,13 @@ public class Squad {
                 throw new IllegalArgumentException("Invalid Melee Attack Mode for Melee Weapon " + weapon.getName());
             }
         } else {
-            throw new IllegalArgumentException("Invalid Melee Weapon for Squad "+name);
+            throw new IllegalArgumentException("Invalid Melee Weapon for Squad "+squadName);
         }
     }
 
     public String getCurrentStatus(){
-        String nameLine = "Status Report for "+name+"\n";
+        String nameLine = "Status Report for "+squadName+"\n";
+        String typeLine = "Squad Type: "+squadType+"\n";
         String factionLine = "Faction: " + faction + "\n";
         String casualtyLine = "Casualty: "+currentCasualties +"/"+baseCasualties+"\n";
         String moraleLine = "Morale: "+currentMorale +"/"+baseMorale+"\n";
@@ -239,11 +252,11 @@ public class Squad {
         }
         String chargeAttackLine = "Charge Attack: "+ currentCasualties+ " times "+ chargeAttack.toString()+" + "+(currentMorale+currentDiscipline)+" [" + chargeMinRange + "-" + chargeMaxRange + "ft]\n";
         attackString = attackString + skirmishAttackLine.indent(2)+ meleeAttackLine.indent(2) + chargeAttackLine.indent(2);
-        return nameLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+traitString+attackString;
+        return nameLine+typeLine+factionLine+casualtyLine+moraleLine+disciplineLine+defenseString+traitString+attackString;
     }
 
     public void exportAsCSV() throws IOException {
-        File file = new File("OutputFiles/"+name+".csv");
+        File file = new File("OutputFiles/"+squadName+".csv");
         if(!file.createNewFile()){
             throw new IOException("File Already Exists");
         }

@@ -25,7 +25,7 @@ public class MainMenuTest {
 
     @Test
     public void importSquadLoadsTheFileAtTheEnteredPath() {
-        Squad squad = MainMenu.importSquad(new Scanner(" squads/garrison-1.json \n"));
+        Squad squad = MainMenu.importSquad(new Scanner(" squads/LorraineanGarrisonSpearmen.json \n"));
 
         assertNotNull(squad);
         assertTrue(squad.getCurrentStatus().startsWith("Status Report for Garrison 1"), squad.getCurrentStatus());

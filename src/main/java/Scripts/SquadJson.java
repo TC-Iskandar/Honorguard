@@ -21,7 +21,8 @@ public class SquadJson {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private static class SquadData {
-        public String name;
+        public String squadName;
+        public String squadType;
         public String faction;
         public Integer morale;
         public Integer discipline;
@@ -65,7 +66,8 @@ public class SquadJson {
     static Squad fromJson(String json) {
         SquadData squad = parse(json);
         String where = "The squad";
-        String name = require(squad.name, "name", where);
+        String name = require(squad.squadName, "squadName", where);
+        String squadType = require(squad.squadType, "squadType", where);
         Factions faction = Factions.fromDisplayName(require(squad.faction, "faction", where));
         int morale = require(squad.morale, "morale", where);
         int discipline = require(squad.discipline, "discipline", where);
@@ -78,7 +80,7 @@ public class SquadJson {
         int chargeMaxRange = require(squad.chargeMaxRange, "chargeMaxRange", where);
         HashMap<String, SkirmishWeapon> skirmishWeapons = toSkirmishWeapons(require(squad.skirmishWeapons, "skirmishWeapons", where));
         HashMap<String, MeleeWeapon> meleeWeapons = toMeleeWeapons(require(squad.meleeWeapons, "meleeWeapons", where));
-        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefense,
+        return new Squad(name, squadType, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefense,
                 skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons);
     }
 
