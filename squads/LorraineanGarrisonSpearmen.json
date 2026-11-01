@@ -1,5 +1,6 @@
 {
-  "name": "Garrison 1",
+  "squadName": "Garrison 1",
+  "squadType": "Lorrainean Garrison Spearmen",
   "faction": "Val DeLaure",
   "morale": 12,
   "discipline": 3,

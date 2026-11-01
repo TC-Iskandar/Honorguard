@@ -13,7 +13,8 @@ public class SquadJsonTest {
     // Every stat is different, so a value read into the wrong place shows up in the status report.
     private static final String RANGERS = """
             {
-              "name": "Rangers",
+              "squadName": "Ranger 1",
+              "squadType": "Wood Elf Rangers",
               "faction": "Wood Elves",
               "morale": 10,
               "discipline": 2,
@@ -70,7 +71,8 @@ public class SquadJsonTest {
 
         List<String> lines = statusLines(squad);
         for (String expected : List.of(
-                "Status Report for Rangers",
+                "Status Report for Ranger 1",
+                "Squad Type: Wood Elf Rangers",
                 "Faction: Wood Elves",
                 "Casualty: 6/6",
                 "Morale: 10/10",
@@ -92,10 +94,11 @@ public class SquadJsonTest {
 
     @Test
     public void importsTheGarrisonExampleFile() throws IOException {
-        Squad squad = SquadJson.load(Path.of("squads", "garrison-1.json"));
+        Squad squad = SquadJson.load(Path.of("squads", "LorraineanGarrisonSpearmen.json"));
 
         List<String> lines = statusLines(squad);
         assertTrue(lines.contains("Status Report for Garrison 1"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Squad Type: Lorrainean Garrison Spearmen"), squad.getCurrentStatus());
         assertTrue(lines.contains("Spears: 4d6 + 2 [0-25 ft]"), squad.getCurrentStatus());
         assertTrue(lines.contains("Throw!!: 6d6 + 3 [0-30 ft] 1/1"), squad.getCurrentStatus());
         assertTrue(lines.contains("Sidearms: 4d4 + 2 [0-25 ft]"), squad.getCurrentStatus());
@@ -109,14 +112,14 @@ public class SquadJsonTest {
         String message = importError(rangersWith("\"morale\"", "\"moral\""));
 
         assertTrue(message.contains("\"moral\""), message);
-        assertTrue(message.contains("Line 4"), message);
+        assertTrue(message.contains("Line 5"), message);
     }
 
     @Test
     public void rejectsBrokenJsonAndSaysWhichLine() {
         String message = importError(rangersWith("\"discipline\": 2,", "\"discipline\": 2"));
 
-        assertTrue(message.contains("Line 6"), message);
+        assertTrue(message.contains("Line 7"), message);
     }
 
     @Test
