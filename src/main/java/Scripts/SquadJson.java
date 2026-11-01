@@ -32,6 +32,7 @@ public class SquadJson {
         public Integer chargeAttack;
         public Integer chargeMinRange;
         public Integer chargeMaxRange;
+        public List<String> traits;
         public List<WeaponData> skirmishWeapons;
         public List<WeaponData> meleeWeapons;
     }
@@ -76,10 +77,11 @@ public class SquadJson {
         DiceRoll charge = new DiceRoll(20, 1, require(squad.chargeAttack, "chargeAttack", where));
         int chargeMinRange = require(squad.chargeMinRange, "chargeMinRange", where);
         int chargeMaxRange = require(squad.chargeMaxRange, "chargeMaxRange", where);
+        HashMap<String, Trait> traits = toTraits(require(squad.traits, "traits", where));
         HashMap<String, SkirmishWeapon> skirmishWeapons = toSkirmishWeapons(require(squad.skirmishWeapons, "skirmishWeapons", where));
         HashMap<String, MeleeWeapon> meleeWeapons = toMeleeWeapons(require(squad.meleeWeapons, "meleeWeapons", where));
         return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefense,
-                skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons);
+                skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons, traits);
     }
 
     /**
@@ -95,6 +97,24 @@ public class SquadJson {
                     : e.getOriginalMessage();
             throw new IllegalArgumentException("Line " + e.getLocation().getLineNr() + ": " + problem, e);
         }
+    }
+
+    /**
+     * Looks up each trait name in the Traits singleton, the same list a squad typed in by hand chooses from.
+     */
+    private static HashMap<String, Trait> toTraits(List<String> traitNames) {
+        HashMap<String, Trait> traits = new HashMap<>();
+        for (String traitName : traitNames) {
+            Trait trait = Traits.getInstance().getTrait(traitName);
+            if (trait == null) {
+                throw new IllegalArgumentException("\"" + traitName + "\" is not a trait. The traits are: "
+                        + Traits.getInstance().getAllTraits().keySet() + ".");
+            }
+            if (traits.put(traitName, trait) != null) {
+                throw new IllegalArgumentException("The squad has the trait \"" + traitName + "\" twice.");
+            }
+        }
+        return traits;
     }
 
     private static HashMap<String, SkirmishWeapon> toSkirmishWeapons(List<WeaponData> weapons) {

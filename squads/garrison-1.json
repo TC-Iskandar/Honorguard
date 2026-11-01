@@ -10,6 +10,7 @@
   "chargeAttack": 3,
   "chargeMinRange": 0,
   "chargeMaxRange": 25,
+  "traits": ["Combined Arms (Infantry +2)", "Raise Spears (+2)", "Shields Up (+2)", "Shield Wall"],
   "skirmishWeapons": [
     {
       "name": "Spears",

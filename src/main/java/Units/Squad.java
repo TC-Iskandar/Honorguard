@@ -23,10 +23,6 @@ public class Squad {
     private HashMap<String, Trait> traits;
     private Factions faction;
 
-    public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons) {
-        this(name, faction, baseMorale, baseDiscipline, baseCasualties, baseSkirmishDefense, baseMeleeDefense, baseChargeDefence, skirmishAttacks, charge, chargeMinRange, chargeMaxRange, meleeWeapons, new HashMap<>());
-    }
-
     public Squad(String name, Factions faction, int baseMorale, int baseDiscipline, int baseCasualties, int baseSkirmishDefense, int baseMeleeDefense, int baseChargeDefence, HashMap<String, SkirmishWeapon> skirmishAttacks, DiceRoll charge, int chargeMinRange, int chargeMaxRange, HashMap<String, MeleeWeapon> meleeWeapons, HashMap<String, Trait> traits) {
         validateSkirmishWeapons(skirmishAttacks);
         validateMeleeWeapons(meleeWeapons);

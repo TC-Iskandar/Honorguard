@@ -24,6 +24,7 @@ public class SquadJsonTest {
               "chargeAttack": 1,
               "chargeMinRange": 0,
               "chargeMaxRange": 25,
+              "traits": ["Loose Formation"],
               "skirmishWeapons": [
                 {
                   "name": "Bow",
@@ -78,6 +79,7 @@ public class SquadJsonTest {
                 "Skirmish Defence: 6",          // 4 + discipline 2
                 "Melee Defence: 17",            // 5 + morale 10 + discipline 2
                 "Charge Defence: 25",           // 10 + 3 + morale 10 + discipline 2
+                "Name: Loose Formation",
                 "Name: Bow",
                 "Volley: 2d6 + 3 [0-100 ft] 3/3", // has uses, so it is limited
                 "Aimed: 1d8 + 4 [0-100 ft]",      // no uses, so it is unlimited
@@ -102,6 +104,7 @@ public class SquadJsonTest {
         assertTrue(lines.contains("Spears: 4d8 + 2 [0-10 ft]"), squad.getCurrentStatus());
         assertTrue(lines.contains("Sidearms: 4d4 + 2 [0-5 ft]"), squad.getCurrentStatus());
         assertTrue(lines.contains("Charge Attack: 8 times 1d20 + 3 + 15 [0-25ft]"), squad.getCurrentStatus());
+        assertTrue(lines.contains("Name: Shield Wall"), squad.getCurrentStatus());
     }
 
     @Test
@@ -197,6 +200,21 @@ public class SquadJsonTest {
 
         assertTrue(message.contains("Atlantis"), message);
         assertTrue(message.contains("Val DeLaure"), message);
+    }
+
+    @Test
+    public void rejectsAnUnknownTraitAndListsTheTraits() {
+        String message = importError(rangersWith("\"Loose Formation\"", "\"Flying\""));
+
+        assertTrue(message.contains("Flying"), message);
+        assertTrue(message.contains("Shield Wall"), message);
+    }
+
+    @Test
+    public void rejectsTheSameTraitTwice() {
+        String message = importError(rangersWith("\"Loose Formation\"", "\"Loose Formation\", \"Loose Formation\""));
+
+        assertTrue(message.contains("Loose Formation"), message);
     }
 
     @Test
