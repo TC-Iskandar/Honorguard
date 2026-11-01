@@ -18,6 +18,8 @@ public class InitializationScript {
     public static Squad userMadeSquad(Scanner in) {
         System.out.println("\n Please enter a name: ");
         String name = in.nextLine();
+        System.out.println("Please enter a squad type: ");
+        String squadType = in.nextLine();
         System.out.println("");
         Factions faction = readFaction(in);
         int morale = readInt(in, "Please enter a morale value: ");
@@ -37,7 +39,7 @@ public class InitializationScript {
         HashMap<String, SkirmishWeapon> skirmishWeapons = getCustomSkirmishWeapons(in);
         System.out.println("Adding Melee Attacks: ");
         HashMap<String, MeleeWeapon> meleeWeapons = getCustomMeleeWeapons(in);
-        return new Squad(name, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons, unitTraits);
+        return new Squad(name, squadType, faction, morale, discipline, casualties, skirmishDefense, meleeDefense, chargeDefence, skirmishWeapons, charge, chargeMinRange, chargeMaxRange, meleeWeapons, unitTraits);
     }
 
     /**
@@ -233,7 +235,7 @@ public class InitializationScript {
         meleeWeapons.put("Dogslicers", new MeleeWeapon("Dogslicers", dogslicerMeleeModes));
         HashMap<String, Trait> goblinMobTraits = new HashMap<>();
         goblinMobTraits.put("Loose Formation", traits.getTrait("Loose Formation"));
-        return new Squad("Goblin Mob", Factions.GOBLIN, 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, 0, 30, meleeWeapons, goblinMobTraits);
+        return new Squad("Goblin 1", "Goblin Mob", Factions.GOBLIN, 8, 0, 14, 1, 3, 0, skirmishWeapons, charge, 0, 30, meleeWeapons, goblinMobTraits);
     }
 
     static Squad makeGarrison() {
@@ -261,6 +263,6 @@ public class InitializationScript {
         garrisonSpearmenTraits.put("Raise Spears (+2)", traits.getTrait("Raise Spears (+2)"));
         garrisonSpearmenTraits.put("Shields Up (+2)", traits.getTrait("Shields Up (+2)"));
         garrisonSpearmenTraits.put("Shield Wall", traits.getTrait("Shield Wall"));
-        return new Squad("Lorrainean Garrison Spearman", Factions.VAL_DELAURE, 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, 0, 25, meleeWeapons, garrisonSpearmenTraits);
+        return new Squad("Garrison 1", "Lorrainean Garrison Spearmen", Factions.VAL_DELAURE, 12, 3, 8, 5, 5, 3, skirmishWeapons, charge, 0, 25, meleeWeapons, garrisonSpearmenTraits);
     }
 }
