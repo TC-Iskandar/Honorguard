@@ -99,9 +99,6 @@ public class SquadJson {
         }
     }
 
-    /**
-     * Looks up each trait name in the Traits singleton, the same list a squad typed in by hand chooses from.
-     */
     private static HashMap<String, Trait> toTraits(List<String> traitNames) {
         HashMap<String, Trait> traits = new HashMap<>();
         for (String traitName : traitNames) {
