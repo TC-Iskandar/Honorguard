@@ -27,6 +27,12 @@ public class DiceRoll {
         return overflow;
     }
 
+    public int getDieSize() { return dice.getSize(); }
+
+    public int getNumberOfDice() { return numberOfDice; }
+
+    public int getBaseModifier() { return baseModifier; }
+
     @Override
     public String toString() {
         return numberOfDice+"d"+dice.getSize()+" + "+ baseModifier;

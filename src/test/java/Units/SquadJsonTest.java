@@ -1,15 +1,20 @@
-package Scripts;
+package Units;
 
-import Units.Squad;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SquadJsonTest {
+    @TempDir
+    Path tempDir;
+
     // Every stat is different, so a value read into the wrong place shows up in the status report.
     private static final String RANGERS = """
             {
@@ -92,6 +97,30 @@ public class SquadJsonTest {
                 "Charge Attack: 6 times 1d20 + 1 + 12 [0-25ft]")) {
             assertTrue(lines.contains(expected), "missing \"" + expected + "\" in:\n" + squad.getCurrentStatus());
         }
+    }
+
+    @Test
+    public void serializesSquadToImportableJson() {
+        Squad original = SquadJson.fromJson(RANGERS);
+
+        String json = SquadJson.toJson(original);
+        Squad imported = SquadJson.fromJson(json);
+
+        assertEquals(statusLines(original), statusLines(imported));
+        assertTrue(json.contains("\"uses\" : 3"), json);
+        assertTrue(json.contains("\"uses\" : 2"), json);
+        assertTrue(json.contains("\"uses\" : null"), "Unlimited mode should remain unlimited: " + json);
+    }
+
+    @Test
+    public void savesSquadAsImportableJsonFile() throws IOException {
+        Squad original = SquadJson.fromJson(RANGERS);
+        Path file = tempDir.resolve("Ranger.json");
+
+        SquadJson.save(original, file);
+
+        assertTrue(Files.exists(file));
+        assertEquals(statusLines(original), statusLines(SquadJson.load(file)));
     }
 
     @Test

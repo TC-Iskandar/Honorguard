@@ -38,6 +38,10 @@ public class SkirmishAttack {
         return maxRange;
     }
 
+    public String getName() { return name; }
+
+    public int getNumberOfUses() { return numberOfUses; }
+
     public boolean isInfinfite(){
         return isInfinfite;
     }

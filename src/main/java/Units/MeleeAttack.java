@@ -24,6 +24,8 @@ public class MeleeAttack {
         return maxRange;
     }
 
+    public String getName() { return name; }
+
     public DiceRoll getRoll() {
         return diceRoll;
     }

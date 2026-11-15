@@ -58,6 +58,22 @@ public class Squad {
 
     public String getSquadType() { return squadType; }
 
+    public Factions getFaction() { return faction; }
+
+    public int getBaseCasualties() { return baseCasualties; }
+
+    public int getBaseSkirmishDefense() { return baseSkirmishDefense; }
+
+    public int getBaseMeleeDefense() { return baseMeleeDefense; }
+
+    public HashMap<String, SkirmishWeapon> getSkirmishWeapons() { return skirmishWeapons; }
+
+    public HashMap<String, MeleeWeapon> getMeleeWeapons() { return meleeWeapons; }
+
+    public HashMap<String, Trait> getTraits() { return traits; }
+
+    public DiceRoll getChargeAttack() { return chargeAttack; }
+
     private void validateChargeRange(int minRange, int maxRange) {
         if (minRange < 0 || maxRange < minRange) {
             throw new IllegalArgumentException("Charge range must satisfy 0 <= minRange <= maxRange");
