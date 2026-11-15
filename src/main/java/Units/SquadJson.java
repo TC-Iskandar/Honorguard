@@ -1,6 +1,5 @@
-package Scripts;
+package Units;
 
-import Units.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
@@ -9,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -63,6 +64,76 @@ public class SquadJson {
      */
     public static Squad load(Path file) throws IOException {
         return fromJson(Files.readString(file));
+    }
+
+    /** Serializes a squad using the same JSON shape accepted by {@link #load(Path)}. */
+    public static String toJson(Squad source) {
+        if (source == null) {
+            throw new IllegalArgumentException("Squad must not be null.");
+        }
+        SquadData squad = new SquadData();
+        squad.squadName = source.getSquadName();
+        squad.squadType = source.getSquadType();
+        squad.faction = source.getFaction().toString();
+        squad.morale = source.getBaseMorale();
+        squad.discipline = source.getBaseDiscipline();
+        squad.casualties = source.getBaseCasualties();
+        squad.skirmishDefense = source.getBaseSkirmishDefense();
+        squad.meleeDefense = source.getBaseMeleeDefense();
+        squad.chargeDefense = source.getBaseChargeDefense();
+        squad.chargeAttack = source.getChargeAttack().getBaseModifier();
+        squad.chargeMinRange = source.getChargeMinRange();
+        squad.chargeMaxRange = source.getChargeMaxRange();
+        squad.traits = source.getTraits().keySet().stream().sorted().toList();
+        squad.skirmishWeapons = new ArrayList<>();
+        source.getSkirmishWeapons().values().stream().sorted(Comparator.comparing(SkirmishWeapon::getName))
+                .forEach(weapon -> squad.skirmishWeapons.add(toSkirmishWeaponData(weapon)));
+        squad.meleeWeapons = new ArrayList<>();
+        source.getMeleeWeapons().values().stream().sorted(Comparator.comparing(MeleeWeapon::getName))
+                .forEach(weapon -> squad.meleeWeapons.add(toMeleeWeaponData(weapon)));
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(squad);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Could not serialize the squad.", e);
+        }
+    }
+
+    /** Writes a squad JSON file, replacing an existing file at the destination. */
+    public static void save(Squad squad, Path file) throws IOException {
+        Files.writeString(file, toJson(squad));
+    }
+
+    private static WeaponData toSkirmishWeaponData(SkirmishWeapon weapon) {
+        WeaponData data = new WeaponData();
+        data.name = weapon.getName();
+        data.modes = new ArrayList<>();
+        weapon.getModes().values().stream().sorted(Comparator.comparing(SkirmishAttack::getName))
+                .forEach(attack -> {
+                    ModeData mode = toModeData(attack.getName(), attack.getRoll(), attack.getMinRange(), attack.getMaxRange());
+                    if (!attack.isInfinfite()) mode.uses = attack.getNumberOfUses();
+                    data.modes.add(mode);
+                });
+        return data;
+    }
+
+    private static WeaponData toMeleeWeaponData(MeleeWeapon weapon) {
+        WeaponData data = new WeaponData();
+        data.name = weapon.getName();
+        data.modes = new ArrayList<>();
+        weapon.getModes().values().stream().sorted(Comparator.comparing(MeleeAttack::getName))
+                .forEach(attack -> data.modes.add(toModeData(attack.getName(), attack.getRoll(), attack.getMinRange(), attack.getMaxRange())));
+        return data;
+    }
+
+    private static ModeData toModeData(String name, DiceRoll roll, int minRange, int maxRange) {
+        ModeData mode = new ModeData();
+        mode.name = name;
+        mode.numberOfDice = roll.getNumberOfDice();
+        mode.dieSize = roll.getDieSize();
+        mode.modifier = roll.getBaseModifier();
+        mode.minRange = minRange;
+        mode.maxRange = maxRange;
+        return mode;
     }
 
     static Squad fromJson(String json) {

@@ -1,6 +1,7 @@
 package Scripts;
 
 import Units.Squad;
+import Units.SquadJson;
 import Utils.DualPrintStream;
 
 import java.io.File;
@@ -67,6 +68,9 @@ public class MainMenu {
                 System.out.println("User chose not to view their custom squad. Returning to Menu.");
             }
         }
+        if (customSquad != null && readYesNo(in, "\n Would you like to export your custom squad as JSON? (Y/N)")) {
+            exportSquad(in, customSquad);
+        }
     }
 
     /**
@@ -86,6 +90,18 @@ public class MainMenu {
             System.out.println("Returning to Menu.");
         }
         return null;
+    }
+
+    private static void exportSquad(Scanner in, Squad squad) {
+        System.out.println("\n Please enter the path for the JSON file (for example, squads/MySquad.json): ");
+        String path = in.nextLine().trim();
+        try {
+            SquadJson.save(squad, Path.of(path));
+            System.out.println("Exported squad to " + path + ".");
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Could not export the squad: " + e.getMessage());
+            System.out.println("Returning to Menu.");
+        }
     }
 
     static boolean readYesNo(Scanner in, String question) {
