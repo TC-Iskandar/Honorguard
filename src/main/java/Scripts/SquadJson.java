@@ -19,6 +19,7 @@ import java.util.function.Supplier;
  */
 public class SquadJson {
     private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Traits traits = Traits.getInstance();
 
     private static class SquadData {
         public String squadName;
@@ -102,18 +103,17 @@ public class SquadJson {
     }
 
     private static HashMap<String, Trait> toTraits(List<String> traitNames) {
-        HashMap<String, Trait> traits = new HashMap<>();
+        HashMap<String, Trait> squadTraits = new HashMap<>();
         for (String traitName : traitNames) {
-            Trait trait = Traits.getInstance().getTrait(traitName);
+            Trait trait = traits.getTrait(traitName);
             if (trait == null) {
-                throw new IllegalArgumentException("\"" + traitName + "\" is not a trait. The traits are: "
-                        + Traits.getInstance().getAllTraits().keySet() + ".");
+                throw new IllegalArgumentException("\"" + traitName + "\" is not a known trait.");
             }
-            if (traits.put(traitName, trait) != null) {
+            if (squadTraits.put(traitName, trait) != null) {
                 throw new IllegalArgumentException("The squad has the trait \"" + traitName + "\" twice.");
             }
         }
-        return traits;
+        return squadTraits;
     }
 
     private static HashMap<String, SkirmishWeapon> toSkirmishWeapons(List<WeaponData> weapons) {

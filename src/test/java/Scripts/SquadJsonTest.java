@@ -206,11 +206,10 @@ public class SquadJsonTest {
     }
 
     @Test
-    public void rejectsAnUnknownTraitAndListsTheTraits() {
+    public void rejectsAnUnknownTrait() {
         String message = importError(rangersWith("\"Loose Formation\"", "\"Flying\""));
 
         assertTrue(message.contains("Flying"), message);
-        assertTrue(message.contains("Shield Wall"), message);
     }
 
     @Test
