@@ -7,7 +7,7 @@ public enum Factions {
     BEASTMAN("Beastman"),
     GOBLIN("Goblin"),
     KAL_EDAR("Kal Edar"),
-    MILITES_KYRIOS("Milites Kyrios"),
+    KYRIEN_CHURCH("Kyrien Church"),
     ORCISH("Orcish"),
     VAL_DELAURE("Val DeLaure"),
     WOOD_ELVES("Wood Elves");
