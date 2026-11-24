@@ -3,12 +3,11 @@ package Units;
 import java.util.Arrays;
 
 public enum Factions {
-    ANARIC("Anaric"),
     BEASTMAN("Beastman"),
     GOBLIN("Goblin"),
     KAL_EDAR("Kal Edar"),
-    MILITES_KYRIOS("Milites Kyrios"),
-    ORCISH("Orcish"),
+    KYRIEN_CHURCH("Kyrien Church"),
+    ORCS("Orcs"),
     VAL_DELAURE("Val DeLaure"),
     WOOD_ELVES("Wood Elves");
 
